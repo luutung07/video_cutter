@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">VideoCutter</string>
+    <string name="loading">Đang tải...</string>
 </resources>

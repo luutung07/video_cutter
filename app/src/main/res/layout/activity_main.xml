@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         tools:context=".presentation.MainActivity">
 
-        <com.example.videocutter.presentation.widget.HeaderView
+        <com.example.videocutter.presentation.widget.headerview.HeaderView
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:hv_center_icon="@drawable/ic_arrow_down"

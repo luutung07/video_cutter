@@ -1,4 +1,4 @@
-package com.example.videocutter.presentation.widget
+package com.example.videocutter.presentation.widget.headerview
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.constraintlayout.widget.ConstraintLayout
