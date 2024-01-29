@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HeaderView">
+        <attr name="hv_left_icon" format="reference" />
+        <attr name="hv_left_label" format="string" />
+        <attr name="hv_left_text_size" format="dimension" />
+        <attr name="hv_left_text_color" format="color" />
+        <attr name="hv_left_background" format="reference" />
+
+        <attr name="hv_center_label" format="string" />
+        <attr name="hv_center_text_size" format="dimension" />
+        <attr name="hv_center_icon" format="reference" />
+        <attr name="hv_center_text_color" format="color" />
+        <attr name="hv_center_background" format="reference" />
+
+        <attr name="hv_right_icon" format="reference" />
+        <attr name="hv_right_label" format="string" />
+        <attr name="hv_right_text_size" format="dimension" />
+        <attr name="hv_right_text_color" format="color" />
+        <attr name="hv_right_background" format="reference" />
+
+        <attr name="hv_show_divider" format="boolean" />
+    </declare-styleable>
+</resources>
