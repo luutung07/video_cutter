@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clVideoCenterRoot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivVideoRecent"
+            android:layout_width="@dimen/dimen_162"
+            android:layout_height="@dimen/dimen_162"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:layout_marginTop="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            app:shapeAppearanceOverlay="@style/CornerImage8"
+            android:src="@drawable/img_default" />
+
+        <TextView
+            android:id="@+id/tvVideoCenterTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fbase_font_regular"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_text_size_12"
+            android:layout_margin="@dimen/dimen_6"
+            app:layout_constraintBottom_toBottomOf="@id/ivVideoRecent"
+            app:layout_constraintEnd_toEndOf="@id/ivVideoRecent"
+            tools:text="00:35" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

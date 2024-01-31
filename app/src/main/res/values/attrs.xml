@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <declare-styleable name="CollectionView">
+    </declare-styleable>
+
     <declare-styleable name="HeaderView">
         <attr name="hv_left_icon" format="reference" />
         <attr name="hv_left_label" format="string" />
@@ -21,4 +25,5 @@
 
         <attr name="hv_show_divider" format="boolean" />
     </declare-styleable>
+
 </resources>

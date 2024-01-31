@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/fragmentHome">
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.example.videocutter.presentation.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/home_fragment" />
+
+    <fragment
+        android:id="@+id/fragmentSelect"
+        android:name="com.example.videocutter.presentation.select.SelectFragment"
+        android:label="SelectFragment"
+        tools:layout="@layout/select_fragment" />
+
+    <fragment
+        android:id="@+id/fileFragment"
+        android:name="com.example.videocutter.presentation.select.file.FileFragment"
+        android:label="FileFragment"
+        tools:layout="@layout/file_fragment" />
+
+    <fragment
+        android:id="@+id/folderFragment"
+        android:name="com.example.videocutter.presentation.select.folder.FolderFragment"
+        android:label="FolderFragment"
+        tools:layout="@layout/folder_fragment" />
+
+</navigation>

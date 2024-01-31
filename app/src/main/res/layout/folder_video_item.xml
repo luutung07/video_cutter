@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clFolderVideoRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivFolderVideoThumb"
+            android:layout_width="@dimen/dimen_70"
+            android:layout_height="@dimen/dimen_70"
+            android:layout_marginVertical="@dimen/dimen_10"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/CornerImage8"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tvFolderVideoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:fontFamily="@font/fbase_font_medium"
+            android:textSize="@dimen/dimen_text_size_18"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivFolderVideoThumb"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Library" />
+
+        <TextView
+            android:id="@+id/tvFolderVideoCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:fontFamily="@font/fbase_font_regular"
+            android:textSize="@dimen/dimen_text_size_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="(1032)" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

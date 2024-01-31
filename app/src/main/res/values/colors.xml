@@ -189,4 +189,8 @@
     <color name="sciences_color">#F4CFDC</color>
     <color name="subject_other_color">#D5DCE8</color>
     <color name="history_geography_color">#E1D9E3</color>
+
+    <color name="color_1">#6F4FEE</color>
+    <color name="color_orange_dart">#FF2D55</color>
+    <color name="color_orange_light">#FF9500</color>
 </resources>

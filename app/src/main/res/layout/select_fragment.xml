@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.videocutter.presentation.widget.headerview.HeaderView
+            android:id="@+id/hvSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hv_center_icon="@drawable/ic_arrow_down"
+            app:hv_center_label="@string/library_title"
+            app:hv_left_icon="@drawable/ic_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/flSelectContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/mcvSelectItem"
+            app:layout_constraintTop_toBottomOf="@id/hvSelect"
+            tools:background="@color/yellow" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mcvSelectItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clSelectItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                tools:layout_height="@dimen/dimen_200">
+
+                <TextView
+                    android:id="@+id/tvSelectGuideMoveItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_18"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:fontFamily="@font/fbase_font_regular"
+                    android:text="@string/long_press_to_sort_the_videos"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_text_size_14"
+                    app:layout_constraintBottom_toBottomOf="@id/tvSelect"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvSelect" />
+
+                <TextView
+                    android:id="@+id/tvSelect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginEnd="@dimen/dimen_18"
+                    android:background="@drawable/shape_bg_color_1_corner_4"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/fbase_font_regular"
+                    android:foreground="?selectableItemBackground"
+                    android:padding="@dimen/dimen_8"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen_text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/add_item" />
+
+                <com.example.videocutter.presentation.widget.recyclerview.CollectionView
+                    android:id="@+id/cvSelect"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginVertical="@dimen/dimen_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHeight_min="@dimen/dimen_100"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSelect" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

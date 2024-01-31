@@ -11,6 +11,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.example.baseapp.base.extension.getAppColor
+import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.baseapp.base.extension.show
 import com.example.videocutter.R
 
@@ -28,6 +29,7 @@ class HeaderView constructor(
     private var tvLeftColor: Int? = null
     private var backGroundLeft: Drawable? = null
     private var drawableIcLeft: Drawable? = null
+    private var onActionLeft: (() -> Unit)? = null
 
     // center
     private var tvCenter: TextView? = null
@@ -38,6 +40,7 @@ class HeaderView constructor(
     private var tvCenterColor: Int? = null
     private var backGroundCenter: Drawable? = null
     private var drawableIcCenter: Drawable? = null
+    private var onActionCenter: (() -> Unit)? = null
 
     // right
     private var llRight: LinearLayoutCompat? = null
@@ -48,6 +51,7 @@ class HeaderView constructor(
     private var tvRightColor: Int? = null
     private var backGroundRight: Drawable? = null
     private var drawableIcRight: Drawable? = null
+    private var onActionRight: (() -> Unit)? = null
 
     init {
         LayoutInflater.from(ctx).inflate(R.layout.header_view_layout, this, true)
@@ -127,6 +131,15 @@ class HeaderView constructor(
         drawableIcRight?.let {
             icRight?.show()
             icRight?.setImageDrawable(it)
+        }
+
+        // action
+        llCenter?.setOnSafeClick {
+            onActionCenter?.invoke()
+        }
+
+        icLeft?.setOnSafeClick {
+            onActionLeft?.invoke()
         }
     }
 
@@ -221,5 +234,21 @@ class HeaderView constructor(
 
     fun showIcRight(isShow: Boolean) {
         icRight?.isVisible = isVisible
+    }
+
+    fun setActionCenter(onAction: () -> Unit) {
+        onActionCenter = onAction
+    }
+
+    fun setIcCenter(drawable: Drawable?) {
+        icCenter?.setImageDrawable(drawable)
+    }
+
+    fun setLabelCenter(label: CharSequence) {
+        tvCenter?.text = label
+    }
+
+    fun setActionLeft(onAction: () -> Unit) {
+        onActionLeft = onAction
     }
 }

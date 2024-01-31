@@ -18,7 +18,7 @@ import com.example.videocutter.presentation.widget.headeralert.HEADER_ALERT_TYPE
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
+open class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
     BaseBindingFragment<DB>(layout), IVideoCutterContext, IEventHandler {
 
     val mainActivity by lazy { requireActivity() as MainActivity }
@@ -26,6 +26,11 @@ class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     override fun onEvent(event: IEvent) {
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        hideLoading()
     }
 
     override fun showCustomToast(
@@ -61,6 +66,11 @@ class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
     override fun hideLoading() {
         mainActivity.hideLoading()
     }
+
+    override fun onBackPressedFragment(tag: String?) {
+       backScreen()
+    }
+
 
     /**
      * chuyển đến 1 màn hình khác

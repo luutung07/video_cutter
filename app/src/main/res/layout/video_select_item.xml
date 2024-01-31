@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clVideoSelectRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        android:layout_margin="@dimen/dimen_1">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivVideoSelectThumb"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/ivVideoSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_10"
+            android:src="@drawable/ic_un_select"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvVideoSelectTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_6"
+            android:fontFamily="@font/fbase_font_regular"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_text_size_10"
+            app:layout_constraintBottom_toBottomOf="@id/ivVideoSelectThumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="00:25" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

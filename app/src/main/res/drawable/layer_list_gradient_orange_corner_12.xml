@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <rotate
+            android:fromDegrees="90"
+            android:toDegrees="0">
+            <shape>
+                <gradient
+                    android:endColor="@color/color_orange_light"
+                    android:startColor="@color/color_orange_dart" />
+                <corners android:radius="@dimen/dimen_12" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

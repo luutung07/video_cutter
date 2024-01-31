@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/dimen_82"
+        android:layout_height="@dimen/dimen_82"
+        android:layout_marginStart="@dimen/dimen_10">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivVideoSelected"
+            android:layout_width="@dimen/dimen_72"
+            android:layout_height="@dimen/dimen_72"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:shapeAppearanceOverlay="@style/CornerImage8"
+            tools:src="@drawable/img_default" />
+
+        <TextView
+            android:id="@+id/tvVideoSelectedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_4"
+            android:fontFamily="@font/fbase_font_regular"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_text_size_10"
+            app:layout_constraintBottom_toBottomOf="@id/ivVideoSelected"
+            app:layout_constraintEnd_toEndOf="@id/ivVideoSelected"
+            tools:text="00:25" />
+
+        <ImageView
+            android:id="@+id/ivVideoSelectedDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            android:padding="@dimen/dimen_4"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

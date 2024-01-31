@@ -23,8 +23,7 @@
             android:foreground="?selectableItemBackground"
             android:padding="@dimen/dimen_10"
             android:src="@drawable/ic_back"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvHeaderViewLeftLabel"
@@ -35,8 +34,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_text_size_18"
             android:visibility="gone"
-            tools:text="Left"
-            tools:visibility="visible" />
+            tools:text="Left" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -62,8 +60,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_text_size_18"
             android:visibility="gone"
-            tools:text="Center"
-            tools:visibility="visible" />
+            tools:text="Center" />
 
         <ImageView
             android:id="@+id/ivHeaderViewCenterIcon"
@@ -72,8 +69,7 @@
             android:layout_marginStart="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_2"
             android:src="@drawable/ic_arrow_down"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            android:visibility="gone" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -92,8 +88,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dimen_6"
             android:src="@drawable/ic_camera"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvHeaderViewRightLabel"
@@ -102,6 +97,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/fbase_font_regular"
             android:padding="@dimen/dimen_14"
+            android:visibility="gone"
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_text_size_18"
             tools:text="Right" />
@@ -112,7 +108,7 @@
         android:id="@+id/vHeaderViewDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_1"
-        android:background="@color/black"
+        android:background="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

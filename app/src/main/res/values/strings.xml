@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">VideoCutter</string>
     <string name="loading">Đang tải...</string>
+    <string name="video_cutter_title">Video Cutter</string>
+    <string name="my_studio_title">My Studio</string>
+    <string name="see_all_title">See All</string>
+    <string name="get_start">Get start</string>
+    <string name="library_title">Library</string>
+    <string name="you_don_t_have_any_video_ntap_the_below_to_get_started">You don\'t have any video.\nTap the below to Get Started</string>
+    <string name="title_empty">No data</string>
+    <string name="long_press_to_sort_the_videos">Long press to sort the videos</string>
+    <string name="add_item">Add (%s)</string>
+    <string name="count_file">(%s)</string>
+    <string name="max_item_select">Only a maximum of %s files can be selected</string>
+    <string name="time_default">00:01</string>
+
 </resources>
