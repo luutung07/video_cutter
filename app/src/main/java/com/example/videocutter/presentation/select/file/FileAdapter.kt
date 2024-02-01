@@ -42,6 +42,14 @@ class FileAdapter : BaseGridAdapter() {
                     listener?.onSelect(item.getVideoInfo().id)
                 }
             }
+
+            binding.clVideoSelectRoot.setOnLongClickListener {
+                val item = getDataAtPosition(absoluteAdapterPosition) as? VideoInfoDisplay
+                if (item != null) {
+                    listener?.onPReview(item.getVideoInfo().thumbnailUrl.toString())
+                }
+                true
+            }
         }
 
         override fun onBind(data: VideoInfoDisplay) {
@@ -75,5 +83,6 @@ class FileAdapter : BaseGridAdapter() {
     interface IFileListener {
         fun onSelect(id: Long?)
         fun onMaxSelect()
+        fun onPReview(path: String)
     }
 }

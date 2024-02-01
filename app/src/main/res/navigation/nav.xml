@@ -29,4 +29,10 @@
         android:label="FolderFragment"
         tools:layout="@layout/folder_fragment" />
 
+    <fragment
+        android:id="@+id/previewFileFragment"
+        android:name="com.example.videocutter.presentation.select.preview.PreviewFileFragment"
+        android:label="PreviewFileFragment"
+        tools:layout="@layout/preview_file_fragment" />
+
 </navigation>

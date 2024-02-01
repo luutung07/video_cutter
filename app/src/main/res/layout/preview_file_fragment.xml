@@ -1,10 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/flPreviewFileRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black_overlay">
+        android:background="@color/black_transparent">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/dimen_30"
+            android:layout_marginVertical="@dimen/dimen_80"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.media3.ui.PlayerView
+                android:id="@+id/pvPreviewFile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:resize_mode="fit"
+                app:use_controller="false" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/flPreviewFileClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+            app:layout_constraintStart_toEndOf="@id/frameLayout"
+            android:clickable="true"
+            android:foreground="?selectableItemBackground"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="@id/frameLayout"
+            app:layout_constraintTop_toTopOf="@+id/frameLayout">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_40"
+                android:layout_height="@dimen/dimen_40"
+                android:padding="@dimen/dimen_6"
+                android:src="@drawable/ic_close_white" />
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
