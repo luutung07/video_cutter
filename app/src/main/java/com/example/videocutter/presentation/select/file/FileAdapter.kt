@@ -10,7 +10,7 @@ import com.example.library_base.adapter.BaseVH
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.VideoSelectItemBinding
-import com.example.videocutter.presentation.select.VideoInfoDisplay
+import com.example.videocutter.presentation.VideoInfoDisplay
 
 class FileAdapter : BaseGridAdapter() {
 
@@ -56,7 +56,7 @@ class FileAdapter : BaseGridAdapter() {
             super.onBind(data)
             binding.ivVideoSelectThumb.loadImage(data.getVideoInfo().thumbnailUrl.toString())
             selectFile(data)
-            Log.d("TAG", "onBind: ${data.getVideoInfo().duration}")
+            Log.d("TAG", "onBind: ${data.getVideoInfo().thumbnailUrl}")
             binding.tvVideoSelectTime.text = data.getVideoInfo().getTime()
         }
 

@@ -3,21 +3,18 @@ package com.example.videocutter.presentation.select
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.library_base.common.BaseUseCase
-import com.example.library_base.common.DataPage
-import com.example.library_base.common.data
 import com.example.library_base.common.failure
 import com.example.library_base.common.loading
 import com.example.library_base.common.onException
 import com.example.library_base.common.success
 import com.example.library_base.common.usecase.FlowResult
-import com.example.library_base.extension.STRING_DEFAULT
 import com.example.videocutter.AppConfig
 import com.example.videocutter.AppConfig.TIME_DELAY
 import com.example.videocutter.common.datapage.VideoDataPage
-import com.example.videocutter.common.extensions.getDataPage
 import com.example.videocutter.domain.model.VideoInfo
 import com.example.videocutter.domain.usecase.GetFileVideoUseCase
 import com.example.videocutter.domain.usecase.GetFolderVideoUseCase
+import com.example.videocutter.presentation.VideoInfoDisplay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -166,6 +163,20 @@ class SelectViewModel @Inject constructor(
             _selectFileState.success(listSelect)
             mapFile()
         }
+    }
+
+    fun setSelectFile(newList: List<VideoInfo>) {
+        listSelect.clear()
+        setFileSelect.clear()
+
+        newList.forEach { data ->
+            setFileSelect.add(data.id)
+        }
+        listSelect.addAll(newList)
+
+        maxItem = listSelect.count() == AppConfig.MAX_ITEM_SELECT
+        _selectFileState.success(listSelect)
+        mapFile()
     }
 
     fun swap(oldIndex: Int, newIndex: Int) {

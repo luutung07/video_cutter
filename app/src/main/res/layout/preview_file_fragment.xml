@@ -25,6 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:resize_mode="fit"
+                android:layout_gravity="center"
                 app:use_controller="false" />
         </FrameLayout>
 
@@ -35,6 +36,7 @@
             app:layout_constraintBottom_toTopOf="@+id/frameLayout"
             app:layout_constraintStart_toEndOf="@id/frameLayout"
             android:clickable="true"
+            android:padding="@dimen/dimen_6"
             android:foreground="?selectableItemBackground"
             android:focusable="true"
             app:layout_constraintEnd_toEndOf="@id/frameLayout"
@@ -43,7 +45,6 @@
             <ImageView
                 android:layout_width="@dimen/dimen_40"
                 android:layout_height="@dimen/dimen_40"
-                android:padding="@dimen/dimen_6"
                 android:src="@drawable/ic_close_white" />
 
         </FrameLayout>

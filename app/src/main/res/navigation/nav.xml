@@ -35,4 +35,10 @@
         android:label="PreviewFileFragment"
         tools:layout="@layout/preview_file_fragment" />
 
+    <fragment
+        android:id="@+id/adjustFragment"
+        android:name="com.example.videocutter.presentation.adjust.AdjustFragment"
+        android:label="AdjustFragment"
+        tools:layout="@layout/adjust_fragment" />
+
 </navigation>

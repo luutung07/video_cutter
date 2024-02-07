@@ -1,8 +1,12 @@
 package com.example.videocutter.domain.model
 
+import android.os.Parcelable
 import com.example.baseapp.base.extension.getAppString
 import com.example.videocutter.R
+import com.example.videocutter.common.extensions.convertTimeToString
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 class VideoInfo(
     var id: Long? = null,
 
@@ -15,11 +19,9 @@ class VideoInfo(
     var duration: Long? = null,
 
     var count: Int? = null
-) {
+) : Parcelable {
     fun getTime(): String {
         if (duration == null) return getAppString(R.string.time_default)
-        val seconds: Long = duration!! / 1000 % 60 // Extract seconds from milliseconds
-        val minutes: Long = duration!! / (1000 * 60) % 60 // Extract minutes from milliseconds
-        return String.format("%02d:%02d", minutes, seconds)
+        return duration!!.convertTimeToString()
     }
 }

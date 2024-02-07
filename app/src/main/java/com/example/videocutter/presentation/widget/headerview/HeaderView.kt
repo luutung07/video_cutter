@@ -126,7 +126,7 @@ class HeaderView constructor(
             tvRight?.setTextColor(it)
         }
         backGroundRight?.let {
-            llRight?.background = it
+            tvRight?.background = it
         }
         drawableIcRight?.let {
             icRight?.show()

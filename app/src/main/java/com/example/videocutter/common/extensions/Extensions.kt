@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
+import com.example.baseapp.base.extension.getAppString
 import com.example.library_base.common.DataPage
 import com.example.library_base.common.usecase.FlowResult
 import com.example.library_base.common.usecase.IViewListener
@@ -127,7 +128,8 @@ fun <T> VideoCutterActivity<*>.handleUiState(
             }
             listener?.onSuccess()
         }
-        else ->{}
+
+        else -> {}
     }
 }
 
@@ -165,7 +167,8 @@ fun <T> VideoCutterFragment<*>.handleUiState(
             }
             listener?.onSuccess()
         }
-        else ->{}
+
+        else -> {}
     }
 }
 
@@ -179,4 +182,10 @@ fun <T> getDataPage(dataPage: DataPage<T>?, isReload: Boolean = true): DataPage<
         }
     }
     return _dataPage
+}
+
+fun Long.convertTimeToString(): String {
+    val seconds: Long = this / 1000 % 60 // Extract seconds from milliseconds
+    val minutes: Long = this / (1000 * 60) % 60 // Extract minutes from milliseconds
+    return String.format("%02d:%02d", minutes, seconds)
 }

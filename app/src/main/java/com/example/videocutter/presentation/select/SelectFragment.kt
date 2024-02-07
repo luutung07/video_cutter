@@ -1,14 +1,17 @@
 package com.example.videocutter.presentation.select
 
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.example.baseapp.base.extension.getAppDrawable
 import com.example.baseapp.base.extension.getAppString
 import com.example.baseapp.base.extension.gone
+import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.baseapp.base.extension.show
 import com.example.library_base.common.usecase.IViewListener
 import com.example.library_base.eventbus.EventBusManager
 import com.example.library_base.eventbus.IEvent
 import com.example.videocutter.R
+import com.example.videocutter.common.event.DeleteVideoEvent
 import com.example.videocutter.common.event.SelectFolderEvent
 import com.example.videocutter.common.extensions.coroutinesLaunch
 import com.example.videocutter.common.extensions.handleUiState
@@ -16,7 +19,7 @@ import com.example.videocutter.common.loader.aim.SLIDE_TYPE
 import com.example.videocutter.common.loader.aim.SlideAnimation
 import com.example.videocutter.common.srceen.VideoCutterFragment
 import com.example.videocutter.databinding.SelectFragmentBinding
-import com.example.videocutter.domain.model.VideoInfo
+import com.example.videocutter.presentation.adjust.AdjustFragment.Companion.PATHS_KEY
 import com.example.videocutter.presentation.select.file.FileFragment
 import com.example.videocutter.presentation.select.folder.FolderFragment
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
@@ -44,6 +47,13 @@ class SelectFragment : VideoCutterFragment<SelectFragmentBinding>(R.layout.selec
                 binding.hvSelect.setLabelCenter(event.name)
                 setUpFile()
                 EventBusManager.instance?.removeSticky(event)
+            }
+
+            is DeleteVideoEvent -> {
+                event.list?.let {
+                    viewModel.setSelectFile(it.toList())
+                    EventBusManager.instance?.removeSticky(event)
+                }
             }
         }
     }
@@ -106,6 +116,11 @@ class SelectFragment : VideoCutterFragment<SelectFragmentBinding>(R.layout.selec
                     setUpFolder()
                 }
             }
+        }
+
+        binding.tvSelect.setOnSafeClick {
+            val listVideoInfoSelect = viewModel.selectFileState.value.data
+            navigateTo(R.id.adjustFragment, bundleOf(PATHS_KEY to listVideoInfoSelect))
         }
 
         setUpAdapter()

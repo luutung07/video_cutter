@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.videocutter.presentation.widget.headerview.HeaderView
+            android:id="@+id/hvAdjust"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hv_left_icon="@drawable/ic_cancel_black"
+            app:hv_right_background="@drawable/shape_bg_color_1_corner_4"
+            app:hv_right_label="@string/next_title"
+            app:hv_right_text_color="@color/white"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.example.videocutter.presentation.widget.video.VideoControlView
+            android:id="@+id/vcvAdjust"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/clAdjustAdd"
+            app:layout_constraintTop_toBottomOf="@id/hvAdjust"
+            tools:background="@color/black"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_height="@dimen/dimen_300" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAdjustAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_height="@dimen/dimen_200">
+
+            <TextView
+                android:id="@+id/tvAdjustGuideMoveItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_18"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:fontFamily="@font/fbase_font_regular"
+                android:text="@string/long_press_to_sort_the_videos"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_text_size_14"
+                app:layout_constraintBottom_toBottomOf="@id/tvAdjust"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvAdjust" />
+
+            <TextView
+                android:id="@+id/tvAdjust"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginEnd="@dimen/dimen_18"
+                android:background="@drawable/shape_bg_color_1_corner_4"
+                android:clickable="false"
+                android:focusable="false"
+                android:fontFamily="@font/fbase_font_regular"
+                android:foreground="?selectableItemBackground"
+                android:padding="@dimen/dimen_8"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_text_size_14"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/add_item" />
+
+            <com.example.videocutter.presentation.widget.recyclerview.CollectionView
+                android:id="@+id/cvAdjust"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginVertical="@dimen/dimen_10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_min="@dimen/dimen_100"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAdjust" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

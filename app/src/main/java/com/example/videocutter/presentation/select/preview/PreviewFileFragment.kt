@@ -41,6 +41,11 @@ class PreviewFileFragment :
         setEventView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        initializePlayer()
+    }
+
     override fun onStop() {
         super.onStop()
         releasePlayer()
@@ -50,32 +55,29 @@ class PreviewFileFragment :
         binding.flPreviewFileClose.setOnSafeClick {
             parentFragmentManager.popBackStack()
         }
-        binding.frameLayout.post {
-            Log.d(TAG, "setEventView: ${ binding.pvPreviewFile.height}")
-            val newParams = binding.frameLayout.layoutParams as ViewGroup.LayoutParams
-            newParams.height = binding.pvPreviewFile.height
-            newParams.width = binding.pvPreviewFile.width
-            binding.frameLayout.layoutParams = newParams
-            Log.d(TAG, "setEventView: ${binding.frameLayout.layoutParams.height}")
-        }
     }
 
     private fun initializePlayer() {
-        player = ExoPlayer.Builder(requireContext())
-            .build()
-            .also { exoPlayer ->
-                binding.pvPreviewFile.player = exoPlayer
-                val secondMediaItem = MediaItem.fromUri(urlPathVideo)
-                exoPlayer.setMediaItems(
-                    listOf(secondMediaItem),
-                    mediaItemIndex,
-                    playbackPosition
-                )
-                exoPlayer.playWhenReady = playWhenReady
-                exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
-                exoPlayer.addListener(playbackStateListener)
-                exoPlayer.prepare()
-            }
+        if (player == null) {
+            player = ExoPlayer.Builder(requireContext())
+                .build()
+                .also { exoPlayer ->
+                    binding.pvPreviewFile.player = exoPlayer
+                    val secondMediaItem = MediaItem.fromUri(urlPathVideo)
+                    exoPlayer.setMediaItems(
+                        listOf(secondMediaItem),
+                        mediaItemIndex,
+                        playbackPosition
+                    )
+                    exoPlayer.playWhenReady = playWhenReady
+                    exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
+                    exoPlayer.addListener(playbackStateListener)
+                    exoPlayer.prepare()
+                }
+        }
+        if (!player!!.isPlaying) {
+            player!!.play()
+        }
     }
 
     private fun releasePlayer() {
