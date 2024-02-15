@@ -69,7 +69,6 @@ open class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
     }
 
     override fun onBackPressedFragment(tag: String?) {
-        showWarning(" backTo Screen ${findNavController().currentDestination?.label}")
         backScreen()
     }
 

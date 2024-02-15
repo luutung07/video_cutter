@@ -105,7 +105,7 @@ class SelectFragment : VideoCutterFragment<SelectFragmentBinding>(R.layout.selec
         if (viewModel.isOpenFile) {
             setUpFolder()
             viewModel.isOpenFile = false
-        } else findNavController().popBackStack()
+        } else super.onBackPressedFragment(tag)
     }
 
     private fun setUpView() {
