@@ -3,10 +3,13 @@ package com.example.videocutter.presentation.adjust
 import androidx.fragment.app.viewModels
 import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
+import androidx.navigation.fragment.findNavController
 import com.example.library_base.common.usecase.IViewListener
 import com.example.library_base.eventbus.EventBusManager
+import com.example.library_base.eventbus.IEvent
 import com.example.videocutter.R
 import com.example.videocutter.common.event.DeleteVideoEvent
+import com.example.videocutter.common.event.NextEditVideoEvent
 import com.example.videocutter.common.extensions.coroutinesLaunch
 import com.example.videocutter.common.extensions.handleUiState
 import com.example.videocutter.common.srceen.VideoCutterFragment
@@ -26,6 +29,8 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
 
     private val adapter by lazy { AdjustAdapter() }
 
+    override fun getContainerId() = R.id.clAdjustRoot
+
     @UnstableApi
     override fun onInitView() {
         super.onInitView()
@@ -33,10 +38,26 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
         setUpAdapter()
     }
 
+    override fun onEvent(event: IEvent) {
+        super.onEvent(event)
+        when (event) {
+            is NextEditVideoEvent -> {
+                navigateTo(R.id.editVideoFragment)
+                EventBusManager.instance?.removeSticky(event)
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBusManager.instance?.register(this)
+    }
+
     override fun onStop() {
         super.onStop()
         binding.vcvAdjust.stop()
         viewModel.isStart = false
+        EventBusManager.instance?.unregister(this)
     }
 
     override fun onDestroyView() {
@@ -47,8 +68,7 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
 
     override fun onBackPressedFragment(tag: String?) {
         EventBusManager.instance?.postPending(DeleteVideoEvent(viewModel.listVideoInfoSelected))
-
-        super.onBackPressedFragment(tag)
+        popBackStack(R.id.fragmentSelect)
     }
 
     override fun onObserverViewModel() {
@@ -88,8 +108,14 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
             }
         }
 
-        binding.hvAdjust.setActionLeft {
-            onBackPressedFragment()
+        binding.hvAdjust.apply {
+            setActionLeft {
+                onBackPressedFragment()
+            }
+
+            setActionRight {
+                replaceFragmentInsideFragment(LoadingPrepareVideoFragment())
+            }
         }
     }
 

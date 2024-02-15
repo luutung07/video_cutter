@@ -1,13 +1,9 @@
 package com.example.videocutter.common.srceen
 
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import com.example.library_base.common.binding.BaseBindingActivity
-import com.example.library_base.common.navigation.FadeAnim
-import com.example.library_base.common.navigation.IScreenAnim
 import com.example.library_base.eventbus.IEvent
 import com.example.library_base.eventbus.IEventHandler
 import com.example.videocutter.presentation.widget.headeralert.HEADER_ALERT_TIME_SHOWN

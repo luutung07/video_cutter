@@ -18,27 +18,15 @@
         tools:layout="@layout/select_fragment" />
 
     <fragment
-        android:id="@+id/fileFragment"
-        android:name="com.example.videocutter.presentation.select.file.FileFragment"
-        android:label="FileFragment"
-        tools:layout="@layout/file_fragment" />
-
-    <fragment
-        android:id="@+id/folderFragment"
-        android:name="com.example.videocutter.presentation.select.folder.FolderFragment"
-        android:label="FolderFragment"
-        tools:layout="@layout/folder_fragment" />
-
-    <fragment
-        android:id="@+id/previewFileFragment"
-        android:name="com.example.videocutter.presentation.select.preview.PreviewFileFragment"
-        android:label="PreviewFileFragment"
-        tools:layout="@layout/preview_file_fragment" />
-
-    <fragment
         android:id="@+id/adjustFragment"
         android:name="com.example.videocutter.presentation.adjust.AdjustFragment"
         android:label="AdjustFragment"
         tools:layout="@layout/adjust_fragment" />
+
+    <fragment
+        android:id="@+id/editVideoFragment"
+        android:name="com.example.videocutter.presentation.editvideo.EditVideoFragment"
+        android:label="EditVideoFragment"
+        tools:layout="@layout/edit_video_fragment" />
 
 </navigation>

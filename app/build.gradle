@@ -43,7 +43,7 @@ android {
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:+'
     testImplementation 'junit:junit:4.13.2'
@@ -51,16 +51,18 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:+'
 
     // base
-    implementation("com.tunglv.base:app:1.0.3")
+    implementation("com.tunglv.base:app:1.0.4")
 
     // navigation
     def nav_version = "2.5.3"
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.6"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.6"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.7.6"
 
     // hilt
     implementation 'com.google.dagger:hilt-android:2.50'
     kapt 'com.google.dagger:hilt-compiler:2.50'
+    implementation 'androidx.hilt:hilt-navigation-fragment:1.1.0'
 
     // room
     def room_version = "2.6.1"

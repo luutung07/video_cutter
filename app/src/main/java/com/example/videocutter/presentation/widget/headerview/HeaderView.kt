@@ -141,6 +141,10 @@ class HeaderView constructor(
         icLeft?.setOnSafeClick {
             onActionLeft?.invoke()
         }
+
+        tvRight?.setOnSafeClick {
+            onActionRight?.invoke()
+        }
     }
 
     private fun initView(attrs: AttributeSet?) {
@@ -250,5 +254,9 @@ class HeaderView constructor(
 
     fun setActionLeft(onAction: () -> Unit) {
         onActionLeft = onAction
+    }
+
+    fun setActionRight(onAction: () -> Unit) {
+        onActionRight = onAction
     }
 }

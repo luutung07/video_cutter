@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import com.example.library_base.common.usecase.IViewListener
 import com.example.library_base.eventbus.EventBusManager
 import com.example.videocutter.R
+import com.example.videocutter.common.event.OnBackPressFile
 import com.example.videocutter.common.event.SelectFolderEvent
 import com.example.videocutter.common.extensions.coroutinesLaunch
 import com.example.videocutter.common.extensions.handleUiState
@@ -12,7 +13,6 @@ import com.example.videocutter.databinding.FolderFragmentBinding
 import com.example.videocutter.presentation.select.SelectViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class FolderFragment : VideoCutterFragment<FolderFragmentBinding>(R.layout.folder_fragment) {
 
     private val viewModel by viewModels<SelectViewModel>(ownerProducer = { requireParentFragment() })
@@ -32,6 +32,10 @@ class FolderFragment : VideoCutterFragment<FolderFragmentBinding>(R.layout.folde
     private fun setUpAdapter() {
         binding.cvFolder.setAdapter(adapter)
         addListener()
+    }
+
+    override fun onBackPressedFragment(tag: String?) {
+        EventBusManager.instance?.postPending(OnBackPressFile(true))
     }
 
     private fun addListener() {

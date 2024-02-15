@@ -1,5 +1,6 @@
 package com.example.videocutter.presentation.select
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.library_base.common.BaseUseCase
@@ -183,5 +184,10 @@ class SelectViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             Collections.swap(listSelect, oldIndex, newIndex)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("checkHilt", "onCleared: SelectViewModel")
     }
 }

@@ -2,6 +2,7 @@ package com.example.videocutter.presentation.select
 
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.baseapp.base.extension.getAppDrawable
 import com.example.baseapp.base.extension.getAppString
 import com.example.baseapp.base.extension.gone
@@ -12,6 +13,7 @@ import com.example.library_base.eventbus.EventBusManager
 import com.example.library_base.eventbus.IEvent
 import com.example.videocutter.R
 import com.example.videocutter.common.event.DeleteVideoEvent
+import com.example.videocutter.common.event.OnBackPressFile
 import com.example.videocutter.common.event.SelectFolderEvent
 import com.example.videocutter.common.extensions.coroutinesLaunch
 import com.example.videocutter.common.extensions.handleUiState
@@ -49,11 +51,17 @@ class SelectFragment : VideoCutterFragment<SelectFragmentBinding>(R.layout.selec
                 EventBusManager.instance?.removeSticky(event)
             }
 
+            is OnBackPressFile -> {
+                viewModel.isOpenFile = !event.inclusive
+                onBackPressedFragment()
+                EventBusManager.instance?.removeSticky(event)
+            }
+
             is DeleteVideoEvent -> {
                 event.list?.let {
                     viewModel.setSelectFile(it.toList())
-                    EventBusManager.instance?.removeSticky(event)
                 }
+                EventBusManager.instance?.removeSticky(event)
             }
         }
     }
@@ -97,7 +105,7 @@ class SelectFragment : VideoCutterFragment<SelectFragmentBinding>(R.layout.selec
         if (viewModel.isOpenFile) {
             setUpFolder()
             viewModel.isOpenFile = false
-        } else super.onBackPressedFragment(tag)
+        } else findNavController().popBackStack()
     }
 
     private fun setUpView() {

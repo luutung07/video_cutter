@@ -1,11 +1,14 @@
 package com.example.videocutter.presentation.select.file
 
+import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.example.baseapp.base.extension.getAppString
 import com.example.library_base.common.usecase.IViewListener
+import com.example.library_base.eventbus.EventBusManager
 import com.example.videocutter.AppConfig
 import com.example.videocutter.R
+import com.example.videocutter.common.event.OnBackPressFile
 import com.example.videocutter.common.extensions.coroutinesLaunch
 import com.example.videocutter.common.extensions.handleUiState
 import com.example.videocutter.common.loader.aim.SLIDE_TYPE
@@ -17,7 +20,6 @@ import com.example.videocutter.presentation.select.folder.FolderAdapter
 import com.example.videocutter.presentation.select.preview.PreviewFileFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class FileFragment : VideoCutterFragment<FileFragmentBinding>(R.layout.file_fragment) {
 
     private val viewModel by viewModels<SelectViewModel>(ownerProducer = { requireParentFragment() })
@@ -34,6 +36,12 @@ class FileFragment : VideoCutterFragment<FileFragmentBinding>(R.layout.file_frag
     override fun onDestroyView() {
         super.onDestroyView()
         removeListener()
+        Log.d(TAG, "onDestroyView: ")
+    }
+
+    override fun onBackPressedFragment(tag: String?) {
+        EventBusManager.instance?.postPending(OnBackPressFile())
+        parentFragmentManager.popBackStack()
     }
 
     override fun onObserverViewModel() {

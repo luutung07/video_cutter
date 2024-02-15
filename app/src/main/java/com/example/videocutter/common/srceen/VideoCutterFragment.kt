@@ -31,6 +31,7 @@ open class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
     override fun onDestroyView() {
         super.onDestroyView()
         hideLoading()
+
     }
 
     override fun showCustomToast(
@@ -52,7 +53,7 @@ open class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
     }
 
     override fun showError(msg: String?, timeShown: HEADER_ALERT_TIME_SHOWN) {
-       mainActivity.showError(msg, timeShown)
+        mainActivity.showError(msg, timeShown)
     }
 
     override fun showWarning(msg: String?, timeShown: HEADER_ALERT_TIME_SHOWN) {
@@ -68,7 +69,8 @@ open class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
     }
 
     override fun onBackPressedFragment(tag: String?) {
-       backScreen()
+        showWarning(" backTo Screen ${findNavController().currentDestination?.label}")
+        backScreen()
     }
 
 
@@ -121,6 +123,7 @@ open class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
      */
     private fun backScreen() {
         try {
+            Log.d(TAG, "backScreen: ${findNavController().currentDestination}")
             findNavController().navigateUp()
         } catch (e: IllegalArgumentException) {
             e.printStackTrace()

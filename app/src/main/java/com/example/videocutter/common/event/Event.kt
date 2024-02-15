@@ -6,3 +6,7 @@ import com.example.videocutter.domain.model.VideoInfo
 class SelectFolderEvent(val id: Long?, val name: String) : IEvent
 
 class DeleteVideoEvent(val list: List<VideoInfo>?) : IEvent
+
+class NextEditVideoEvent() : IEvent
+
+class OnBackPressFile(val inclusive: Boolean = false): IEvent

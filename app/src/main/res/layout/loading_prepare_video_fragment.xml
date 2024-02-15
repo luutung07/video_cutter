@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_overlay">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/dimen_54"
+            app:cardCornerRadius="@dimen/dimen_10">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:fontFamily="@font/fbase_font_medium"
+                    android:text="@string/loading"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_text_size_18" />
+
+                <ProgressBar
+                    android:layout_width="@dimen/dimen_28"
+                    android:layout_height="@dimen/dimen_28"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:progressTint="@color/color_1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/tvLoadingPrepareVideoStop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/fbase_font_bold"
+                    android:foreground="?selectableItemBackground"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/dimen_10"
+                    android:text="@string/stop"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/dimen_text_size_18" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+</layout>

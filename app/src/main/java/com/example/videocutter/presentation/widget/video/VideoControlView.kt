@@ -200,7 +200,7 @@ class VideoControlView constructor(
     }
 
     fun setTimeLimeMax(max: Long) {
-        timeLine?.setImageDrawableIcLeft(getAppDrawable(R.drawable.ic_btn_play))
+
         timeLine?.setTvEnd(max.convertTimeToString())
         timeLine?.setMaxProgress(max.toInt())
     }
@@ -210,6 +210,7 @@ class VideoControlView constructor(
         if (handler == null) {
             handler = Handler(Looper.getMainLooper())
         }
+        timeLine?.setImageDrawableIcLeft(getAppDrawable(R.drawable.ic_btn_play))
         setUpView()
     }
 
