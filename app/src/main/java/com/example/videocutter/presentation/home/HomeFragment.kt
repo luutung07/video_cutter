@@ -1,5 +1,6 @@
 package com.example.videocutter.presentation.home
 
+import android.os.Build
 import android.util.Log
 import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.library_base.common.BaseActivity
@@ -44,14 +45,17 @@ class HomeFragment : VideoCutterFragment<HomeFragmentBinding>(R.layout.home_frag
     }
 
     private fun requestPermission() {
+        val listPermission: MutableList<String> = arrayListOf()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            listPermission.add(android.Manifest.permission.READ_MEDIA_VIDEO)
+        }
+        listPermission.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        listPermission.add(android.Manifest.permission.RECORD_AUDIO)
         doRequestPermission(
-            arrayOf(
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                android.Manifest.permission.READ_MEDIA_VIDEO
-            ),
+            listPermission.toTypedArray(),
             object : BaseActivity.PermissionListener {
                 override fun onAllow() {
-
+                    showSuccess("Allow Permission")
                 }
 
                 override fun onDenied(neverAskAgainPermissionList: List<String>) {
