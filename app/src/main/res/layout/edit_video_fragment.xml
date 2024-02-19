@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.example.videocutter.presentation.widget.headerview.HeaderView
+            android:id="@+id/hvEditVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hv_left_icon="@drawable/ic_cancel_black"
+            app:hv_right_background="@drawable/shape_bg_color_1_corner_4"
+            app:hv_right_label="@string/save_title"
+            app:hv_right_text_color="@color/white"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.example.videocutter.presentation.widget.video.VideoControlView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/cvEditVideoFuture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/black_overlay"
+            app:layout_constraintTop_toBottomOf="@id/hvEditVideo" />
+
+        <com.example.videocutter.presentation.widget.recyclerview.CollectionView
+            android:id="@+id/cvEditVideoFuture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_height="@dimen/dimen_100" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

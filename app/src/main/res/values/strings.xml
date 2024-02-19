@@ -14,6 +14,7 @@
     <string name="max_item_select">Only a maximum of %s files can be selected</string>
     <string name="time_default">00:01</string>
     <string name="next_title">Next</string>
+    <string name="save_title">Save</string>
     <string name="time_start">00:00</string>
     <string name="stop">STOP</string>
 

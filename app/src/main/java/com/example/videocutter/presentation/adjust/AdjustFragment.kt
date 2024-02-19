@@ -89,7 +89,7 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
     @UnstableApi
     private fun setUpView() {
         binding.vcvAdjust.apply {
-            setListPath(viewModel.listPath)
+            setListPath(viewModel.listPath, false)
             start()
             setTimeLimeMax(viewModel.maxDuration)
             setOnLeftListener {
