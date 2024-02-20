@@ -31,7 +31,6 @@ open class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
     override fun onDestroyView() {
         super.onDestroyView()
         hideLoading()
-
     }
 
     override fun showCustomToast(
@@ -68,7 +67,7 @@ open class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
         mainActivity.hideLoading()
     }
 
-    override fun onBackPressedFragment(tag: String?) {
+    override fun onBackPressedFragment() {
         backScreen()
     }
 

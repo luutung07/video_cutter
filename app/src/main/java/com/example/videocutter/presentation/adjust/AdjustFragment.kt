@@ -3,7 +3,6 @@ package com.example.videocutter.presentation.adjust
 import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.fragment.findNavController
 import com.example.library_base.common.usecase.IViewListener
@@ -37,7 +36,6 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
     @UnstableApi
     override fun onInitView() {
         super.onInitView()
-        Log.d(TAG, "onInitView: ${findNavController().currentBackStack.value.size}")
         setUpView()
         setUpAdapter()
     }
@@ -73,11 +71,10 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
         removeListener()
     }
 
-    override fun onBackPressedFragment(tag: String?) {
+    override fun onBackPressedFragment() {
         Log.d(TAG, "onBackPressedFragment")
         EventBusManager.instance?.postPending(DeleteVideoEvent(viewModel.listVideoInfoSelected))
-        super.onBackPressedFragment(tag)
-
+        super.onBackPressedFragment()
     }
 
     override fun onObserverViewModel() {

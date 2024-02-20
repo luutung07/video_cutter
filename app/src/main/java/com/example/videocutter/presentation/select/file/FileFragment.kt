@@ -16,9 +16,7 @@ import com.example.videocutter.common.loader.aim.SlideAnimation
 import com.example.videocutter.common.srceen.VideoCutterFragment
 import com.example.videocutter.databinding.FileFragmentBinding
 import com.example.videocutter.presentation.select.SelectViewModel
-import com.example.videocutter.presentation.select.folder.FolderAdapter
 import com.example.videocutter.presentation.select.preview.PreviewFileFragment
-import dagger.hilt.android.AndroidEntryPoint
 
 class FileFragment : VideoCutterFragment<FileFragmentBinding>(R.layout.file_fragment) {
 
@@ -39,7 +37,7 @@ class FileFragment : VideoCutterFragment<FileFragmentBinding>(R.layout.file_frag
         Log.d(TAG, "onDestroyView: ")
     }
 
-    override fun onBackPressedFragment(tag: String?) {
+    override fun onBackPressedFragment() {
         EventBusManager.instance?.postPending(OnBackPressFile())
         parentFragmentManager.popBackStack()
     }

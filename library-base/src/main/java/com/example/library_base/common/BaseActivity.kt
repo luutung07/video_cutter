@@ -151,18 +151,19 @@ abstract class BaseActivity(@LayoutRes protected val layoutId: Int) : AppCompatA
         animOpenScreen()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        if (isBackCloseApp()) {
-            this.checkBeforeBack {
-                finishAffinity()
-                onBackPressedDispatcher.onBackPressed()
-            }
-        } else {
-            onBackPressedDispatcher.onBackPressed()
-        }
-        animBackScreen()
-    }
+    // dùng khi là multi activity
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        if (isBackCloseApp()) {
+//            this.checkBeforeBack {
+//                finishAffinity()
+//                onBackPressedDispatcher.onBackPressed()
+//            }
+//        } else {
+//            onBackPressedDispatcher.onBackPressed()
+//        }
+//        animBackScreen()
+//    }
 
     fun finishWithAnimation(hasAnimation: Boolean = true) {
         finish()

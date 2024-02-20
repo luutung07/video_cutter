@@ -11,7 +11,6 @@ import com.example.videocutter.common.extensions.handleUiState
 import com.example.videocutter.common.srceen.VideoCutterFragment
 import com.example.videocutter.databinding.FolderFragmentBinding
 import com.example.videocutter.presentation.select.SelectViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
 class FolderFragment : VideoCutterFragment<FolderFragmentBinding>(R.layout.folder_fragment) {
 
@@ -34,7 +33,7 @@ class FolderFragment : VideoCutterFragment<FolderFragmentBinding>(R.layout.folde
         addListener()
     }
 
-    override fun onBackPressedFragment(tag: String?) {
+    override fun onBackPressedFragment() {
         EventBusManager.instance?.postPending(OnBackPressFile(true))
     }
 

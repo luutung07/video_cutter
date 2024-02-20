@@ -39,7 +39,6 @@ class SelectFragment : VideoCutterFragment<SelectFragmentBinding>(R.layout.selec
 
     override fun onInitView() {
         super.onInitView()
-        Log.d(TAG, "onInitView: ${findNavController().currentBackStack.value.size}")
         setUpView()
     }
 
@@ -103,12 +102,12 @@ class SelectFragment : VideoCutterFragment<SelectFragmentBinding>(R.layout.selec
         }
     }
 
-    override fun onBackPressedFragment(tag: String?) {
+    override fun onBackPressedFragment() {
         Log.d(TAG, "onBackPressedFragment ")
         if (viewModel.isOpenFile) {
             setUpFolder()
             viewModel.isOpenFile = false
-        } else super.onBackPressedFragment(tag)
+        } else super.onBackPressedFragment()
     }
 
     private fun setUpView() {

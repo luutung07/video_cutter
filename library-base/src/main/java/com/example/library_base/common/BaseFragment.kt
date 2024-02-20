@@ -2,6 +2,7 @@ package com.example.library_base.common
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,7 +89,7 @@ abstract class BaseFragment(@LayoutRes protected val layoutId: Int) : Fragment()
 
     open fun isAttachMenuToFragment(): Boolean = true
 
-    open fun isHandleBackPressByFragment(): Boolean = true
+    open fun isHandleBackPressByFragment(): Boolean = false
 
     open fun getContainerId(): Int = LAYOUT_INVALID
 
@@ -108,8 +109,7 @@ abstract class BaseFragment(@LayoutRes protected val layoutId: Int) : Fragment()
         return baseActivity.isSoftInputAdjustResize()
     }
 
-    open fun onBackPressedFragment(tag: String? = null) {
-//        backScreenByFragmentManager(tag)
+    open fun onBackPressedFragment() {
     }
 
     //region navigate screen
@@ -221,7 +221,7 @@ abstract class BaseFragment(@LayoutRes protected val layoutId: Int) : Fragment()
         permissions: Array<String>,
         listener: BaseActivity.PermissionListener
     ) {
-        baseActivity.doRequestPermission(permissions,listener)
+        baseActivity.doRequestPermission(permissions, listener)
     }
 
     private fun backScreenByFragmentManager(tag: String? = null) {
@@ -238,7 +238,7 @@ abstract class BaseFragment(@LayoutRes protected val layoutId: Int) : Fragment()
                 onBackPressedFragment()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        requireActivity().onBackPressedDispatcher.addCallback(this.viewLifecycleOwner, callback)
     }
 
     //region fragment backstack

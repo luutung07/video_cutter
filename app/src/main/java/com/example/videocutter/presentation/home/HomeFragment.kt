@@ -2,6 +2,7 @@ package com.example.videocutter.presentation.home
 
 import android.os.Build
 import android.util.Log
+import com.example.baseapp.base.extension.checkBeforeBack
 import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.library_base.common.BaseActivity
 import com.example.videocutter.R
@@ -55,7 +56,7 @@ class HomeFragment : VideoCutterFragment<HomeFragmentBinding>(R.layout.home_frag
             listPermission.toTypedArray(),
             object : BaseActivity.PermissionListener {
                 override fun onAllow() {
-                    showSuccess("Allow Permission")
+
                 }
 
                 override fun onDenied(neverAskAgainPermissionList: List<String>) {

@@ -28,7 +28,7 @@ class LoadingPrepareVideoFragment :
         }, AppConfig.TIME_DELAY_EDIT_VIDEO)
     }
 
-    override fun onBackPressedFragment(tag: String?) {
+    override fun onBackPressedFragment() {
         parentFragmentManager.popBackStack()
     }
 }
