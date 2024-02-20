@@ -28,3 +28,4 @@ dependencyResolutionManagement {
 rootProject.name = "VideoCutter"
 include ':app'
 include ':audiovisualizer'
+include ':library-base'

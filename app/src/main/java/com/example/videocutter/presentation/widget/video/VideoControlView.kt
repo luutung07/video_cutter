@@ -2,6 +2,7 @@ package com.example.videocutter.presentation.widget.video
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Handler
@@ -13,6 +14,7 @@ import android.widget.FrameLayout
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
@@ -84,6 +86,10 @@ class VideoControlView constructor(
     }
 
     private fun setUpView() {
+
+        lineBarVisualizer?.setColor(ContextCompat.getColor(ctx, R.color.white));
+        lineBarVisualizer?.setDensity(70f);
+
         exoplayer?.addListener(object : Player.Listener {
             override fun onPlayerError(error: PlaybackException) {
                 super.onPlayerError(error)
@@ -133,7 +139,7 @@ class VideoControlView constructor(
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 super.onIsPlayingChanged(isPlaying)
                 Log.d(TAG, "onIsPlayingChanged: $isPlaying")
-                if (isPlaying){
+                if (isPlaying) {
                     updateTimeLine()
                 }
             }
@@ -192,7 +198,7 @@ class VideoControlView constructor(
                                 MediaMetadataRetriever.OPTION_CLOSEST_SYNC
                             )
                         try {
-                            bitmap?.let { bitmap ->  listFrame.add(bitmap) }
+                            bitmap?.let { bitmap -> listFrame.add(bitmap) }
                         } catch (t: Throwable) {
                             t.printStackTrace()
                             Log.d(TAG, "onCreate: $t")
@@ -225,10 +231,15 @@ class VideoControlView constructor(
             setExoplayer()
         }
 
-        if (hasTimeStart){
+        if (hasTimeStart) {
             timeLine?.setTvStart(getAppString(R.string.time_start))
         }
     }
+
+    fun hasTimeStart(hasTimeStart: Boolean){
+        timeLine?.hasTimeStart(hasTimeStart)
+    }
+
 
     @UnstableApi
     fun swapListPath(oldIndex: Int, newIndex: Int) {
@@ -236,7 +247,6 @@ class VideoControlView constructor(
         releasePlayer()
         setListPath(listPath)
         handler = Handler(Looper.myLooper()!!)
-        updateTimeLine()
     }
 
     @UnstableApi
@@ -248,7 +258,6 @@ class VideoControlView constructor(
         releasePlayer()
         setListPath(listPath)
         handler = Handler(Looper.myLooper()!!)
-        updateTimeLine()
     }
 
     fun setOnLeftListener(action: () -> Unit) {
@@ -273,12 +282,11 @@ class VideoControlView constructor(
                     player.setMediaSource(concatenatingMediaSourceBuilder.build())
                     player.prepare()
                     player.playWhenReady = true
-                    lineBarVisualizer?.setColor(ContextCompat.getColor(ctx, R.color.white));
-                    lineBarVisualizer?.setDensity(70f);
                     lineBarVisualizer?.setPlayer(player.audioSessionId)
-                    setUpView()
+                    timeLine?.setImageDrawableIcLeft(getAppDrawable(R.drawable.ic_btn_play))
                 }
         }
+        setUpView()
     }
 
     fun setTimeLimeMax(max: Long) {
@@ -292,7 +300,6 @@ class VideoControlView constructor(
             handler = Handler(Looper.getMainLooper())
         }
         timeLine?.setImageDrawableIcLeft(getAppDrawable(R.drawable.ic_btn_play))
-        setUpView()
     }
 
     fun stop() {
@@ -313,6 +320,18 @@ class VideoControlView constructor(
     fun setTimeEnd(duration: Long) {
         timeEnd = duration
         timeLine?.setMaxProgress(duration.toInt())
+    }
+
+    fun setTimeCenter(time: String) {
+        timeLine?.setTvCenter(time)
+    }
+
+    fun setImageDrawableIcRight(drawable: Drawable) {
+        timeLine?.setImageDrawableIcRight(drawable)
+    }
+
+    fun setOnActionRight(action: () -> Unit) {
+        timeLine?.setOnActionRight(action)
     }
 
     interface IVideoControlCallback {

@@ -8,7 +8,10 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
+import com.example.baseapp.base.extension.gone
 import com.example.baseapp.base.extension.setOnSafeClick
+import com.example.baseapp.base.extension.show
 import com.example.videocutter.R
 
 class TimelineView constructor(
@@ -65,12 +68,18 @@ class TimelineView constructor(
         }
     }
 
+    fun hasTimeStart(hasTimeStart: Boolean){
+        tvLeft?.isVisible = hasTimeStart
+    }
+
     fun setTvStart(label: CharSequence?) {
         tvLeft?.text = label
     }
 
     fun setTvCenter(label: CharSequence?) {
         tvCenter?.text = label
+        tvCenter?.show()
+        seekbarProgress?.gone()
     }
 
     fun setTvEnd(label: CharSequence?) {
@@ -79,6 +88,10 @@ class TimelineView constructor(
 
     fun setImageDrawableIcLeft(drawable: Drawable?) {
         ivLeft?.setImageDrawable(drawable)
+    }
+
+    fun setImageDrawableIcRight(drawable: Drawable?) {
+        ivRight?.setImageDrawable(drawable)
     }
 
     fun setOnActionLeft(action: () -> Unit) {

@@ -1,5 +1,6 @@
 package com.example.videocutter.presentation.select
 
+import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -38,6 +39,7 @@ class SelectFragment : VideoCutterFragment<SelectFragmentBinding>(R.layout.selec
 
     override fun onInitView() {
         super.onInitView()
+        Log.d(TAG, "onInitView: ${findNavController().currentBackStack.value.size}")
         setUpView()
     }
 
@@ -102,6 +104,7 @@ class SelectFragment : VideoCutterFragment<SelectFragmentBinding>(R.layout.selec
     }
 
     override fun onBackPressedFragment(tag: String?) {
+        Log.d(TAG, "onBackPressedFragment ")
         if (viewModel.isOpenFile) {
             setUpFolder()
             viewModel.isOpenFile = false

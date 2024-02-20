@@ -18,12 +18,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.example.videocutter.presentation.widget.video.VideoControlView
+            android:id="@+id/vcvEditVideo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/cvEditVideoFuture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/black_overlay"
             app:layout_constraintTop_toBottomOf="@id/hvEditVideo" />
 
         <com.example.videocutter.presentation.widget.recyclerview.CollectionView

@@ -23,6 +23,7 @@ class LoadingPrepareVideoFragment :
         binding.tvLoadingPrepareVideoStop.postDelayed({
             if (isNext) {
                 EventBusManager.instance?.postPending(NextEditVideoEvent())
+                onBackPressedFragment()
             }
         }, AppConfig.TIME_DELAY_EDIT_VIDEO)
     }
