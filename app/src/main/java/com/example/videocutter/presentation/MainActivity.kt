@@ -11,11 +11,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : VideoCutterActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun showLoading(message: String) {
         super.showLoading(message)
-        binding.pbMainLoading.show()
+        binding.flMainLoading.show()
     }
 
     override fun hideLoading() {
         super.hideLoading()
-        binding.pbMainLoading.gone()
+        binding.flMainLoading.gone()
     }
 }

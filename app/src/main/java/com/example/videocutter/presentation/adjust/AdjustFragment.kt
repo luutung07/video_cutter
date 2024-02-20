@@ -153,5 +153,6 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
 
     private fun removeListener() {
         adapter.listener = null
+        binding.vcvAdjust.listenerStateVideo = null
     }
 }

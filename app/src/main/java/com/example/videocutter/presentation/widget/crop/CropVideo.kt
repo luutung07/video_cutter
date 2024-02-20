@@ -1,0 +1,14 @@
+package com.example.videocutter.presentation.widget.crop
+
+import android.content.Context
+import android.util.AttributeSet
+import android.view.View
+
+class CropVideo constructor(
+    ctx: Context,
+    attrs: AttributeSet
+) : View(ctx, attrs) {
+
+
+
+}

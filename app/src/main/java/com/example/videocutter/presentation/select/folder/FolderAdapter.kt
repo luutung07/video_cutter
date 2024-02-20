@@ -11,7 +11,7 @@ import com.example.library_base.extension.INT_DEFAULT
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.FolderVideoItemBinding
-import com.example.videocutter.presentation.VideoInfoDisplay
+import com.example.videocutter.presentation.repodisplay.model.VideoInfoDisplay
 
 class FolderAdapter : BaseAdapter() {
 

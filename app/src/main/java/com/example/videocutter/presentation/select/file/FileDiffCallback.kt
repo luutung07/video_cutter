@@ -1,7 +1,7 @@
 package com.example.videocutter.presentation.select.file
 
 import com.example.library_base.adapter.BaseDiffUtilCallback
-import com.example.videocutter.presentation.VideoInfoDisplay
+import com.example.videocutter.presentation.repodisplay.model.VideoInfoDisplay
 
 const val UPDATE_STATE_SELECT_FILE_PAYLOAD = "UPDATE_STATE_SELECT_FILE_PAYLOAD"
 

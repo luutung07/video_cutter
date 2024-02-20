@@ -58,11 +58,11 @@ class VideoControlView constructor(
     private var cvExtract: CollectionView? = null
     private var lineBarVisualizer: LineBarVisualizer? = null
 
-    private var flLoading: FrameLayout? = null
-
     private var handler: Handler? = null
     private var runable: Runnable? = null
+    private var runnableScrollExtract: Runnable? = null
     private val listFrame = LinkedHashSet<Bitmap>()
+    private var hasExtract = false
 
     private val extractAdapter by lazy { ExtractVideoAdapter() }
 
@@ -80,7 +80,6 @@ class VideoControlView constructor(
         clExtractRoot = findViewById(R.id.clVideoExtract)
         cvExtract = findViewById(R.id.cvVideoExtract)
         lineBarVisualizer = findViewById(R.id.lineBarVisualizerVideoExtract)
-        flLoading = findViewById(R.id.flVideoLoading)
 
         setUpAdapter()
     }
@@ -112,6 +111,11 @@ class VideoControlView constructor(
 
                     Player.STATE_READY -> {
                         Log.d(TAG, "onPlaybackStateChanged: STATE_READY")
+                        if (!hasExtract) {
+                            updateTimeLine()
+                        } else {
+                            updateScrollExtractVideo()
+                        }
                         listenerStateVideo?.onInitVideoSuccess()
                     }
 
@@ -125,22 +129,9 @@ class VideoControlView constructor(
                         exoplayer?.seekTo(LONG_DEFAULT)
                         exoplayer?.pause()
 
+                        releaseRunableExtract()
                         listenerStateVideo?.onVideoEnd()
                     }
-                }
-            }
-
-            override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
-                super.onMediaItemTransition(mediaItem, reason)
-                Log.d(TAG, "onMediaItemTransition: ")
-                listenerStateVideo?.onVideoTransaction(mediaItem, reason)
-            }
-
-            override fun onIsPlayingChanged(isPlaying: Boolean) {
-                super.onIsPlayingChanged(isPlaying)
-                Log.d(TAG, "onIsPlayingChanged: $isPlaying")
-                if (isPlaying) {
-                    updateTimeLine()
                 }
             }
         })
@@ -172,6 +163,18 @@ class VideoControlView constructor(
         handler?.postDelayed(runable!!, AppConfig.TIME_DELAY_PLAY_VIDEO)
     }
 
+    private fun updateScrollExtractVideo() {
+        runnableScrollExtract = object : Runnable {
+            override fun run() {
+                val index = ((exoplayer?.currentPosition ?: 1) * (cvExtract?.width
+                    ?: 1)) / (exoplayer?.duration ?: 1)
+                cvExtract!!.smoothScrollBy(index.toInt(), 0)
+                handler?.postDelayed(this, AppConfig.TIME_DELAY_PLAY_VIDEO)
+            }
+        }
+        handler?.postDelayed(runnableScrollExtract!!, AppConfig.TIME_DELAY_PLAY_VIDEO)
+    }
+
     private fun setUpAdapter() {
         cvExtract?.setAdapter(extractAdapter)
         cvExtract?.setLayoutManager(COLLECTION_MODE.HORIZONTAL)
@@ -201,19 +204,15 @@ class VideoControlView constructor(
                             bitmap?.let { bitmap -> listFrame.add(bitmap) }
                         } catch (t: Throwable) {
                             t.printStackTrace()
-                            Log.d(TAG, "onCreate: $t")
                         }
                     }
-                    Log.d(TAG, "onCreate: ${listFrame.size}")
                 }
                 mediaMetadataRetriever.release()
             } catch (e: Throwable) {
-                Log.d(TAG, "onCreate: $e")
                 Thread.getDefaultUncaughtExceptionHandler()
                     .uncaughtException(Thread.currentThread(), e)
             }
             handler?.post {
-                flLoading?.gone()
                 clExtractRoot?.show()
                 cvExtract?.submitList(listFrame.toList())
                 setExoplayer()
@@ -224,8 +223,8 @@ class VideoControlView constructor(
     @UnstableApi
     fun setListPath(list: List<String>, hasExtract: Boolean = false, hasTimeStart: Boolean = true) {
         listPath = list
+        this.hasExtract = hasExtract
         if (hasExtract) {
-            flLoading?.show()
             extractFrameFromVideo()
         } else {
             setExoplayer()
@@ -236,7 +235,7 @@ class VideoControlView constructor(
         }
     }
 
-    fun hasTimeStart(hasTimeStart: Boolean){
+    fun hasTimeStart(hasTimeStart: Boolean) {
         timeLine?.hasTimeStart(hasTimeStart)
     }
 
@@ -307,12 +306,23 @@ class VideoControlView constructor(
         timeLine?.setImageDrawableIcLeft(getAppDrawable(R.drawable.ic_btn_pause))
     }
 
+    fun releaseRunableExtract() {
+        runnableScrollExtract?.let {
+            handler?.removeCallbacks(it)
+        }
+        handler?.post {
+            cvExtract?.scrollToPosition(0)
+        }
+        runnableScrollExtract = null
+    }
+
     fun releasePlayer() {
         exoplayer?.release()
         exoplayer = null
         runable?.let {
             handler?.removeCallbacks(it)
         }
+
         runable = null
         handler = null
     }
@@ -342,11 +352,6 @@ class VideoControlView constructor(
             fun onInitVideoSuccess() {}
             fun onVideoEnd() {}
             fun onVideoError(exception: Exception) {}
-            fun onVideoTransaction(
-                mediaItem: MediaItem?,
-                @Player.MediaItemTransitionReason reason: Int
-            ) {
-            }
         }
     }
 }

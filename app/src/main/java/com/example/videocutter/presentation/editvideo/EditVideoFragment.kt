@@ -2,12 +2,18 @@ package com.example.videocutter.presentation.editvideo
 
 import androidx.fragment.app.viewModels
 import androidx.media3.common.util.UnstableApi
+import com.example.library_base.common.usecase.IViewListener
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.convertTimeToString
+import com.example.videocutter.common.extensions.coroutinesLaunch
+import com.example.videocutter.common.extensions.handleUiState
 import com.example.videocutter.common.srceen.VideoCutterFragment
 import com.example.videocutter.databinding.EditVideoFragmentBinding
+import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
 import com.example.videocutter.presentation.widget.video.VideoControlView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditVideoFragment :
     VideoCutterFragment<EditVideoFragmentBinding>(R.layout.edit_video_fragment) {
 
@@ -17,12 +23,16 @@ class EditVideoFragment :
 
     private val viewModel by viewModels<EditVideoViewModel>()
 
+    private val adapter by lazy { FeatureAdapter() }
+
     private var isPlay = true
 
     @UnstableApi
     override fun onInitView() {
         super.onInitView()
+        showLoading()
         setUpView()
+        setUpAdapter()
     }
 
     override fun onStop() {
@@ -33,6 +43,18 @@ class EditVideoFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         binding.vcvEditVideo.releasePlayer()
+        binding.vcvEditVideo.listenerStateVideo = null
+    }
+
+    override fun onObserverViewModel() {
+        super.onObserverViewModel()
+        coroutinesLaunch(viewModel.listFeatureState){
+            handleUiState(it, object : IViewListener{
+                override fun onSuccess() {
+                    binding.cvEditVideoFuture.submitList(it.data)
+                }
+            })
+        }
     }
 
     @UnstableApi
@@ -48,8 +70,14 @@ class EditVideoFragment :
             setListPath(viewModel.listPath, hasExtract = true, hasTimeStart = false)
             hasTimeStart(false)
             listenerStateVideo = object : VideoControlView.IVideoControlCallback.IStateVideo {
+
                 override fun onVideoEnd() {
                     isPlay = false
+                }
+
+                override fun onInitVideoSuccess() {
+                    super.onInitVideoSuccess()
+                    hideLoading()
                 }
             }
             setOnLeftListener {
@@ -61,5 +89,10 @@ class EditVideoFragment :
                 }
             }
         }
+    }
+
+    private fun setUpAdapter() {
+        binding.cvEditVideoFuture.setAdapter(adapter)
+        binding.cvEditVideoFuture.setLayoutManager(COLLECTION_MODE.HORIZONTAL)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.videocutter.presentation
+package com.example.videocutter.presentation.repodisplay.model
 
 import com.example.videocutter.domain.model.VideoInfo
 

@@ -1,6 +1,5 @@
 package com.example.videocutter.presentation.adjust
 
-import android.util.Log
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.example.baseapp.base.extension.setOnSafeClick
@@ -11,7 +10,7 @@ import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.ItemAddVideoBinding
 import com.example.videocutter.databinding.VideoSelectedItemBinding
 import com.example.videocutter.domain.model.VideoInfo
-import com.example.videocutter.presentation.VideoInfoDisplay
+import com.example.videocutter.presentation.repodisplay.model.VideoInfoDisplay
 
 class AdjustAdapter : BaseAdapter() {
 
