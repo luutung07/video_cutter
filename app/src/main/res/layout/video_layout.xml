@@ -19,8 +19,13 @@
             android:id="@+id/pvVideo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:resize_mode="fit"
             app:use_controller="false" />
+
+        <com.example.videocutter.presentation.widget.crop.CropVideo
+            android:id="@+id/cropVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
     </FrameLayout>
 

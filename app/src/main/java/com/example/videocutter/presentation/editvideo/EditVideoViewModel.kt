@@ -3,17 +3,19 @@ package com.example.videocutter.presentation.editvideo
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.library_base.common.data
 import com.example.library_base.common.success
 import com.example.library_base.common.usecase.FlowResult
 import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.domain.model.VideoInfo
 import com.example.videocutter.presentation.repodisplay.IRepoDisplay
+import com.example.videocutter.presentation.repodisplay.model.CropDisplay
 import com.example.videocutter.presentation.repodisplay.model.FeatureEditVideoDisplay
+import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,6 +30,10 @@ class EditVideoViewModel @Inject constructor(
     private var _listFeatureState =
         MutableStateFlow(FlowResult.newInstance<List<FeatureEditVideoDisplay>>())
     var listFeatureState = _listFeatureState.asStateFlow()
+
+    private var _listCropState = MutableStateFlow(FlowResult.newInstance<List<CropDisplay>>())
+    val listCropState = _listCropState.asStateFlow()
+    var cropType = CROP_TYPE.TYPE_CUSTOM
 
     var maxDuration = LONG_DEFAULT
     val listPath: MutableList<String> = arrayListOf()
@@ -48,6 +54,13 @@ class EditVideoViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val result = repoDisplay.getListFeature()
             _listFeatureState.success(result)
+        }
+    }
+
+     fun getListCrop() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repoDisplay.getListCrop(cropType)
+            _listCropState.success(result)
         }
     }
 }

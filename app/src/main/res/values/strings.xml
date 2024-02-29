@@ -23,5 +23,15 @@
     <string name="feature_filter">Filter</string>
     <string name="feature_music">Music</string>
     <string name="feature_rotate">Rotate</string>
+    <string name="crop_custom">Custom</string>
+    <string name="crop_instagram">Instagram</string>
+    <string name="crop4x5">4x5</string>
+    <string name="crop5x4">5x4</string>
+    <string name="crop9x16">9x16</string>
+    <string name="crop16x9">16x9</string>
+    <string name="crop3x2">3x2</string>
+    <string name="crop2x3">2x3</string>
+    <string name="crop4x3">4x3</string>
+    <string name="crop3x4">3x4</string>
 
 </resources>

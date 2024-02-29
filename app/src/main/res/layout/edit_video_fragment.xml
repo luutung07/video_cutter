@@ -21,20 +21,30 @@
             android:id="@+id/vcvEditVideo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/cvEditVideoFuture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hvEditVideo" />
+            app:layout_constraintTop_toBottomOf="@id/hvEditVideo"
+            tools:layout_height="@dimen/dimen_300" />
 
         <com.example.videocutter.presentation.widget.recyclerview.CollectionView
             android:id="@+id/cvEditVideoFuture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/dimen_10"
-            android:clipToPadding="false"
             android:layout_marginBottom="@dimen/dimen_20"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/dimen_10"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_height="@dimen/dimen_100" />
+
+        <FrameLayout
+            android:id="@+id/flEditVideoFeature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_height="@dimen/dimen_300"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:background="@color/over_lay"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

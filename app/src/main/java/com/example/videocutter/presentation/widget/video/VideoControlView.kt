@@ -33,6 +33,8 @@ import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.AppConfig
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.convertTimeToString
+import com.example.videocutter.presentation.widget.crop.CROP_TYPE
+import com.example.videocutter.presentation.widget.crop.CropVideo
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
 import com.example.videocutter.presentation.widget.recyclerview.CollectionView
 import com.example.videocutter.presentation.widget.timeline.TimelineView
@@ -58,6 +60,9 @@ class VideoControlView constructor(
     private var cvExtract: CollectionView? = null
     private var lineBarVisualizer: LineBarVisualizer? = null
 
+    private var cropVideo: CropVideo? = null
+    private var flRoot: FrameLayout? = null
+
     private var handler: Handler? = null
     private var runable: Runnable? = null
     private var runnableScrollExtract: Runnable? = null
@@ -80,7 +85,8 @@ class VideoControlView constructor(
         clExtractRoot = findViewById(R.id.clVideoExtract)
         cvExtract = findViewById(R.id.cvVideoExtract)
         lineBarVisualizer = findViewById(R.id.lineBarVisualizerVideoExtract)
-
+        cropVideo = findViewById(R.id.cropVideo)
+        flRoot = findViewById(R.id.flVideoRoot)
         setUpAdapter()
     }
 
@@ -342,6 +348,28 @@ class VideoControlView constructor(
 
     fun setOnActionRight(action: () -> Unit) {
         timeLine?.setOnActionRight(action)
+    }
+
+    fun setTypeCrop(cropType: CROP_TYPE) {
+        cropVideo?.show()
+        cropVideo?.setType(cropType)
+    }
+
+    fun hideTypeCrop() {
+        cropVideo?.gone()
+    }
+
+    fun setHasInputUser(hasInput: Boolean) {
+        cropVideo?.setHasInputUser(hasInput)
+    }
+
+    fun setRotate(rotate: Float) {
+        if (playView == null || flRoot == null) return
+        if (rotate > 0) {
+            playView!!.rotation += 90f
+        } else {
+            playView!!.rotation -= 90f
+        }
     }
 
     interface IVideoControlCallback {

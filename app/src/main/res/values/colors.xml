@@ -194,4 +194,5 @@
     <color name="color_orange_dart">#FF2D55</color>
     <color name="color_orange_light">#FF9500</color>
     <color name="black_transparent">#90000000</color>
+    <color name="over_lay">#80000000</color>
 </resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginBottom="@dimen/dimen_20">
+
+        <com.example.videocutter.presentation.widget.recyclerview.CollectionView
+            android:id="@+id/cvCropVideo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_100"
+            app:layout_constraintBottom_toTopOf="@id/hvCropVideoFooter"/>
+
+        <com.example.videocutter.presentation.widget.headerview.HeaderView
+            android:id="@+id/hvCropVideoFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hv_center_label="Crop"
+            app:hv_left_icon="@drawable/ic_close_black"
+            app:hv_right_background="@drawable/shape_bg_color_1_corner_4"
+            app:hv_right_label="Done"
+            tools:layout_height="@dimen/dimen_48"
+            tools:background="@color/black"
+            app:hv_right_text_color="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
