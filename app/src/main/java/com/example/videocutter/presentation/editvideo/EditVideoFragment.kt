@@ -14,9 +14,11 @@ import com.example.videocutter.common.srceen.VideoCutterFragment
 import com.example.videocutter.databinding.EditVideoFragmentBinding
 import com.example.videocutter.presentation.editvideo.crop.CropVideoFragment
 import com.example.videocutter.presentation.editvideo.rotate.RotateFragment
+import com.example.videocutter.presentation.editvideo.speed.SpeedFragment
 import com.example.videocutter.presentation.repodisplay.model.FEATURE_TYPE
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
+import com.example.videocutter.presentation.widget.speedvideo.SPEED_TYPE
 import com.example.videocutter.presentation.widget.video.VideoControlView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -129,6 +131,13 @@ class EditVideoFragment :
                         )
                     }
 
+                    FEATURE_TYPE.SPEED -> {
+                        addFragmentInsideFragment(
+                            SpeedFragment(),
+                            screenAnim = SlideAnimation()
+                        )
+                    }
+
                     else -> {}
                 }
             }
@@ -160,7 +169,19 @@ class EditVideoFragment :
         binding.vcvEditVideo.setHasInputUser(hasInput)
     }
 
-    fun rotateVideo(rotate: Float){
+    fun rotateVideo(rotate: Float) {
         binding.vcvEditVideo.setRotate(rotate)
+    }
+
+    fun setFlipVertical() {
+        binding.vcvEditVideo.setFlipVertical()
+    }
+
+    fun setFlipHorizontal() {
+        binding.vcvEditVideo.setFlipHorizontal()
+    }
+
+    fun setSpeed(type: SPEED_TYPE) {
+        binding.vcvEditVideo.setSpeed(type.value)
     }
 }

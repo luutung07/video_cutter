@@ -12,6 +12,7 @@ import com.example.videocutter.presentation.repodisplay.IRepoDisplay
 import com.example.videocutter.presentation.repodisplay.model.CropDisplay
 import com.example.videocutter.presentation.repodisplay.model.FeatureEditVideoDisplay
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
+import com.example.videocutter.presentation.widget.speedvideo.SPEED_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +38,8 @@ class EditVideoViewModel @Inject constructor(
 
     var maxDuration = LONG_DEFAULT
     val listPath: MutableList<String> = arrayListOf()
+
+    var speedVideo: SPEED_TYPE = SPEED_TYPE.SPEED_1
 
     init {
         setUpSource()

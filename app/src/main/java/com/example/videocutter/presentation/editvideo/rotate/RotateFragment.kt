@@ -19,6 +19,9 @@ class RotateFragment: VideoCutterFragment<RotateFragmentBinding>(R.layout.rotate
                 onBackPressedFragment()
             }
 
+            setActionRight {
+                onBackPressedFragment()
+            }
         }
 
         binding.ivRotateLeft.setOnSafeClick {
@@ -30,11 +33,11 @@ class RotateFragment: VideoCutterFragment<RotateFragmentBinding>(R.layout.rotate
         }
 
         binding.ivRotateFlipHorizontal.setOnSafeClick {
-
+            parentRoot.setFlipHorizontal()
         }
 
         binding.ivRotateFlipVertical.setOnSafeClick {
-
+            parentRoot.setFlipVertical()
         }
     }
 
@@ -42,5 +45,4 @@ class RotateFragment: VideoCutterFragment<RotateFragmentBinding>(R.layout.rotate
         parentRoot.showHeader(true)
         parentFragmentManager.popBackStack()
     }
-
 }

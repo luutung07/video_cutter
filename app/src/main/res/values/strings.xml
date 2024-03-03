@@ -33,5 +33,14 @@
     <string name="crop2x3">2x3</string>
     <string name="crop4x3">4x3</string>
     <string name="crop3x4">3x4</string>
+    // speed
+    <string name="speed">Speed</string>
+    <string name="_0.75x">0.75x</string>
+    <string name="_0.5x">0.5x</string>
+    <string name="_0.25x">0.25x</string>
+    <string name="_1x">1x</string>
+    <string name="_2x">2x</string>
+    <string name="_3x">3x</string>
+    <string name="_4x">4x</string>
 
 </resources>

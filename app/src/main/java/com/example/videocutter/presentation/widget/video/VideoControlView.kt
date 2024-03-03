@@ -61,7 +61,6 @@ class VideoControlView constructor(
     private var lineBarVisualizer: LineBarVisualizer? = null
 
     private var cropVideo: CropVideo? = null
-    private var flRoot: FrameLayout? = null
 
     private var handler: Handler? = null
     private var runable: Runnable? = null
@@ -86,7 +85,6 @@ class VideoControlView constructor(
         cvExtract = findViewById(R.id.cvVideoExtract)
         lineBarVisualizer = findViewById(R.id.lineBarVisualizerVideoExtract)
         cropVideo = findViewById(R.id.cropVideo)
-        flRoot = findViewById(R.id.flVideoRoot)
         setUpAdapter()
     }
 
@@ -364,11 +362,24 @@ class VideoControlView constructor(
     }
 
     fun setRotate(rotate: Float) {
-        if (playView == null || flRoot == null) return
-        if (rotate > 0) {
-            playView!!.rotation += 90f
-        } else {
-            playView!!.rotation -= 90f
+        if (playView == null) return
+        playView!!.rotation += rotate
+    }
+
+    fun setFlipVertical() {
+        if (playView == null) return
+        playView!!.rotationX += 180f
+    }
+
+    fun setFlipHorizontal() {
+        if (playView == null) return
+        playView!!.rotationY += 180f
+    }
+
+    fun setSpeed(speed: Float) {
+        exoplayer?.setPlaybackSpeed(speed)
+        if (exoplayer?.isPlaying == false){
+            start()
         }
     }
 

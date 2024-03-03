@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_20"
+        android:background="@color/white">
+
+       <com.example.videocutter.presentation.widget.speedvideo.SpeedVideoView
+           android:id="@+id/speedVideo"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintBottom_toTopOf="@id/hvSpeedFooter"
+           android:layout_marginVertical="@dimen/dimen_20"/>
+
+        <com.example.videocutter.presentation.widget.headerview.HeaderView
+            android:id="@+id/hvSpeedFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hv_center_label="Speed"
+            app:hv_left_icon="@drawable/ic_close_black"
+            app:hv_right_background="@drawable/shape_bg_color_1_corner_4"
+            app:hv_right_label="Done"
+            app:hv_right_text_color="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:background="@color/black"
+            tools:layout_height="@dimen/dimen_48" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
