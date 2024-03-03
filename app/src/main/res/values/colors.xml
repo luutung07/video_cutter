@@ -196,4 +196,10 @@
     <color name="black_transparent">#90000000</color>
     <color name="over_lay">#80000000</color>
     <color name="color_purple">#6F4FEE</color>
+
+    <color name="spring">#1AFF0000</color>
+    <color name="summer"> #260022FF</color>
+    <color name="fall">#1AFFA500</color>
+    <color name="winter">#2E008080</color>
+
 </resources>

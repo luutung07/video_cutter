@@ -43,4 +43,11 @@
     <string name="_3x">3x</string>
     <string name="_4x">4x</string>
 
+    // filter
+    <string name="filter_original">Original</string>
+    <string name="filter_spring">Spring</string>
+    <string name="filter_summer">Summer</string>
+    <string name="filter_fall">Fall</string>
+    <string name="filter_winter">Winter</string>
+
 </resources>

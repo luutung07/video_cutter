@@ -2,6 +2,7 @@ package com.example.videocutter.presentation.editvideo
 
 import androidx.fragment.app.viewModels
 import androidx.media3.common.util.UnstableApi
+import com.example.baseapp.base.extension.getAppColor
 import com.example.baseapp.base.extension.hide
 import com.example.baseapp.base.extension.show
 import com.example.library_base.common.usecase.IViewListener
@@ -13,9 +14,11 @@ import com.example.videocutter.common.loader.aim.SlideAnimation
 import com.example.videocutter.common.srceen.VideoCutterFragment
 import com.example.videocutter.databinding.EditVideoFragmentBinding
 import com.example.videocutter.presentation.editvideo.crop.CropVideoFragment
+import com.example.videocutter.presentation.editvideo.filter.FilterFragment
 import com.example.videocutter.presentation.editvideo.rotate.RotateFragment
 import com.example.videocutter.presentation.editvideo.speed.SpeedFragment
 import com.example.videocutter.presentation.repodisplay.model.FEATURE_TYPE
+import com.example.videocutter.presentation.repodisplay.model.FILTER_TYPE
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
 import com.example.videocutter.presentation.widget.speedvideo.SPEED_TYPE
@@ -117,7 +120,6 @@ class EditVideoFragment :
                 when (type) {
                     FEATURE_TYPE.CROP -> {
                         viewModel.getListCrop()
-                        setTypeCrop(CROP_TYPE.TYPE_CUSTOM)
                         addFragmentInsideFragment(
                             CropVideoFragment(),
                             screenAnim = SlideAnimation()
@@ -134,6 +136,14 @@ class EditVideoFragment :
                     FEATURE_TYPE.SPEED -> {
                         addFragmentInsideFragment(
                             SpeedFragment(),
+                            screenAnim = SlideAnimation()
+                        )
+                    }
+
+                    FEATURE_TYPE.FILTER ->{
+                        viewModel.getListFilter()
+                        addFragmentInsideFragment(
+                            FilterFragment(),
                             screenAnim = SlideAnimation()
                         )
                     }
@@ -183,5 +193,16 @@ class EditVideoFragment :
 
     fun setSpeed(type: SPEED_TYPE) {
         binding.vcvEditVideo.setSpeed(type.value)
+    }
+
+    fun setColor(type: FILTER_TYPE){
+        val color = when(type){
+            FILTER_TYPE.ORIGINAL -> null
+            FILTER_TYPE.SUMMER -> getAppColor(R.color.summer)
+            FILTER_TYPE.SPRING -> getAppColor(R.color.spring)
+            FILTER_TYPE.FALL -> getAppColor(R.color.fall)
+            FILTER_TYPE.WINTER -> getAppColor(R.color.winter)
+        }
+        binding.vcvEditVideo.setFilter(color)
     }
 }

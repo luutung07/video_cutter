@@ -1,4 +1,4 @@
-package com.example.videocutter.presentation.editvideo.crop
+package com.example.videocutter.presentation.editvideo.filter
 
 import androidx.fragment.app.viewModels
 import com.example.library_base.common.usecase.IViewListener
@@ -6,32 +6,26 @@ import com.example.videocutter.R
 import com.example.videocutter.common.extensions.coroutinesLaunch
 import com.example.videocutter.common.extensions.handleUiState
 import com.example.videocutter.common.srceen.VideoCutterFragment
-import com.example.videocutter.databinding.CropVideoFragmentBinding
+import com.example.videocutter.databinding.FilterFragmentBinding
 import com.example.videocutter.presentation.editvideo.EditVideoFragment
 import com.example.videocutter.presentation.editvideo.EditVideoViewModel
-import com.example.videocutter.presentation.widget.crop.CROP_TYPE
+import com.example.videocutter.presentation.repodisplay.model.FILTER_TYPE
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
 
-class CropVideoFragment :
-    VideoCutterFragment<CropVideoFragmentBinding>(R.layout.crop_video_fragment) {
+class FilterFragment : VideoCutterFragment<FilterFragmentBinding>(R.layout.filter_fragment) {
 
     private val viewModel by viewModels<EditVideoViewModel>(ownerProducer = { requireParentFragment() })
 
-    private val adapter by lazy { CropAdapter() }
+    private val adapter by lazy { FilterAdapter() }
 
     private val parentRoot by lazy {
-        (parentFragment) as EditVideoFragment
-    }
-
-    override fun onPrepareInitView() {
-        super.onPrepareInitView()
-        parentRoot.hasInputUser(true)
+        parentFragment as EditVideoFragment
     }
 
     override fun onInitView() {
         super.onInitView()
-        setUpAdapter()
         setEventView()
+        setUpAdapter()
     }
 
     override fun onDestroyView() {
@@ -41,49 +35,49 @@ class CropVideoFragment :
 
     override fun onObserverViewModel() {
         super.onObserverViewModel()
-        coroutinesLaunch(viewModel.listCropState) {
+        coroutinesLaunch(viewModel.listFilterState) {
             handleUiState(it, object : IViewListener {
                 override fun onSuccess() {
-                    binding.cvCropVideo.submitList(it.data)
+                    binding.cvFilter.submitList(it.data)
                 }
             })
         }
     }
 
     override fun onBackPressedFragment() {
-        parentRoot.showHeader(true)
         parentFragmentManager.popBackStack()
     }
 
     private fun setEventView() {
-
-        parentRoot.setTypeCrop(viewModel.cropType)
-
-        binding.hvCropVideoFooter.apply {
+        binding.hvFilterFooter.apply {
             setActionLeft {
-                parentRoot.hideCrop()
-                onBackPressedFragment()
+                if (viewModel.filterType != FILTER_TYPE.ORIGINAL) {
+                    onBackPressedFragment()
+                } else {
+                    viewModel.filterType = FILTER_TYPE.ORIGINAL
+                    parentRoot.setColor(viewModel.filterType)
+                }
             }
 
             setActionRight {
-                parentRoot.hasInputUser(false)
                 onBackPressedFragment()
             }
         }
     }
 
     private fun setUpAdapter() {
-        binding.cvCropVideo.setAdapter(adapter)
-        binding.cvCropVideo.setLayoutManager(COLLECTION_MODE.HORIZONTAL)
+        binding.cvFilter.setAdapter(adapter)
+        binding.cvFilter.setLayoutManager(COLLECTION_MODE.HORIZONTAL)
+
         addListener()
     }
 
     private fun addListener() {
-        adapter.listener = object : CropAdapter.ICropCallBack {
-            override fun onCropType(type: CROP_TYPE) {
-                viewModel.cropType = type
-                viewModel.getListCrop()
-                parentRoot.setTypeCrop(type)
+        adapter.listener = object : FilterAdapter.IFilterCallBack {
+            override fun onSelectFilter(type: FILTER_TYPE) {
+                viewModel.filterType = type
+                viewModel.getListFilter()
+                parentRoot.setColor(viewModel.filterType)
             }
         }
     }

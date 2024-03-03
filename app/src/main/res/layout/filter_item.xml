@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dimen_8">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivFilter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvFilter"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/img_filter_original" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivFilterNope"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_nope"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/ivFilter"
+            app:layout_constraintEnd_toEndOf="@id/ivFilter"
+            app:layout_constraintStart_toStartOf="@id/ivFilter"
+            app:layout_constraintTop_toTopOf="@id/ivFilter"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvFilter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fbase_font_medium"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dimen_6"
+            android:textSize="@dimen/dimen_text_size_12"
+            app:layout_constraintEnd_toEndOf="@id/ivFilter"
+            app:layout_constraintStart_toStartOf="@id/ivFilter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="@string/filter_original" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -10,6 +10,7 @@ import android.os.Looper
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -62,6 +63,8 @@ class VideoControlView constructor(
 
     private var cropVideo: CropVideo? = null
 
+    private var vFilter: View? = null
+
     private var handler: Handler? = null
     private var runable: Runnable? = null
     private var runnableScrollExtract: Runnable? = null
@@ -85,6 +88,7 @@ class VideoControlView constructor(
         cvExtract = findViewById(R.id.cvVideoExtract)
         lineBarVisualizer = findViewById(R.id.lineBarVisualizerVideoExtract)
         cropVideo = findViewById(R.id.cropVideo)
+        vFilter = findViewById(R.id.vVideoFilter)
         setUpAdapter()
     }
 
@@ -378,8 +382,17 @@ class VideoControlView constructor(
 
     fun setSpeed(speed: Float) {
         exoplayer?.setPlaybackSpeed(speed)
-        if (exoplayer?.isPlaying == false){
+        if (exoplayer?.isPlaying == false) {
             start()
+        }
+    }
+
+    fun setFilter(color: Int?) {
+        if (color == null) {
+            vFilter?.gone()
+        } else {
+            vFilter?.show()
+            vFilter?.setBackgroundColor(color!!)
         }
     }
 

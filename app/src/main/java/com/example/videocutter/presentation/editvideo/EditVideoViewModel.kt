@@ -10,7 +10,9 @@ import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.domain.model.VideoInfo
 import com.example.videocutter.presentation.repodisplay.IRepoDisplay
 import com.example.videocutter.presentation.repodisplay.model.CropDisplay
+import com.example.videocutter.presentation.repodisplay.model.FILTER_TYPE
 import com.example.videocutter.presentation.repodisplay.model.FeatureEditVideoDisplay
+import com.example.videocutter.presentation.repodisplay.model.FilterDisplay
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import com.example.videocutter.presentation.widget.speedvideo.SPEED_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,6 +38,10 @@ class EditVideoViewModel @Inject constructor(
     val listCropState = _listCropState.asStateFlow()
     var cropType = CROP_TYPE.TYPE_CUSTOM
 
+    private var _listFilterState = MutableStateFlow(FlowResult.newInstance<List<FilterDisplay>>())
+    val listFilterState = _listFilterState.asStateFlow()
+    var filterType = FILTER_TYPE.ORIGINAL
+
     var maxDuration = LONG_DEFAULT
     val listPath: MutableList<String> = arrayListOf()
 
@@ -60,10 +66,17 @@ class EditVideoViewModel @Inject constructor(
         }
     }
 
-     fun getListCrop() {
+    fun getListCrop() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repoDisplay.getListCrop(cropType)
             _listCropState.success(result)
+        }
+    }
+
+    fun getListFilter() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repoDisplay.getListFilter(filterType)
+            _listFilterState.success(result)
         }
     }
 }

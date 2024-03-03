@@ -7,25 +7,38 @@
 
     <androidx.media3.ui.PlayerView
         android:id="@+id/pvVideo"
-        app:use_controller="false"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/black"
-        app:surface_type="texture_view"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:surface_type="texture_view"
+        app:use_controller="false" />
 
     <com.example.videocutter.presentation.widget.crop.CropVideo
         android:id="@+id/cropVideo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@+id/pvVideo"
-        app:layout_constraintStart_toStartOf="@id/pvVideo"
-        app:layout_constraintEnd_toEndOf="@id/pvVideo"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/pvVideo"
-        android:visibility="gone"/>
+        app:layout_constraintEnd_toEndOf="@id/pvVideo"
+        app:layout_constraintStart_toStartOf="@id/pvVideo"
+        app:layout_constraintTop_toTopOf="@+id/pvVideo" />
+
+    <View
+        android:id="@+id/vVideoFilter"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:visibility="visible"
+        android:visibility="gone"
+        tools:background="@color/summer"
+        app:layout_constraintBottom_toBottomOf="@id/pvVideo"
+        app:layout_constraintEnd_toEndOf="@id/pvVideo"
+        app:layout_constraintStart_toStartOf="@id/pvVideo"
+        app:layout_constraintTop_toTopOf="@id/pvVideo" />
 
     <com.example.videocutter.presentation.widget.timeline.TimelineView
         android:id="@+id/tlvVideo"
@@ -48,8 +61,8 @@
             android:id="@+id/cvVideoExtract"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
             android:clipToPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_height="@dimen/dimen_40" />
