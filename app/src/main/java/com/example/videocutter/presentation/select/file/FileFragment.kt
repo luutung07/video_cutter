@@ -47,6 +47,9 @@ class FileFragment : VideoCutterFragment<FileFragmentBinding>(R.layout.file_frag
         coroutinesLaunch(viewModel.fileState) {
             handleUiState(it, object : IViewListener {
                 override fun onSuccess() {
+                    it.data?.forEach {
+                        Log.d(TAG, "onSuccess: $it")
+                    }
                     binding.cvFile.submitList(it.data, viewModel.dataPage.hasLoadMore())
                 }
             })

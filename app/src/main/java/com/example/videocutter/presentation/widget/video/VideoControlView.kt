@@ -73,6 +73,8 @@ class VideoControlView constructor(
 
     private val extractAdapter by lazy { ExtractVideoAdapter() }
 
+    private var threadExtractFrameVideo: Thread? = null
+
     var listenerStateVideo: IVideoControlCallback.IStateVideo? = null
 
     init {
@@ -190,42 +192,45 @@ class VideoControlView constructor(
 
     @UnstableApi
     private fun extractFrameFromVideo() {
-        Thread {
-            try {
-                val mediaMetadataRetriever = MediaMetadataRetriever()
-                listPath.forEach {
-                    mediaMetadataRetriever.setDataSource(
-                        ctx,
-                        Uri.parse(it)
-                    )
-                    // Retrieve media data use microsecond
-                    val durationStr =
-                        mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
-                    val duration = durationStr!!.toLong()
-                    for (i in 0 until duration step 1000) {
-                        val bitmap =
-                            mediaMetadataRetriever.getFrameAtTime(
-                                i * 1000,
-                                MediaMetadataRetriever.OPTION_CLOSEST_SYNC
-                            )
-                        try {
-                            bitmap?.let { bitmap -> listFrame.add(bitmap) }
-                        } catch (t: Throwable) {
-                            t.printStackTrace()
+        if (threadExtractFrameVideo == null) {
+            threadExtractFrameVideo = Thread {
+                try {
+                    val mediaMetadataRetriever = MediaMetadataRetriever()
+                    listPath.forEach {
+                        mediaMetadataRetriever.setDataSource(
+                            ctx,
+                            Uri.parse(it)
+                        )
+                        // Retrieve media data use microsecond
+                        val durationStr =
+                            mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+                        val duration = durationStr!!.toLong()
+                        for (i in 0 until duration step 1000) {
+                            val bitmap =
+                                mediaMetadataRetriever.getFrameAtTime(
+                                    i * 1000,
+                                    MediaMetadataRetriever.OPTION_CLOSEST_SYNC
+                                )
+                            try {
+                                bitmap?.let { bitmap -> listFrame.add(bitmap) }
+                            } catch (t: Throwable) {
+                                t.printStackTrace()
+                            }
                         }
                     }
+                    mediaMetadataRetriever.release()
+                } catch (e: Throwable) {
+                    Thread.getDefaultUncaughtExceptionHandler()
+                        .uncaughtException(Thread.currentThread(), e)
                 }
-                mediaMetadataRetriever.release()
-            } catch (e: Throwable) {
-                Thread.getDefaultUncaughtExceptionHandler()
-                    .uncaughtException(Thread.currentThread(), e)
+                handler?.post {
+                    clExtractRoot?.show()
+                    cvExtract?.submitList(listFrame.toList())
+                    setExoplayer()
+                }
             }
-            handler?.post {
-                clExtractRoot?.show()
-                cvExtract?.submitList(listFrame.toList())
-                setExoplayer()
-            }
-        }.start()
+        }
+        threadExtractFrameVideo!!.start()
     }
 
     @UnstableApi
@@ -330,7 +335,7 @@ class VideoControlView constructor(
         runable?.let {
             handler?.removeCallbacks(it)
         }
-
+        threadExtractFrameVideo = null
         runable = null
         handler = null
     }

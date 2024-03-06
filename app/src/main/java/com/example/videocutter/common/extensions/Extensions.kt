@@ -1,6 +1,7 @@
 package com.example.videocutter.common.extensions
 
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.ImageView
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
@@ -188,4 +189,10 @@ fun Long.convertTimeToString(): String {
     val seconds: Long = this / 1000 % 60 // Extract seconds from milliseconds
     val minutes: Long = this / (1000 * 60) % 60 // Extract minutes from milliseconds
     return String.format("%02d:%02d", minutes, seconds)
+}
+
+fun View.getCoordinateXView(): Int {
+    val location = IntArray(2)
+    this.getLocationOnScreen(location)
+    return location[0]
 }
