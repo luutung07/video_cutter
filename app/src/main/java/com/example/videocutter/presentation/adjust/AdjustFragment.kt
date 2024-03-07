@@ -74,6 +74,7 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
     override fun onBackPressedFragment() {
         Log.d(TAG, "onBackPressedFragment")
         EventBusManager.instance?.postPending(DeleteVideoEvent(viewModel.listVideoInfoSelected))
+        mainViewModel.resetDetach()
         super.onBackPressedFragment()
     }
 
@@ -119,6 +120,7 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
             }
 
             setActionRight {
+                mainViewModel.detachFrameVideo(viewModel.listPath)
                 replaceFragmentInsideFragment(LoadingPrepareVideoFragment())
             }
         }
@@ -130,6 +132,7 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
         binding.cvAdjust.setLayoutManager(COLLECTION_MODE.HORIZONTAL)
         binding.cvAdjust.setDragRecyclerView(false) { oldIndex, newIndex ->
             viewModel.swapVideo(oldIndex, newIndex)
+            mainViewModel.resetDetach()
             binding.vcvAdjust.swapListPath(oldIndex, newIndex)
         }
 
@@ -141,6 +144,7 @@ class AdjustFragment : VideoCutterFragment<AdjustFragmentBinding>(R.layout.adjus
         adapter.listener = object : AdjustAdapter.IAdjustCallBack {
             override fun onDelete(id: Long?, path: String) {
                 viewModel.deleteVideo(id)
+                mainViewModel.resetDetach()
                 binding.vcvAdjust.deletePath(path)
                 binding.vcvAdjust.setTimeLimeMax(viewModel.maxDuration)
             }

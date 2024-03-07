@@ -43,7 +43,7 @@ class HomeFragment : VideoCutterFragment<HomeFragmentBinding>(R.layout.home_frag
             navigateTo(R.id.fragmentSelect)
         }
 
-        binding.trim.extractFrameFromVideo("/storage/emulated/0/Pictures/Screenshots/Record_2024-03-02-00-21-05_95efe893111dbaee1d6d49b1dae54f76.mp4")
+        binding.trim.extractFrameFromVideo("/storage/emulated/0/DCIM/Camera/VID_20240306_164057.mp4")
 
         requestPermission()
     }

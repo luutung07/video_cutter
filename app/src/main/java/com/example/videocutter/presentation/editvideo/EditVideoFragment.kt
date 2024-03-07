@@ -44,7 +44,6 @@ class EditVideoFragment :
     @UnstableApi
     override fun onInitView() {
         super.onInitView()
-        showLoading()
         setUpView()
         setUpAdapter()
     }
@@ -82,17 +81,16 @@ class EditVideoFragment :
 
         binding.vcvEditVideo.apply {
             setTimeCenter(viewModel.maxDuration.convertTimeToString())
-            setListPath(viewModel.listPath, hasExtract = true, hasTimeStart = false)
+            setListPath(
+                viewModel.listPath,
+                listFrameDetach = mainViewModel.listFrameDetach.value.data,
+                hasTimeStart = false
+            )
             hasTimeStart(false)
             listenerStateVideo = object : VideoControlView.IVideoControlCallback.IStateVideo {
 
                 override fun onVideoEnd() {
                     isPlay = false
-                }
-
-                override fun onInitVideoSuccess() {
-                    super.onInitVideoSuccess()
-                    hideLoading()
                 }
             }
             setOnLeftListener {
@@ -140,7 +138,7 @@ class EditVideoFragment :
                         )
                     }
 
-                    FEATURE_TYPE.FILTER ->{
+                    FEATURE_TYPE.FILTER -> {
                         viewModel.getListFilter()
                         addFragmentInsideFragment(
                             FilterFragment(),
@@ -195,8 +193,8 @@ class EditVideoFragment :
         binding.vcvEditVideo.setSpeed(type.value)
     }
 
-    fun setColor(type: FILTER_TYPE){
-        val color = when(type){
+    fun setColor(type: FILTER_TYPE) {
+        val color = when (type) {
             FILTER_TYPE.ORIGINAL -> null
             FILTER_TYPE.SUMMER -> getAppColor(R.color.summer)
             FILTER_TYPE.SPRING -> getAppColor(R.color.spring)

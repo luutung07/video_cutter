@@ -73,8 +73,6 @@ class VideoControlView constructor(
 
     private val extractAdapter by lazy { ExtractVideoAdapter() }
 
-    private var threadExtractFrameVideo: Thread? = null
-
     var listenerStateVideo: IVideoControlCallback.IStateVideo? = null
 
     init {
@@ -190,59 +188,22 @@ class VideoControlView constructor(
         cvExtract?.setLayoutManager(COLLECTION_MODE.HORIZONTAL)
     }
 
-    @UnstableApi
-    private fun extractFrameFromVideo() {
-        if (threadExtractFrameVideo == null) {
-            threadExtractFrameVideo = Thread {
-                try {
-                    val mediaMetadataRetriever = MediaMetadataRetriever()
-                    listPath.forEach {
-                        mediaMetadataRetriever.setDataSource(
-                            ctx,
-                            Uri.parse(it)
-                        )
-                        // Retrieve media data use microsecond
-                        val durationStr =
-                            mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
-                        val duration = durationStr!!.toLong()
-                        for (i in 0 until duration step 1000) {
-                            val bitmap =
-                                mediaMetadataRetriever.getFrameAtTime(
-                                    i * 1000,
-                                    MediaMetadataRetriever.OPTION_CLOSEST_SYNC
-                                )
-                            try {
-                                bitmap?.let { bitmap -> listFrame.add(bitmap) }
-                            } catch (t: Throwable) {
-                                t.printStackTrace()
-                            }
-                        }
-                    }
-                    mediaMetadataRetriever.release()
-                } catch (e: Throwable) {
-                    Thread.getDefaultUncaughtExceptionHandler()
-                        .uncaughtException(Thread.currentThread(), e)
-                }
-                handler?.post {
-                    clExtractRoot?.show()
-                    cvExtract?.submitList(listFrame.toList())
-                    setExoplayer()
-                }
-            }
-        }
-        threadExtractFrameVideo!!.start()
-    }
 
     @UnstableApi
-    fun setListPath(list: List<String>, hasExtract: Boolean = false, hasTimeStart: Boolean = true) {
+    fun setListPath(
+        list: List<String>,
+        hasTimeStart: Boolean = true,
+        listFrameDetach: List<Bitmap>? = null
+    ) {
         listPath = list
-        this.hasExtract = hasExtract
+        this.hasExtract = listFrameDetach != null
         if (hasExtract) {
-            extractFrameFromVideo()
-        } else {
-            setExoplayer()
+            clExtractRoot?.show()
+            cvExtract?.submitList(listFrameDetach)
+        }else{
+            clExtractRoot?.gone()
         }
-
+        setExoplayer()
         if (hasTimeStart) {
             timeLine?.setTvStart(getAppString(R.string.time_start))
         }
@@ -335,7 +296,6 @@ class VideoControlView constructor(
         runable?.let {
             handler?.removeCallbacks(it)
         }
-        threadExtractFrameVideo = null
         runable = null
         handler = null
     }

@@ -48,7 +48,7 @@ class FileFragment : VideoCutterFragment<FileFragmentBinding>(R.layout.file_frag
             handleUiState(it, object : IViewListener {
                 override fun onSuccess() {
                     it.data?.forEach {
-                        Log.d(TAG, "onSuccess: $it")
+                        Log.d(TAG, "onSuccess: ${it.getVideoInfo().thumbnailUrl}")
                     }
                     binding.cvFile.submitList(it.data, viewModel.dataPage.hasLoadMore())
                 }

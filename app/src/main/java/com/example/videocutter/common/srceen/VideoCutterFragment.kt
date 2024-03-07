@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.library_base.common.binding.BaseBindingFragment
@@ -13,6 +14,7 @@ import com.example.library_base.eventbus.IEvent
 import com.example.library_base.eventbus.IEventHandler
 import com.example.videocutter.common.extensions.getUpNavOptions
 import com.example.videocutter.presentation.MainActivity
+import com.example.videocutter.presentation.MainViewModel
 import com.example.videocutter.presentation.widget.headeralert.HEADER_ALERT_TIME_SHOWN
 import com.example.videocutter.presentation.widget.headeralert.HEADER_ALERT_TYPE
 import org.greenrobot.eventbus.Subscribe
@@ -21,7 +23,9 @@ import org.greenrobot.eventbus.ThreadMode
 open class VideoCutterFragment<DB : ViewDataBinding>(@LayoutRes layout: Int) :
     BaseBindingFragment<DB>(layout), IVideoCutterContext, IEventHandler {
 
-    val mainActivity by lazy { requireActivity() as MainActivity }
+    protected val mainActivity by lazy { requireActivity() as MainActivity }
+
+    protected val mainViewModel by activityViewModels<MainViewModel>()
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     override fun onEvent(event: IEvent) {

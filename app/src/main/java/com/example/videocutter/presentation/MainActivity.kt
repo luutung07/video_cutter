@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : VideoCutterActivity<ActivityMainBinding>(R.layout.activity_main) {
+
     override fun showLoading(message: String) {
         super.showLoading(message)
         binding.flMainLoading.show()
