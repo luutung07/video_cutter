@@ -1,11 +1,15 @@
 package com.example.videocutter.presentation.repodisplay.repo
 
+import android.media.MediaMetadataRetriever
+import android.net.Uri
+import com.example.library_base.extension.getApplication
 import com.example.videocutter.presentation.repodisplay.IRepoDisplay
-import com.example.videocutter.presentation.repodisplay.model.CropDisplay
-import com.example.videocutter.presentation.repodisplay.model.FEATURE_TYPE
-import com.example.videocutter.presentation.repodisplay.model.FILTER_TYPE
-import com.example.videocutter.presentation.repodisplay.model.FeatureEditVideoDisplay
-import com.example.videocutter.presentation.repodisplay.model.FilterDisplay
+import com.example.videocutter.presentation.repodisplay.model.editvideo.CropDisplay
+import com.example.videocutter.presentation.repodisplay.model.editvideo.DetachFrameDisplay
+import com.example.videocutter.presentation.repodisplay.model.editvideo.FEATURE_TYPE
+import com.example.videocutter.presentation.repodisplay.model.editvideo.FILTER_TYPE
+import com.example.videocutter.presentation.repodisplay.model.editvideo.FeatureEditVideoDisplay
+import com.example.videocutter.presentation.repodisplay.model.editvideo.FilterDisplay
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import javax.inject.Inject
 
@@ -38,11 +42,69 @@ class RepoDisplayImpl @Inject constructor() : IRepoDisplay {
 
     override fun getListFilter(filterType: FILTER_TYPE): List<FilterDisplay> {
         val list: MutableList<FilterDisplay> = arrayListOf()
-        list.add(FilterDisplay(filterType = FILTER_TYPE.ORIGINAL, isSelect = filterType == FILTER_TYPE.ORIGINAL))
-        list.add(FilterDisplay(filterType = FILTER_TYPE.SPRING, isSelect = filterType == FILTER_TYPE.SPRING))
-        list.add(FilterDisplay(filterType = FILTER_TYPE.SUMMER, isSelect = filterType == FILTER_TYPE.SUMMER))
-        list.add(FilterDisplay(filterType = FILTER_TYPE.FALL, isSelect = filterType == FILTER_TYPE.FALL))
-        list.add(FilterDisplay(filterType = FILTER_TYPE.WINTER, isSelect = filterType == FILTER_TYPE.WINTER))
+        list.add(
+            FilterDisplay(
+                filterType = FILTER_TYPE.ORIGINAL,
+                isSelect = filterType == FILTER_TYPE.ORIGINAL
+            )
+        )
+        list.add(
+            FilterDisplay(
+                filterType = FILTER_TYPE.SPRING,
+                isSelect = filterType == FILTER_TYPE.SPRING
+            )
+        )
+        list.add(
+            FilterDisplay(
+                filterType = FILTER_TYPE.SUMMER,
+                isSelect = filterType == FILTER_TYPE.SUMMER
+            )
+        )
+        list.add(
+            FilterDisplay(
+                filterType = FILTER_TYPE.FALL,
+                isSelect = filterType == FILTER_TYPE.FALL
+            )
+        )
+        list.add(
+            FilterDisplay(
+                filterType = FILTER_TYPE.WINTER,
+                isSelect = filterType == FILTER_TYPE.WINTER
+            )
+        )
         return list
+    }
+
+    override fun getFrameDetach(list: List<String>): List<DetachFrameDisplay> {
+        val result: MutableList<DetachFrameDisplay> = arrayListOf()
+        return try {
+            val mediaMetadataRetriever = MediaMetadataRetriever()
+            list.forEach {
+                mediaMetadataRetriever.setDataSource(
+                    getApplication(),
+                    Uri.parse(it)
+                )
+                // Retrieve media data use microsecond
+                val durationStr =
+                    mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+                val duration = durationStr!!.toLong()
+                for (i in 0 until duration step 1000) {
+                    val bitmap =
+                        mediaMetadataRetriever.getFrameAtTime(
+                            i * 1000,
+                            MediaMetadataRetriever.OPTION_CLOSEST_SYNC
+                        )
+                    try {
+                        bitmap?.let { result.add(DetachFrameDisplay(it, i)) }
+                    } catch (t: Throwable) {
+                        t.printStackTrace()
+                    }
+                }
+            }
+            mediaMetadataRetriever.release()
+            result
+        } catch (e: Throwable) {
+            throw e
+        }
     }
 }

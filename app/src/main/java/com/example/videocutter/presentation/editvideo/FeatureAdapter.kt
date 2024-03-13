@@ -7,8 +7,8 @@ import com.example.library_base.adapter.BaseVH
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.FeatureEditVideoItemBinding
-import com.example.videocutter.presentation.repodisplay.model.FEATURE_TYPE
-import com.example.videocutter.presentation.repodisplay.model.FeatureEditVideoDisplay
+import com.example.videocutter.presentation.repodisplay.model.editvideo.FEATURE_TYPE
+import com.example.videocutter.presentation.repodisplay.model.editvideo.FeatureEditVideoDisplay
 
 class FeatureAdapter : BaseAdapter() {
 

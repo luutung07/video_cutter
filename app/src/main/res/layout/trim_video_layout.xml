@@ -5,58 +5,91 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.example.videocutter.presentation.widget.recyclerview.CollectionView
-        android:id="@+id/cvTrimFrame"
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/pvTrim"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/vTrimBottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/vTrimTop" />
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:use_controller="false" />
 
     <ImageView
-        android:id="@+id/ivTrimStart"
+        android:id="@+id/ivTrimPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_start_point"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        android:padding="@dimen/dimen_10"
+        android:src="@drawable/ic_btn_pause"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/pvTrim" />
 
-    <ImageView
-        android:id="@+id/ivTrimEnd"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTrim"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_start_point"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/vTrimTop"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dimen_4"
-        android:background="@color/black"
+        android:layout_marginHorizontal="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ivTrimStart" />
+        app:layout_constraintTop_toBottomOf="@id/ivTrimPlay">
 
-    <View
-        android:id="@+id/vTrimBottom"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dimen_4"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/ivTrimStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.example.videocutter.presentation.widget.recyclerview.CollectionView
+            android:id="@+id/cvTrimFrame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/dimen_10"
+            app:layout_constraintBottom_toBottomOf="@id/vTrimBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/vTrimTop" />
 
-    <ImageView
-        android:id="@+id/ivTrimVideoTimeline"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:src="@drawable/ic_time_trim"
-        app:layout_constraintBottom_toBottomOf="@id/vTrimBottom"
-        app:layout_constraintStart_toEndOf="@id/ivTrimStart"
-        app:layout_constraintTop_toTopOf="@id/vTrimTop" />
+        <ImageView
+            android:id="@+id/ivTrimStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_start_point"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivTrimEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_start_point"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/vTrimTop"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_4"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivTrimStart" />
+
+        <View
+            android:id="@+id/vTrimBottom"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_4"
+            android:background="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/ivTrimStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivTrimVideoTimeline"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_time_trim"
+            app:layout_constraintBottom_toBottomOf="@id/vTrimBottom"
+            app:layout_constraintStart_toEndOf="@id/ivTrimStart"
+            app:layout_constraintTop_toTopOf="@id/vTrimTop" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

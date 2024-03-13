@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/flMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20"
+            android:layout_marginVertical="@dimen/dimen_20"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivMusicCutSound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_soundwave"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvMusicTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fbase_font_regular"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/dimen_text_size_12"
+                tools:text="01:35" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvMusicName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:ellipsize="end"
+            android:fontFamily="@font/fbase_font_medium"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_text_size_18"
+            app:layout_constraintBottom_toBottomOf="@+id/flMusic"
+            app:layout_constraintEnd_toStartOf="@+id/ivMusicSelect"
+            app:layout_constraintStart_toEndOf="@id/flMusic"
+            app:layout_constraintTop_toTopOf="@+id/flMusic"
+            tools:text="Celebrate" />
+
+        <ImageView
+            android:id="@+id/ivMusicSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_10"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            android:padding="@dimen/dimen_10"
+            android:src="@drawable/ic_download"
+            app:layout_constraintBottom_toBottomOf="@id/tvMusicName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvMusicName" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clMusicSelectMusic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginTop="@dimen/dimen_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMusicName">
+
+            <ImageView
+                android:id="@+id/ivMusicPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_20"
+                android:padding="@dimen/dimen_10"
+                android:src="@drawable/ic_btn_play"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.example.videocutter.presentation.widget.addmusic.AddMusicView
+                android:id="@+id/amvMusic"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                app:layout_constraintBottom_toBottomOf="@+id/ivMusicPlay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivMusicPlay"
+                app:layout_constraintTop_toTopOf="@+id/ivMusicPlay" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/gray_10"
+            app:layout_constraintTop_toBottomOf="@id/clMusicSelectMusic" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

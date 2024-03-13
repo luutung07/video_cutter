@@ -10,7 +10,7 @@ import com.example.library_base.adapter.BaseVH
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.VideoSelectItemBinding
-import com.example.videocutter.presentation.repodisplay.model.VideoInfoDisplay
+import com.example.videocutter.presentation.repodisplay.model.video.VideoInfoDisplay
 
 class FileAdapter : BaseGridAdapter() {
 

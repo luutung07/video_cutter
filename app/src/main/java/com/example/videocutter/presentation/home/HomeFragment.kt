@@ -2,6 +2,7 @@ package com.example.videocutter.presentation.home
 
 import android.os.Build
 import android.util.Log
+import androidx.media3.common.util.UnstableApi
 import com.example.baseapp.base.extension.checkBeforeBack
 import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.library_base.common.BaseActivity
@@ -17,6 +18,7 @@ class HomeFragment : VideoCutterFragment<HomeFragmentBinding>(R.layout.home_frag
         HomeAdapter()
     }
 
+    @UnstableApi
     override fun onInitView() {
         super.onInitView()
         setUpAdapter()
@@ -38,13 +40,11 @@ class HomeFragment : VideoCutterFragment<HomeFragmentBinding>(R.layout.home_frag
         binding.cvHome.submitList(list)
     }
 
+    @UnstableApi
     private fun setUpView() {
         binding.llHomeStart.setOnSafeClick {
-            navigateTo(R.id.fragmentSelect)
+            navigateTo(R.id.addMusicFragment)
         }
-
-        binding.trim.extractFrameFromVideo("/storage/emulated/0/DCIM/Camera/VID_20240306_164057.mp4")
-
         requestPermission()
     }
 

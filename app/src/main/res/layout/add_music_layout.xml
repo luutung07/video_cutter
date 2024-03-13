@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clAddMusicRoot"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/vAddMusicBackGround"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_4"
+        android:background="@color/gray"
+        android:layout_marginHorizontal="@dimen/dimen_32"
+        app:layout_constraintBottom_toBottomOf="@id/vAddMusicProgress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/vAddMusicProgress" />
+
+    <View
+        android:id="@+id/vAddMusicProgress"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_4"
+        android:layout_marginHorizontal="@dimen/dimen_12"
+        tools:visibility="gone"
+        android:background="@drawable/shape_bg_color_1_corner_2"
+        app:layout_constraintEnd_toEndOf="@id/clAddMusicRight"
+        app:layout_constraintStart_toStartOf="@id/clAddMusicLeft"
+        app:layout_constraintTop_toTopOf="@id/clAddMusicLeft" />
+
+    <TextView
+        android:id="@+id/tvAddMusicTimeLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_6"
+        android:fontFamily="@font/fbase_font_regular"
+        android:textSize="@dimen/dimen_text_size_12"
+        app:layout_constraintBottom_toTopOf="@id/clAddMusicLeft"
+        app:layout_constraintStart_toStartOf="@id/clAddMusicLeft"
+        tools:text="00:00" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clAddMusicLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_text_size_20"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        android:paddingHorizontal="@dimen/dimen_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/vAddMusicLeft"
+            android:layout_width="@dimen/dimen_4"
+            android:layout_height="@dimen/dimen_26"
+            android:background="@drawable/shape_bg_color_1_corner_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="@dimen/dimen_6"
+            android:layout_height="@dimen/dimen_6"
+            android:background="@drawable/shape_oval_bg_color_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/vAddMusicLeft"
+            app:layout_constraintStart_toStartOf="@id/vAddMusicLeft" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvAddMusicTimeCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fbase_font_regular"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/dimen_text_size_12"
+        app:layout_constraintBottom_toBottomOf="@+id/clAddMusicLeft"
+        app:layout_constraintEnd_toStartOf="@+id/clAddMusicRight"
+        app:layout_constraintStart_toEndOf="@+id/clAddMusicLeft"
+        app:layout_constraintTop_toTopOf="@+id/clAddMusicLeft"
+        tools:text="00:00" />
+
+    <TextView
+        android:id="@+id/tvAddMusicTimeRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_6"
+        android:fontFamily="@font/fbase_font_regular"
+        android:textSize="@dimen/dimen_text_size_12"
+        app:layout_constraintBottom_toTopOf="@id/clAddMusicLeft"
+        app:layout_constraintEnd_toEndOf="@id/clAddMusicRight"
+        tools:text="00:00" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clAddMusicRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_text_size_20"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/dimen_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/vAddMusicRight"
+            android:layout_width="@dimen/dimen_4"
+            android:layout_height="@dimen/dimen_26"
+            android:background="@drawable/shape_bg_color_1_corner_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="@dimen/dimen_6"
+            android:layout_height="@dimen/dimen_6"
+            android:background="@drawable/shape_oval_bg_color_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/vAddMusicRight"
+            app:layout_constraintStart_toStartOf="@id/vAddMusicRight" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

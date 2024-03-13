@@ -49,5 +49,6 @@
     <string name="filter_summer">Summer</string>
     <string name="filter_fall">Fall</string>
     <string name="filter_winter">Winter</string>
+    <string name="music">Music</string>
 
 </resources>

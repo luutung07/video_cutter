@@ -6,4 +6,5 @@ object AppConfig {
     const val TIME_DELAY = 350L
     const val TIME_DELAY_PLAY_VIDEO = 1000L
     const val TIME_DELAY_EDIT_VIDEO = 2000L
+    const val TIME_DELAY_RUN_VIDEO = 120L
 }

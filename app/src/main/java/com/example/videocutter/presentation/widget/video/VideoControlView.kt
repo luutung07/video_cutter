@@ -3,19 +3,15 @@ package com.example.videocutter.presentation.widget.video
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.media.MediaMetadataRetriever
-import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
@@ -24,6 +20,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ConcatenatingMediaSource2
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.ui.PlayerView
+import androidx.recyclerview.widget.RecyclerView
 import com.chibde.visualizer.LineBarVisualizer
 import com.example.baseapp.base.extension.getAppDrawable
 import com.example.baseapp.base.extension.getAppString
@@ -34,6 +31,7 @@ import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.AppConfig
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.convertTimeToString
+import com.example.videocutter.presentation.repodisplay.model.editvideo.DetachFrameDisplay
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import com.example.videocutter.presentation.widget.crop.CropVideo
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
@@ -172,6 +170,12 @@ class VideoControlView constructor(
     }
 
     private fun updateScrollExtractVideo() {
+        cvExtract?.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                Log.d(TAG, "onScrolled: $dx")
+            }
+        })
         runnableScrollExtract = object : Runnable {
             override fun run() {
                 val index = ((exoplayer?.currentPosition ?: 1) * (cvExtract?.width
@@ -193,7 +197,7 @@ class VideoControlView constructor(
     fun setListPath(
         list: List<String>,
         hasTimeStart: Boolean = true,
-        listFrameDetach: List<Bitmap>? = null
+        listFrameDetach: List<DetachFrameDisplay>? = null
     ) {
         listPath = list
         this.hasExtract = listFrameDetach != null

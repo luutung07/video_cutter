@@ -15,7 +15,7 @@ import com.example.videocutter.common.datapage.VideoDataPage
 import com.example.videocutter.domain.model.VideoInfo
 import com.example.videocutter.domain.usecase.GetFileVideoUseCase
 import com.example.videocutter.domain.usecase.GetFolderVideoUseCase
-import com.example.videocutter.presentation.repodisplay.model.VideoInfoDisplay
+import com.example.videocutter.presentation.repodisplay.model.video.VideoInfoDisplay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

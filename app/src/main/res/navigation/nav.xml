@@ -29,4 +29,10 @@
         android:label="EditVideoFragment"
         tools:layout="@layout/edit_video_fragment" />
 
+    <fragment
+        android:id="@+id/addMusicFragment"
+        android:name="com.example.videocutter.presentation.music.AddMusicFragment"
+        android:label="AddMusicFragment"
+        tools:layout="@layout/add_music_fragment" />
+
 </navigation>

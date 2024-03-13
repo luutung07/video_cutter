@@ -5,12 +5,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.library_base.adapter.BaseAdapter
 import com.example.library_base.adapter.BaseDiffUtilCallback
-import com.example.library_base.adapter.BaseDiffUtilItemCallback
 import com.example.library_base.adapter.BaseVH
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.CropVideoItemBinding
-import com.example.videocutter.presentation.repodisplay.model.CropDisplay
+import com.example.videocutter.presentation.repodisplay.model.editvideo.CropDisplay
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 
 class CropAdapter : BaseAdapter() {

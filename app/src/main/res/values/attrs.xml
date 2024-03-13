@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="CollectionView">
-    </declare-styleable>
+    <declare-styleable name="CollectionView"></declare-styleable>
 
     <declare-styleable name="HeaderView">
         <attr name="hv_left_icon" format="reference" />
@@ -24,6 +23,11 @@
         <attr name="hv_right_background" format="reference" />
 
         <attr name="hv_show_divider" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TabSelectView">
+        <attr name="ts_text_left" format="string" />
+        <attr name="ts_text_right" format="string" />
     </declare-styleable>
 
 </resources>

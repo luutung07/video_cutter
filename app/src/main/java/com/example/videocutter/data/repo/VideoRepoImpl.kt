@@ -265,37 +265,4 @@ class VideoRepoImpl @Inject constructor() : IVideoRepo {
         putString(ContentResolver.QUERY_ARG_SQL_SELECTION, whereCondition)
         putStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS, selectionArgs)
     }
-
-    override fun getFrameDetach(list: List<String>): List<Bitmap> {
-        val result: MutableList<Bitmap> = arrayListOf()
-        return try {
-            val mediaMetadataRetriever = MediaMetadataRetriever()
-            list.forEach {
-                mediaMetadataRetriever.setDataSource(
-                    getApplication(),
-                    Uri.parse(it)
-                )
-                // Retrieve media data use microsecond
-                val durationStr =
-                    mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
-                val duration = durationStr!!.toLong()
-                for (i in 0 until duration step 1000) {
-                    val bitmap =
-                        mediaMetadataRetriever.getFrameAtTime(
-                            i * 1000,
-                            MediaMetadataRetriever.OPTION_CLOSEST_SYNC
-                        )
-                    try {
-                        bitmap?.let { it -> result.add(it) }
-                    } catch (t: Throwable) {
-                        t.printStackTrace()
-                    }
-                }
-            }
-            mediaMetadataRetriever.release()
-            result
-        } catch (e: Throwable) {
-            throw e
-        }
-    }
 }

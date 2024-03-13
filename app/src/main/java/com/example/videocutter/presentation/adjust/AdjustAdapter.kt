@@ -10,7 +10,7 @@ import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.ItemAddVideoBinding
 import com.example.videocutter.databinding.VideoSelectedItemBinding
 import com.example.videocutter.domain.model.VideoInfo
-import com.example.videocutter.presentation.repodisplay.model.VideoInfoDisplay
+import com.example.videocutter.presentation.repodisplay.model.video.VideoInfoDisplay
 
 class AdjustAdapter : BaseAdapter() {
 

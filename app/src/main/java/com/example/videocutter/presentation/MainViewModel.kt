@@ -1,31 +1,26 @@
 package com.example.videocutter.presentation
 
-import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.library_base.common.failure
-import com.example.library_base.common.onException
 import com.example.library_base.common.reset
 import com.example.library_base.common.success
 import com.example.library_base.common.usecase.FlowResult
-import com.example.videocutter.domain.model.VideoInfo
-import com.example.videocutter.domain.repo.IVideoRepo
-import com.example.videocutter.domain.usecase.GetListFrameDetachUseCase
+import com.example.videocutter.presentation.repodisplay.IRepoDisplay
+import com.example.videocutter.presentation.repodisplay.model.editvideo.DetachFrameDisplay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getListFrameDetachUseCase: GetListFrameDetachUseCase
+    private val repoDisplay: IRepoDisplay
 ) : ViewModel() {
 
-    private var _listFrameDetach = MutableStateFlow(FlowResult.newInstance<List<Bitmap>>())
+    private var _listFrameDetach = MutableStateFlow(FlowResult.newInstance<List<DetachFrameDisplay>>())
     val listFrameDetach = _listFrameDetach.asStateFlow()
 
     init {
@@ -34,14 +29,12 @@ class MainViewModel @Inject constructor(
 
     fun detachFrameVideo(list: List<String>) {
         viewModelScope.launch(Dispatchers.IO) {
-            val rv = GetListFrameDetachUseCase.GetListFrameDetachRV(list)
-            getListFrameDetachUseCase.invoke(rv)
-                .onException {
-                    _listFrameDetach.failure(it)
-                }
-                .collect {
-                    _listFrameDetach.success(it)
-                }
+            try {
+                val result = repoDisplay.getFrameDetach(list)
+                _listFrameDetach.success(result)
+            }catch (e: Exception){
+                _listFrameDetach.failure(e)
+            }
         }
     }
 

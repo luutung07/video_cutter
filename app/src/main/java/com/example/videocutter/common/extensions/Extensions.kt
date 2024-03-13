@@ -196,3 +196,9 @@ fun View.getCoordinateXView(): Int {
     this.getLocationOnScreen(location)
     return location[0]
 }
+
+fun View.getCoordinateYView(): Int {
+    val location = IntArray(2)
+    this.getLocationInWindow(location)
+    return location[1]
+}
