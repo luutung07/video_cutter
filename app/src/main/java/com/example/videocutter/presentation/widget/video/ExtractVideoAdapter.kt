@@ -5,7 +5,7 @@ import com.example.library_base.adapter.BaseAdapter
 import com.example.library_base.adapter.BaseVH
 import com.example.videocutter.R
 import com.example.videocutter.databinding.ExtratVideoItemBinding
-import com.example.videocutter.presentation.repodisplay.model.editvideo.DetachFrameDisplay
+import com.example.videocutter.presentation.display.model.editvideo.DetachFrameDisplay
 
 class ExtractVideoAdapter : BaseAdapter() {
     override fun getLayoutResource(viewType: Int) = R.layout.extrat_video_item

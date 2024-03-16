@@ -1,15 +1,15 @@
-package com.example.videocutter.presentation.repodisplay.repo
+package com.example.videocutter.presentation.display.repo
 
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import com.example.library_base.extension.getApplication
-import com.example.videocutter.presentation.repodisplay.IRepoDisplay
-import com.example.videocutter.presentation.repodisplay.model.editvideo.CropDisplay
-import com.example.videocutter.presentation.repodisplay.model.editvideo.DetachFrameDisplay
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FEATURE_TYPE
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FILTER_TYPE
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FeatureEditVideoDisplay
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FilterDisplay
+import com.example.videocutter.presentation.display.IRepoDisplay
+import com.example.videocutter.presentation.display.model.editvideo.CropDisplay
+import com.example.videocutter.presentation.display.model.editvideo.DetachFrameDisplay
+import com.example.videocutter.presentation.display.model.editvideo.FEATURE_TYPE
+import com.example.videocutter.presentation.display.model.editvideo.FILTER_TYPE
+import com.example.videocutter.presentation.display.model.editvideo.FeatureEditVideoDisplay
+import com.example.videocutter.presentation.display.model.editvideo.FilterDisplay
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import javax.inject.Inject
 

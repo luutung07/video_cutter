@@ -10,7 +10,7 @@ import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.ItemAddVideoBinding
 import com.example.videocutter.databinding.VideoSelectedItemBinding
 import com.example.videocutter.domain.model.VideoInfo
-import com.example.videocutter.presentation.repodisplay.model.video.VideoInfoDisplay
+import com.example.videocutter.presentation.display.model.video.VideoInfoDisplay
 
 class AdjustAdapter : BaseAdapter() {
 
@@ -57,7 +57,7 @@ class AdjustAdapter : BaseAdapter() {
 
         init {
             binding.ivVideoSelectedDelete.setOnSafeClick {
-                val item = getDataAtPosition(absoluteAdapterPosition) as? VideoInfoDisplay
+                val item = getDataAtPosition(adapterPosition) as? VideoInfoDisplay
                 if (item != null) {
                     listener?.onDelete(item.getVideoInfo().id, item.getVideoInfo().thumbnailUrl.toString())
                 }

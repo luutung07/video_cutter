@@ -44,20 +44,12 @@
             app:ts_text_right="Music Track" />
 
         <com.example.videocutter.presentation.widget.recyclerview.CollectionView
+            android:id="@+id/cvAddMusic"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingHorizontal="@dimen/dimen_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tsAddMusic" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <include layout="@layout/music_item"/>
-
-        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

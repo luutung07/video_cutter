@@ -1,4 +1,4 @@
-package com.example.videocutter.presentation.repodisplay.model.editvideo
+package com.example.videocutter.presentation.display.model.editvideo
 
 import android.graphics.Bitmap
 

@@ -31,7 +31,7 @@ import com.example.videocutter.AppConfig
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.getCoordinateXView
 import com.example.videocutter.common.extensions.getCoordinateYView
-import com.example.videocutter.presentation.repodisplay.model.editvideo.DetachFrameDisplay
+import com.example.videocutter.presentation.display.model.editvideo.DetachFrameDisplay
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
 import com.example.videocutter.presentation.widget.recyclerview.CollectionView
 import com.example.videocutter.presentation.widget.video.ExtractVideoAdapter

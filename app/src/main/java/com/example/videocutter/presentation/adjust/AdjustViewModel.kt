@@ -7,7 +7,7 @@ import com.example.library_base.common.success
 import com.example.library_base.common.usecase.FlowResult
 import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.domain.model.VideoInfo
-import com.example.videocutter.presentation.repodisplay.model.video.VideoInfoDisplay
+import com.example.videocutter.presentation.display.model.video.VideoInfoDisplay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

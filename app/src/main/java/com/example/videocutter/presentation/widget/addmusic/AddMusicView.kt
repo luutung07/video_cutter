@@ -10,6 +10,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.baseapp.base.extension.getAppDimension
+import com.example.baseapp.base.extension.getAppString
+import com.example.library_base.extension.FLOAT_DEFAULT
+import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.convertTimeToString
 import com.example.videocutter.common.extensions.getCoordinateXView
@@ -24,8 +27,6 @@ class AddMusicView constructor(
         private const val TAG = "AddMusicView"
     }
 
-    private val WIDTH_MOVE_OFFSET: Float = getAppDimension(com.example.library_base.R.dimen.dimen_6)
-
     private var clRoot: ConstraintLayout? = null
 
     private var tvLeft: TextView? = null
@@ -38,6 +39,7 @@ class AddMusicView constructor(
 
     private var vProgress: View? = null
     private var vBackGround: View? = null
+    private var vRunProgress: View? = null
 
     private var widthScreen: Float? = null
 
@@ -53,10 +55,9 @@ class AddMusicView constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         widthScreen =
-            MeasureSpec.getSize(widthMeasureSpec)
-                .toFloat() - 2 * getAppDimension(com.example.library_base.R.dimen.dimen_20)
+            MeasureSpec.getSize(widthMeasureSpec) - 2 * getAppDimension(com.example.library_base.R.dimen.dimen_32)
+        // 32 là do 20 margin và 12 do padding
     }
-
 
     private fun initView() {
         clRoot = findViewById(R.id.clAddMusicRoot)
@@ -71,6 +72,7 @@ class AddMusicView constructor(
 
         vProgress = findViewById(R.id.vAddMusicProgress)
         vBackGround = findViewById(R.id.vAddMusicBackGround)
+        vRunProgress = findViewById(R.id.vAddMusicRunProgresss)
 
         setEventView()
     }
@@ -95,6 +97,10 @@ class AddMusicView constructor(
                     val newMarginLeft = event.rawX - coordinateX + originMarginLeft
                     updateLeft(newMarginLeft)
                 }
+
+                MotionEvent.ACTION_UP -> {
+                    listener?.onHasCrop(false)
+                }
             }
             true
         }
@@ -115,42 +121,53 @@ class AddMusicView constructor(
                     val newMarginRight = coordinateX - event.rawX + originMarginRight
                     updateRight(newMarginRight)
                 }
+
+                MotionEvent.ACTION_UP -> {
+                    listener?.onHasCrop(false)
+                }
             }
             true
         }
     }
 
-    private fun updateLeft(leftMargin: Float) {
-        val max = clRight!!.getCoordinateXView() - clRoot!!.getCoordinateXView()
-        val min = getAppDimension(com.example.library_base.R.dimen.dimen_20)
+    private fun updateLeft(leftMargin: Float, hasCallback: Boolean = true) {
+        if (widthScreen == null) return
+
+        val rightMarginClRight = (clRight?.layoutParams as MarginLayoutParams).rightMargin
+        val max = widthScreen!! - rightMarginClRight
+
+        val min = FLOAT_DEFAULT
+
         val newLeft = when {
-            leftMargin < min -> min
+            leftMargin <= min -> min
             leftMargin > max - MIN_DRAG -> max - MIN_DRAG
             else -> leftMargin
         }
+
         val newParam = clLeft?.layoutParams as MarginLayoutParams
         newParam.leftMargin = newLeft.toInt()
         clLeft?.layoutParams = newParam
 
-        val coordinateRightX =
-            clRight!!.getCoordinateXView() - getAppDimension(com.example.library_base.R.dimen.dimen_30) - clRight!!.width
-        val start = duration!! * newLeft / widthScreen!!
-        val end =
-            duration!! * coordinateRightX / widthScreen!!
-
-        setText(
-            newLeft - getAppDimension(com.example.library_base.R.dimen.dimen_10),
-            coordinateRightX
-        )
-        listener?.onCallBack(start, end)
+        if (hasCallback) {
+            val start = duration!! * newLeft / (widthScreen!!)
+            val end = duration!! * max / widthScreen!!
+            setText(newLeft, max)
+            listener?.onCallBack(start, end)
+            listener?.onHasCrop(true)
+        }
     }
 
-    private fun updateRight(right: Float) {
-        val min = getAppDimension(com.example.library_base.R.dimen.dimen_20)
-        val max = clLeft!!.getCoordinateXView() - clRoot!!.getCoordinateXView() + MIN_DRAG
+    private fun updateRight(right: Float, hasCallback: Boolean = true) {
+        if (widthScreen == null) return
+
+        val leftMarginClLeft = (clLeft?.layoutParams as MarginLayoutParams).leftMargin
+        val max = widthScreen!! - leftMarginClLeft
+
+        val min = FLOAT_DEFAULT
+
         var newRight = when {
-            right < min -> min.toFloat()
-            right > widthScreen!! - max -> widthScreen!! - max.toFloat()
+            right < min -> min
+            right > max - MIN_DRAG -> max - MIN_DRAG
             else -> right
         }
 
@@ -158,46 +175,61 @@ class AddMusicView constructor(
         newParam.rightMargin = newRight.toInt()
         clRight?.layoutParams = newParam
 
-        newRight = widthScreen!! - newRight + getAppDimension(com.example.library_base.R.dimen.dimen_10)
+        if (hasCallback) {
+            newRight = widthScreen!! - newRight
 
-        val coordinateXLeft =
-            clLeft!!.getCoordinateXView() - getAppDimension(com.example.library_base.R.dimen.dimen_30) - clLeft!!.width
-        val start =
-            duration!! * coordinateXLeft / widthScreen!!
-        val end = duration!! * newRight / widthScreen!!
+            val start =
+                duration!! * leftMarginClLeft / widthScreen!!
+            val end = duration!! * newRight / widthScreen!!
 
-        setText(coordinateXLeft, newRight)
-        listener?.onCallBack(start, end)
+            setText(leftMarginClLeft.toFloat(), newRight)
+            listener?.onCallBack(start, end)
+            listener?.onHasCrop(true)
+        }
+    }
+
+    private fun updateVRunProgress(progress: Float) {
+        val newParam = (vRunProgress?.layoutParams as MarginLayoutParams)
+        newParam.leftMargin = progress.toInt()
+        vRunProgress?.layoutParams = newParam
     }
 
     private fun setText(start: Float, end: Float) {
         val timeStart = duration!! * start / widthScreen!!
-        tvLeft?.text = timeStart.roundToLong().convertTimeToString()
+        tvLeft?.text = if (timeStart <= 1f) {
+            getAppString(R.string.time_default)
+        } else {
+            timeStart.roundToLong().convertTimeToString()
+        }
 
         val timeEnd = duration!! * end / widthScreen!!
         tvRight?.text = timeEnd.roundToLong().convertTimeToString()
     }
 
-    private fun setTextLeft(start: Float) {
-
-    }
-
-    fun setTextRight(end: Float) {
-
-    }
-
     fun setDuration(duration: Long) {
         this.duration = duration
-        tvLeft?.text = "00:01"
+        tvLeft?.text = getAppString(R.string.time_default)
         tvRight?.text = duration.convertTimeToString()
         requestLayout()
     }
 
     fun setCurrentDuration(position: Long) {
+        if (widthScreen == null || duration == null) return
         tvCenter?.text = position.convertTimeToString()
+        val leftMargin = widthScreen!! * position/duration!! + getAppDimension(com.example.library_base.R.dimen.dimen_10)
+        updateVRunProgress(leftMargin)
+    }
+
+    fun reset() {
+        updateLeft(FLOAT_DEFAULT, false)
+        updateRight(FLOAT_DEFAULT, false)
+        updateVRunProgress(FLOAT_DEFAULT)
+        tvLeft?.text = getAppString(R.string.time_default)
+        tvRight?.text = duration?.convertTimeToString()
     }
 
     interface IAddMusicCallBack {
         fun onCallBack(start: Float, end: Float)
+        fun onHasCrop(isCrop: Boolean)
     }
 }

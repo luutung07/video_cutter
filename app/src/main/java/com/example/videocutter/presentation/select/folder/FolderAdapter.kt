@@ -11,7 +11,7 @@ import com.example.library_base.extension.INT_DEFAULT
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.FolderVideoItemBinding
-import com.example.videocutter.presentation.repodisplay.model.video.VideoInfoDisplay
+import com.example.videocutter.presentation.display.model.video.VideoInfoDisplay
 
 class FolderAdapter : BaseAdapter() {
 
@@ -32,7 +32,7 @@ class FolderAdapter : BaseAdapter() {
 
         init {
             binding.root.setOnSafeClick {
-                val item = getDataAtPosition(absoluteAdapterPosition) as? VideoInfoDisplay
+                val item = getDataAtPosition(adapterPosition) as? VideoInfoDisplay
                 if (item != null) {
                     listener?.onSelect(item.getVideoInfo().id, item.getVideoInfo().name.toString())
                 }

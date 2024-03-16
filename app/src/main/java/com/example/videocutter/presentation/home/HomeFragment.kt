@@ -43,6 +43,7 @@ class HomeFragment : VideoCutterFragment<HomeFragmentBinding>(R.layout.home_frag
     @UnstableApi
     private fun setUpView() {
         binding.llHomeStart.setOnSafeClick {
+//            navigateTo(R.id.fragmentSelect)
             navigateTo(R.id.addMusicFragment)
         }
         requestPermission()

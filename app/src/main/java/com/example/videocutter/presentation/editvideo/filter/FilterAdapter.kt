@@ -13,8 +13,8 @@ import com.example.library_base.adapter.BaseVH
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.FilterItemBinding
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FILTER_TYPE
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FilterDisplay
+import com.example.videocutter.presentation.display.model.editvideo.FILTER_TYPE
+import com.example.videocutter.presentation.display.model.editvideo.FilterDisplay
 
 const val UPDATE_STATE_SELECT_PAYLOAD = "UPDATE_STATE_SELECT_PAYLOAD"
 

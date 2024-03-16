@@ -17,8 +17,8 @@ import com.example.videocutter.presentation.editvideo.crop.CropVideoFragment
 import com.example.videocutter.presentation.editvideo.filter.FilterFragment
 import com.example.videocutter.presentation.editvideo.rotate.RotateFragment
 import com.example.videocutter.presentation.editvideo.speed.SpeedFragment
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FEATURE_TYPE
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FILTER_TYPE
+import com.example.videocutter.presentation.display.model.editvideo.FEATURE_TYPE
+import com.example.videocutter.presentation.display.model.editvideo.FILTER_TYPE
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
 import com.example.videocutter.presentation.widget.speedvideo.SPEED_TYPE

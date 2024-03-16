@@ -9,7 +9,7 @@ import com.example.library_base.adapter.BaseVH
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.CropVideoItemBinding
-import com.example.videocutter.presentation.repodisplay.model.editvideo.CropDisplay
+import com.example.videocutter.presentation.display.model.editvideo.CropDisplay
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 
 class CropAdapter : BaseAdapter() {

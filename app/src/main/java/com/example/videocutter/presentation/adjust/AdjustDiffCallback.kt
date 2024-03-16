@@ -1,7 +1,7 @@
 package com.example.videocutter.presentation.adjust
 
 import com.example.library_base.adapter.BaseDiffUtilCallback
-import com.example.videocutter.presentation.repodisplay.model.video.VideoInfoDisplay
+import com.example.videocutter.presentation.display.model.video.VideoInfoDisplay
 
 class AdjustDiffCallback(oldList: List<Any>, newList: List<Any>) :
     BaseDiffUtilCallback<Any>(oldList, newList) {

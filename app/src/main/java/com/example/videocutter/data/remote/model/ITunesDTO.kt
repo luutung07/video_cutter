@@ -15,19 +15,19 @@ data class ITunesDTO (
 
     @SerializedName("artistId")
     @Expose
-    var artistId: Int? = null,
+    var artistId: Long? = null,
 
     @SerializedName("collectionId")
     @Expose
-    var collectionId: Int? = null,
+    var collectionId: Long? = null,
 
     @SerializedName("trackId")
     @Expose
-    var trackId: Int? = null,
+    var trackId: Long? = null,
 
     @SerializedName("artistName")
     @Expose
-    var artistName: Int? = null,
+    var artistName: String? = null,
 
     @SerializedName("collectionName")
     @Expose
@@ -75,7 +75,7 @@ data class ITunesDTO (
 
     @SerializedName("trackPrice")
     @Expose
-    var trackPrice: Int? = null,
+    var trackPrice: Double? = null,
 
     @SerializedName("releaseDate")
     @Expose

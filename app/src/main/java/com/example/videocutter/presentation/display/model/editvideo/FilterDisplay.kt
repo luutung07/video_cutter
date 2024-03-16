@@ -1,10 +1,9 @@
-package com.example.videocutter.presentation.repodisplay.model.editvideo
+package com.example.videocutter.presentation.display.model.editvideo
 
 import android.graphics.drawable.Drawable
 import com.example.baseapp.base.extension.getAppDrawable
 import com.example.baseapp.base.extension.getAppString
 import com.example.videocutter.R
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FILTER_TYPE
 
 data class FilterDisplay(
     var filterType: FILTER_TYPE? = null,

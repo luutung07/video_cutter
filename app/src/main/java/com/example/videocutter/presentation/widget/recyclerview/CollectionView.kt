@@ -1,5 +1,6 @@
 package com.example.videocutter.presentation.widget.recyclerview
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import androidx.annotation.Dimension
@@ -172,9 +173,14 @@ class CollectionView constructor(
         baseAdapter?.removeEmpty()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    fun blockScroll(isBlock: Boolean) {
+        requestDisallowInterceptTouchEvent(isBlock)
+    }
+
     fun setDragRecyclerView(
         dragLastItem: Boolean = true,
-        swap: ((Int,Int) -> Unit)
+        swap: ((Int, Int) -> Unit)
     ) {
         itemTouchHelper = object : TouchHelper() {
             override val dataList: MutableList<Any>?

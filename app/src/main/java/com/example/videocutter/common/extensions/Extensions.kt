@@ -10,12 +10,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
-import com.example.baseapp.base.extension.getAppString
 import com.example.library_base.common.DataPage
 import com.example.library_base.common.usecase.FlowResult
 import com.example.library_base.common.usecase.IViewListener
 import com.example.library_base.common.usecase.UI_STATE
-import com.example.videocutter.R
 import com.example.videocutter.common.loader.LoadImageFactory
 import com.example.videocutter.common.srceen.VideoCutterActivity
 import com.example.videocutter.common.srceen.VideoCutterFragment
@@ -186,9 +184,15 @@ fun <T> getDataPage(dataPage: DataPage<T>?, isReload: Boolean = true): DataPage<
 }
 
 fun Long.convertTimeToString(): String {
-    val seconds: Long = this / 1000 % 60 // Extract seconds from milliseconds
-    val minutes: Long = this / (1000 * 60) % 60 // Extract minutes from milliseconds
-    return String.format("%02d:%02d", minutes, seconds)
+    val totalSeconds = this / 1000
+    val seconds = totalSeconds % 60
+    val minutes = totalSeconds / 60 % 60
+    val hours = totalSeconds / 3600
+    return if (hours > 0) {
+        "%d:%02d:%02d".format(hours, minutes, seconds)
+    } else {
+        "%02d:%02d".format(minutes, seconds)
+    }
 }
 
 fun View.getCoordinateXView(): Int {

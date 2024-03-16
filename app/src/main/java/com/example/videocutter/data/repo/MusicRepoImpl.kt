@@ -6,7 +6,6 @@ import androidx.core.database.getStringOrNull
 import com.example.library_base.extension.getApplication
 import com.example.videocutter.data.local.contenprovider.MusicDTO
 import com.example.videocutter.data.remote.server.ITunesService
-import com.example.videocutter.domain.model.ITunes
 import com.example.videocutter.domain.model.Music
 import com.example.videocutter.domain.repo.IMusicRepo
 import javax.inject.Inject
@@ -15,16 +14,14 @@ import javax.inject.Inject
 class MusicRepoImpl @Inject constructor(
     private val iTunesService: ITunesService
 ) : IMusicRepo {
-    override fun getITunesList(): List<ITunes> {
+    override fun getITunesList(): List<Music> {
         return try {
             val response = iTunesService.getItunes().execute()
             if (response.isSuccessful && response.body() != null) {
                 val result = response.body()!!.results?.map {
-                    ITunes(
-                        artistId = it.artistId,
-                        artistName = it.artistName,
-                        trackName = it.trackName,
-                        trackId = it.trackId,
+                    Music(
+                        name = it.trackName,
+                        id = it.trackId.toString(),
                         url = it.previewUrl,
                         duration = it.trackTimeMillis
                     )

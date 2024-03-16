@@ -31,7 +31,7 @@ import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.AppConfig
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.convertTimeToString
-import com.example.videocutter.presentation.repodisplay.model.editvideo.DetachFrameDisplay
+import com.example.videocutter.presentation.display.model.editvideo.DetachFrameDisplay
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import com.example.videocutter.presentation.widget.crop.CropVideo
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE

@@ -9,7 +9,7 @@ import com.example.videocutter.common.srceen.VideoCutterFragment
 import com.example.videocutter.databinding.FilterFragmentBinding
 import com.example.videocutter.presentation.editvideo.EditVideoFragment
 import com.example.videocutter.presentation.editvideo.EditVideoViewModel
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FILTER_TYPE
+import com.example.videocutter.presentation.display.model.editvideo.FILTER_TYPE
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
 
 class FilterFragment : VideoCutterFragment<FilterFragmentBinding>(R.layout.filter_fragment) {

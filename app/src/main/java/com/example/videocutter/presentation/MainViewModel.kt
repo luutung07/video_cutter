@@ -6,8 +6,8 @@ import com.example.library_base.common.failure
 import com.example.library_base.common.reset
 import com.example.library_base.common.success
 import com.example.library_base.common.usecase.FlowResult
-import com.example.videocutter.presentation.repodisplay.IRepoDisplay
-import com.example.videocutter.presentation.repodisplay.model.editvideo.DetachFrameDisplay
+import com.example.videocutter.presentation.display.IRepoDisplay
+import com.example.videocutter.presentation.display.model.editvideo.DetachFrameDisplay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

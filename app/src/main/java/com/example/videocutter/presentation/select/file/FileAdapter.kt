@@ -10,7 +10,7 @@ import com.example.library_base.adapter.BaseVH
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.loadImage
 import com.example.videocutter.databinding.VideoSelectItemBinding
-import com.example.videocutter.presentation.repodisplay.model.video.VideoInfoDisplay
+import com.example.videocutter.presentation.display.model.video.VideoInfoDisplay
 
 class FileAdapter : BaseGridAdapter() {
 
@@ -33,7 +33,7 @@ class FileAdapter : BaseGridAdapter() {
 
         init {
             binding.clVideoSelectRoot.setOnSafeClick {
-                val item = getDataAtPosition(absoluteAdapterPosition) as? VideoInfoDisplay
+                val item = getDataAtPosition(adapterPosition) as? VideoInfoDisplay
                 if (item != null) {
                     if (item.isMaxSelect && !item.isSelect){
                         listener?.onMaxSelect()
@@ -44,7 +44,7 @@ class FileAdapter : BaseGridAdapter() {
             }
 
             binding.clVideoSelectRoot.setOnLongClickListener {
-                val item = getDataAtPosition(absoluteAdapterPosition) as? VideoInfoDisplay
+                val item = getDataAtPosition(adapterPosition) as? VideoInfoDisplay
                 if (item != null) {
                     listener?.onPReview(item.getVideoInfo().thumbnailUrl.toString())
                 }

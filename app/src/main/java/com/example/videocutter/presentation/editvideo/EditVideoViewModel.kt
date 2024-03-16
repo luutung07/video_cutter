@@ -7,11 +7,11 @@ import com.example.library_base.common.success
 import com.example.library_base.common.usecase.FlowResult
 import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.domain.model.VideoInfo
-import com.example.videocutter.presentation.repodisplay.IRepoDisplay
-import com.example.videocutter.presentation.repodisplay.model.editvideo.CropDisplay
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FILTER_TYPE
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FeatureEditVideoDisplay
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FilterDisplay
+import com.example.videocutter.presentation.display.IRepoDisplay
+import com.example.videocutter.presentation.display.model.editvideo.CropDisplay
+import com.example.videocutter.presentation.display.model.editvideo.FILTER_TYPE
+import com.example.videocutter.presentation.display.model.editvideo.FeatureEditVideoDisplay
+import com.example.videocutter.presentation.display.model.editvideo.FilterDisplay
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import com.example.videocutter.presentation.widget.speedvideo.SPEED_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel

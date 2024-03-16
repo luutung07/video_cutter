@@ -1,11 +1,10 @@
-package com.example.videocutter.presentation.repodisplay.model.editvideo
+package com.example.videocutter.presentation.display.model.editvideo
 
 import android.graphics.drawable.Drawable
 import com.example.baseapp.base.extension.getAppDrawable
 import com.example.baseapp.base.extension.getAppString
 import com.example.library_base.extension.STRING_DEFAULT
 import com.example.videocutter.R
-import com.example.videocutter.presentation.repodisplay.model.editvideo.FEATURE_TYPE
 
 data class FeatureEditVideoDisplay(
     var featureType: FEATURE_TYPE? = null

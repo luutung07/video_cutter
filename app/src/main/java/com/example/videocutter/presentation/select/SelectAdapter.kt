@@ -29,7 +29,7 @@ class SelectedAdapter : BaseAdapter() {
 
         init {
             binding.ivVideoSelectedDelete.setOnSafeClick {
-                val item = getDataAtPosition(absoluteAdapterPosition) as? VideoInfo
+                val item = getDataAtPosition(adapterPosition) as? VideoInfo
                 if (item != null) {
                     listener?.onDelete(item.id)
                 }

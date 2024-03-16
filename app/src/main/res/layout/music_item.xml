@@ -4,14 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMusicRoot"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground">
 
         <FrameLayout
             android:id="@+id/flMusic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_20"
+
             android:layout_marginVertical="@dimen/dimen_20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -45,41 +50,68 @@
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_text_size_18"
             app:layout_constraintBottom_toBottomOf="@+id/flMusic"
-            app:layout_constraintEnd_toStartOf="@+id/ivMusicSelect"
+            app:layout_constraintEnd_toStartOf="@+id/flMusicSelect"
             app:layout_constraintStart_toEndOf="@id/flMusic"
             app:layout_constraintTop_toTopOf="@+id/flMusic"
             tools:text="Celebrate" />
 
-        <ImageView
-            android:id="@+id/ivMusicSelect"
+        <FrameLayout
+            android:id="@+id/flMusicSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_10"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?selectableItemBackground"
-            android:padding="@dimen/dimen_10"
-            android:src="@drawable/ic_download"
             app:layout_constraintBottom_toBottomOf="@id/tvMusicName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvMusicName" />
+            app:layout_constraintTop_toTopOf="@id/tvMusicName">
+
+            <ImageView
+                android:id="@+id/ivMusicSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:layout_gravity="center"
+                tools:visibility="gone"
+                android:src="@drawable/ic_download" />
+
+            <TextView
+                android:id="@+id/tvMusicSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_stroke_color_1_corner_16"
+                android:fontFamily="@font/fbase_font_bold"
+                android:paddingHorizontal="@dimen/dimen_16"
+                android:paddingVertical="@dimen/dimen_4"
+                android:text="@string/add"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/dimen_text_size_14" />
+
+        </FrameLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clMusicSelectMusic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20"
             android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_marginTop="@dimen/dimen_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvMusicName">
+            app:layout_constraintTop_toBottomOf="@+id/flMusic"
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/ivMusicPlay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/dimen_20"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
                 android:padding="@dimen/dimen_10"
                 android:src="@drawable/ic_btn_play"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -99,9 +131,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="@dimen/dimen_1"
+            android:layout_marginTop="@dimen/dimen_20"
             android:background="@color/gray_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvMusicName"
             app:layout_constraintTop_toBottomOf="@id/clMusicSelectMusic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
