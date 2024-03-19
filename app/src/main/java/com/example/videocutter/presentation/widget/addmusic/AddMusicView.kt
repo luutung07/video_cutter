@@ -2,6 +2,8 @@ package com.example.videocutter.presentation.widget.addmusic
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,10 +14,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.baseapp.base.extension.getAppDimension
 import com.example.baseapp.base.extension.getAppString
 import com.example.library_base.extension.FLOAT_DEFAULT
-import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.convertTimeToString
-import com.example.videocutter.common.extensions.getCoordinateXView
 import kotlin.math.roundToLong
 
 class AddMusicView constructor(
@@ -45,11 +45,14 @@ class AddMusicView constructor(
 
     private var duration: Long? = 41000
 
+    private var handler: Handler? = null
+
     var listener: IAddMusicCallBack? = null
 
     init {
         LayoutInflater.from(ctx).inflate(R.layout.add_music_layout, this, true)
         initView()
+        handler = Handler(Looper.getMainLooper())
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -216,16 +219,23 @@ class AddMusicView constructor(
     fun setCurrentDuration(position: Long) {
         if (widthScreen == null || duration == null) return
         tvCenter?.text = position.convertTimeToString()
-        val leftMargin = widthScreen!! * position/duration!! + getAppDimension(com.example.library_base.R.dimen.dimen_10)
+        val leftMargin =
+            widthScreen!! * position / duration!! + getAppDimension(com.example.library_base.R.dimen.dimen_10)
         updateVRunProgress(leftMargin)
     }
 
-    fun reset() {
-        updateLeft(FLOAT_DEFAULT, false)
-        updateRight(FLOAT_DEFAULT, false)
-        updateVRunProgress(FLOAT_DEFAULT)
-        tvLeft?.text = getAppString(R.string.time_default)
-        tvRight?.text = duration?.convertTimeToString()
+    fun reset(start: Float = FLOAT_DEFAULT, end: Float = FLOAT_DEFAULT) {
+        handler?.post {
+            val startLeft = widthScreen!! * start / duration!!
+            val endRight = widthScreen!! * end / duration!!
+            updateLeft(startLeft, false)
+            updateRight(widthScreen!! - endRight, false)
+            updateVRunProgress(startLeft)
+            tvLeft?.text = start.toLong().convertTimeToString()
+            tvRight?.text = duration?.convertTimeToString()
+
+            Log.d(TAG, "reset: [start = $startLeft] -- [end = $endRight] -- [width = $widthScreen]")
+        }
     }
 
     interface IAddMusicCallBack {

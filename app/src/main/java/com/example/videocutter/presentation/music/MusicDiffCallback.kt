@@ -35,11 +35,15 @@ class MusicDiffCallback(oldList: List<Any>, newList: List<Any>) :
         val newItem = getNewItem(newItemPosition)
         return when {
             oldItem is MusicDisplay && newItem is MusicDisplay -> {
-                oldItem.isSelect == newItem.isSelect &&
-                        oldItem.isShowTrimMusic == newItem.isShowTrimMusic &&
-                        oldItem.isDownLoaded == newItem.isDownLoaded &&
-                        oldItem.isPlay == newItem.isPlay &&
-                        oldItem.currentPosition == newItem.currentPosition
+                val oldState = oldItem.getState()
+                val newState = newItem.getState()
+                oldState.isSelect == newState.isSelect &&
+                        oldState.isShowTrimMusic == newState.isShowTrimMusic &&
+                        oldState.isDownLoaded == newState.isDownLoaded &&
+                        oldState.isPlay == newState.isPlay &&
+                        oldState.currentPosition == newState.currentPosition &&
+                        oldState.start == newState.start &&
+                        oldState.end == newState.end
             }
 
             oldItem is Pair<*, *> && newItem is Pair<*, *> -> {
@@ -57,19 +61,23 @@ class MusicDiffCallback(oldList: List<Any>, newList: List<Any>) :
 
         when {
             oldItem is MusicDisplay && newItem is MusicDisplay -> {
-                if (oldItem.isShowTrimMusic != newItem.isShowTrimMusic) {
+
+                val oldState = oldItem.getState()
+                val newState = newItem.getState()
+
+                if (oldState.isShowTrimMusic != newState.isShowTrimMusic) {
                     list.add(UPDATE_STATE_SHOW_CROP_PAYLOAD)
                 }
-                if (oldItem.isPlay != newItem.isPlay) {
+                if (oldState.isPlay != newState.isPlay) {
                     list.add(UPDATE_STATE_PLAY_PAYLOAD)
                 }
-                if (oldItem.currentPosition != newItem.currentPosition) {
+                if (oldState.currentPosition != newState.currentPosition || oldState.start != newState.start || oldState.end == newState.end) {
                     list.add(UPDATE_CURRENT_POSITION_PAYLOAD)
                 }
-                if (oldItem.isSelect != newItem.isSelect) {
+                if (oldState.isSelect != newState.isSelect) {
                     list.add(UPDATE_STATE_SELECT_MUSIC_PAYLOAD)
                 }
-                if (oldItem.isDownLoaded != newItem.isDownLoaded) {
+                if (oldState.isDownLoaded != newState.isDownLoaded) {
                     list.add(UPDATE_STATE_DOWNLOAD_PAYLOAD)
                 }
             }

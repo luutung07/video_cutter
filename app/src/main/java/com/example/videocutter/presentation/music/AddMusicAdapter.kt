@@ -1,5 +1,6 @@
 package com.example.videocutter.presentation.music
 
+import android.util.Log
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.example.baseapp.base.extension.getAppColor
@@ -9,6 +10,7 @@ import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.baseapp.base.extension.show
 import com.example.library_base.adapter.BaseAdapter
 import com.example.library_base.adapter.BaseVH
+import com.example.library_base.extension.FLOAT_DEFAULT
 import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.convertTimeToString
@@ -92,7 +94,7 @@ class AddMusicAdapter : BaseAdapter() {
             binding.root.setOnSafeClick {
                 val item = getDataAtPosition(adapterPosition) as? MusicDisplay
                 item?.let {
-                    if (it.isDownLoaded == true) {
+                    if (it.getState().isDownLoaded == true && !it.getState().isShowTrimMusic) {
                         listener?.onSelectMusic(item.getMusic().id, it.getMusic().url)
                     } else {
                         listener?.onDownloadMusic(item.getMusic().id, it.getMusic().url)
@@ -103,9 +105,12 @@ class AddMusicAdapter : BaseAdapter() {
             binding.root.setOnLongClickListener {
                 val item = getDataAtPosition(adapterPosition) as? MusicDisplay
                 item?.let {
-                    if (!it.isShowTrimMusic) {
-                        listener?.onShowCutMusic(it.getMusic().id, it.getMusic().url)
-                    }
+                    listener?.onShowCutMusic(
+                        it.getMusic().id,
+                        it.getMusic().url,
+                        it.getState().start ?: LONG_DEFAULT,
+                        it.getState().end ?: LONG_DEFAULT
+                    )
                 }
                 true
             }
@@ -120,8 +125,8 @@ class AddMusicAdapter : BaseAdapter() {
             binding.tvMusicSelect.setOnSafeClick {
                 val item = getDataAtPosition(adapterPosition) as? MusicDisplay
                 item?.let {
-                    if (it.isSelect) {
-                        listener?.onShowCutMusic(it.getMusic().id, it.getMusic().url)
+                    if (it.getState().isSelect) {
+                        listener?.onDoneCrop(it.getMusic().id)
                     } else {
                         listener?.onSelectMusic(item.getMusic().id, it.getMusic().url)
                     }
@@ -159,7 +164,7 @@ class AddMusicAdapter : BaseAdapter() {
         }
 
         private fun checkStateDownload(data: MusicDisplay) {
-            if (data.isDownLoaded == true) {
+            if (data.getState().isDownLoaded == true) {
                 binding.ivMusicSelect.setImageResource(R.drawable.ic_select_music)
             } else {
                 binding.ivMusicSelect.setImageResource(R.drawable.ic_download)
@@ -167,11 +172,11 @@ class AddMusicAdapter : BaseAdapter() {
         }
 
         private fun setCurrentPosition(data: MusicDisplay) {
-            binding.amvMusic.setCurrentDuration(data.currentPosition ?: LONG_DEFAULT)
+            binding.amvMusic.setCurrentDuration(data.getState().currentPosition ?: LONG_DEFAULT)
         }
 
         private fun setStateSelect(data: MusicDisplay) {
-            if (data.isSelect) {
+            if (data.getState().isSelect) {
                 binding.ivMusicSelect.show()
             } else {
                 binding.ivMusicSelect.gone()
@@ -179,7 +184,7 @@ class AddMusicAdapter : BaseAdapter() {
         }
 
         private fun statePlay(data: MusicDisplay) {
-            if (data.isPlay) {
+            if (data.getState().isPlay) {
                 binding.ivMusicPlay.setImageResource(R.drawable.ic_btn_play)
             } else {
                 binding.ivMusicPlay.setImageResource(R.drawable.ic_btn_pause)
@@ -187,7 +192,7 @@ class AddMusicAdapter : BaseAdapter() {
         }
 
         private fun showCropDownloaded(data: MusicDisplay) {
-            if (data.isSelect) {
+            if (data.getState().isSelect) {
                 binding.tvMusicSelect.text = getAppString(R.string.done)
             } else {
                 binding.tvMusicSelect.text = getAppString(R.string.add)
@@ -195,17 +200,20 @@ class AddMusicAdapter : BaseAdapter() {
         }
 
         private fun showCrop(data: MusicDisplay) {
-            if (data.isShowTrimMusic) {
+            if (data.getState().isShowTrimMusic) {
                 addListenerCrop(data.getMusic().id)
-                binding.amvMusic.reset()
-
+                binding.amvMusic.reset(
+                    start = data.getState().start?.toFloat() ?: FLOAT_DEFAULT,
+                    end = data.getState().end?.toFloat() ?: FLOAT_DEFAULT
+                )
+                Log.d("setCurrentPosition", "[start = ${data.getState().start}] -- [end = ${data.getState().end}]")
                 binding.clMusicSelectMusic.show()
                 binding.clMusicRoot.setBackgroundColor(getAppColor(R.color.gray_comment))
 
                 binding.ivMusicCutSound.show()
                 binding.tvMusicTime.gone()
 
-                if (data.isDownLoaded == true) {
+                if (data.getState().isDownLoaded == true) {
                     binding.ivMusicSelect.gone()
                     binding.tvMusicSelect.show()
                     showCropDownloaded(data)
@@ -257,9 +265,10 @@ class AddMusicAdapter : BaseAdapter() {
         fun onSelectMusic(id: String?, url: String?)
         fun onSelectNone(isSelect: Boolean)
         fun onDownloadMusic(id: String?, url: String?)
-        fun onShowCutMusic(id: String?, url: String?)
+        fun onShowCutMusic(id: String?, url: String?, start: Long, end: Long)
         fun onCropVideo(isCrop: Boolean)
         fun onTimeLine(start: Long, end: Long, id: String?)
         fun onPlay(id: String?)
+        fun onDoneCrop(id: String?)
     }
 }

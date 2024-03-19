@@ -1,5 +1,6 @@
 package com.example.videocutter.presentation.music
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.library_base.common.failure
@@ -14,6 +15,7 @@ import com.example.videocutter.domain.usecase.GetListMusicUseCase
 import com.example.videocutter.presentation.music.AddMusicAdapter.Companion.TYPE_NOPE
 import com.example.videocutter.presentation.display.model.music.MUSIC_TYPE
 import com.example.videocutter.presentation.display.model.music.MusicDisplay
+import com.example.videocutter.presentation.display.model.music.MusicState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,6 +23,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,20 +35,17 @@ class AddMusicViewModel @Inject constructor(
     private var _musicListState = MutableStateFlow(FlowResult.newInstance<List<Any>>())
     val musicListState = _musicListState.asStateFlow()
 
-    private var _durationState = MutableStateFlow(FlowResult.newInstance<Long>())
-    val durationState = _durationState.asStateFlow()
+    private var _timeLineState = MutableStateFlow(FlowResult.newInstance<Pair<Long, Long>>())
+    val timeLineState = _timeLineState.asStateFlow()
 
     private var jobList: Job? = null
+    private var jobProgress: Job? = null
+
+    private var mapState: HashMap<String?, MusicState> = hashMapOf()
 
     private var isSelectNone = false
 
-    private var mapCurrentPosition: HashMap<String?, Long?> = hashMapOf()
-
-    private var idSelect: String? = null
-
     var idShowCropMusic: String? = null
-
-    var idPlay: String? = null
 
     var musicType = MUSIC_TYPE.ITUNES
 
@@ -66,27 +66,33 @@ class AddMusicViewModel @Inject constructor(
                     MusicDisplay(
                         type = musicType,
                         data = it,
-                        isSelect = idSelect == it.id,
-                        isShowTrimMusic = idShowCropMusic == it.id,
-                        isDownLoaded = musicType == MUSIC_TYPE.LOCAL,
-                        isPlay = idPlay == it.id,
-                        currentPosition = if (mapCurrentPosition.contains(it.id)) mapCurrentPosition[it.id] else null
+                        musicState = mapState.getOrDefault(it.id, MusicState()).copy(
+                            isDownLoaded = musicType == MUSIC_TYPE.LOCAL,
+                            end = it.duration
+                        )
                     )
                 }
 
                 else -> it
             }
         }.toList()
+
         _musicListState.success(newList)
     }
 
     private fun resetStateMusicDisplay() {
         viewModelScope.launch(Dispatchers.IO) {
             idShowCropMusic = null
-            idPlay = null
-            idSelect = null
-            mapCurrentPosition.clear()
+            mapState.clear()
             mapData()
+        }
+    }
+
+    private fun clearState(hasClearSelect: Boolean = false) {
+        mapState.forEach { (_, v) ->
+            if (hasClearSelect) v.isSelect = false
+            v.isPlay = false
+            v.isShowTrimMusic = false
         }
     }
 
@@ -119,53 +125,109 @@ class AddMusicViewModel @Inject constructor(
 
     fun showCropMedia(id: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            idShowCropMusic = if (idShowCropMusic == id) {
-                null
-            } else {
-                id
-            }
-            idPlay = id
-            val item = listRaw.find {
+            idShowCropMusic = id
+
+            val music = listRaw.find {
                 it is Music && it.id == id
             }
-            if (item != null) {
-                _durationState.success((item as Music).duration ?: LONG_DEFAULT)
+            if (music != null) {
+                clearState(false)
+                if (mapState.containsKey(id)) {
+                    val newState = mapState[id]!!.copy(isShowTrimMusic = true, isPlay = true)
+                    mapState[id] = newState
+                } else {
+                    mapState[id] = MusicState(
+                        isShowTrimMusic = true,
+                        isPlay = true,
+                        isDownLoaded = musicType == MUSIC_TYPE.LOCAL,
+                        start = LONG_DEFAULT,
+                        end = (music as Music).duration
+                    )
+                }
+
+                _timeLineState.success(
+                    Pair(
+                        mapState[id]!!.start ?: LONG_DEFAULT,
+                        mapState[id]!!.end ?: LONG_DEFAULT
+                    )
+                )
+
+                mapData()
             }
-            mapData()
         }
     }
 
-    fun resetDuration() {
-        _durationState.reset()
+    fun resetTimeline() {
+        _timeLineState.reset()
     }
 
     fun updatePlay(id: String?, isSelect: Boolean = true) {
-        idPlay = if (idPlay == id && isSelect) {
-            null
-        } else {
-            id
-        }
-        mapData()
-    }
-
-    fun setCurrentPosition(id: String?, position: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            mapCurrentPosition[id] = position
+
+            val newStatePlay = if (isSelect) {
+                !mapState[id]!!.isPlay
+            } else {
+                true
+            }
+            mapState[id] = mapState[id]!!.copy(isPlay = newStatePlay)
+
             mapData()
         }
+    }
+
+    fun setCurrentPosition(id: String?, position: Long, start: Long, end: Long) {
+        jobProgress?.cancel()
+        jobProgress = viewModelScope.launch(Dispatchers.IO) {
+            val newState = mapState[id]!!
+            newState.start = start
+            newState.currentPosition = position
+            newState.end = end
+            mapState[id] = newState
+            mapData()
+        }
+    }
+
+    fun doneCrop(id: String?) {
+        val newState = mapState[id]!!
+        newState.isShowTrimMusic = false
+        mapState[id] = newState
+        mapData()
     }
 
     fun selectMusic(id: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            idSelect = if (idSelect == id) {
-                null
-            } else {
-                id
+            clearState(true)
+            idShowCropMusic = id
+
+            val music = listRaw.find {
+                it is Music && it.id == id
             }
-            idPlay = id
-            idShowCropMusic = null
-            isSelectNone = false
-            mapData()
+
+            if (music != null) {
+                if (mapState.containsKey(id)) {
+                    val newState = mapState[id]!!.copy(isSelect = true)
+                    mapState[id] = newState
+                } else {
+                    mapState[id] = MusicState(
+                        isSelect = true,
+                        isPlay = true,
+                        isDownLoaded = musicType == MUSIC_TYPE.LOCAL,
+                        end = (music as Music).duration
+                    )
+                }
+
+                _timeLineState.success(
+                    Pair(
+                        mapState[id]!!.start ?: LONG_DEFAULT,
+                        mapState[id]!!.end ?: LONG_DEFAULT
+                    )
+                )
+
+                isSelectNone = false
+                mapData()
+            }
         }
     }
+
+    fun isPlaying(id: String?): Boolean = mapState.getOrDefault(id, MusicState()).isPlay
 }

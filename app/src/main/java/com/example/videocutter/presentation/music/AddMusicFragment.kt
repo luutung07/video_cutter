@@ -65,12 +65,17 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
             })
         }
 
-        coroutinesLaunch(viewModel.durationState) {
+        coroutinesLaunch(viewModel.timeLineState) {
             handleUiState(it, object : IViewListener {
 
                 override fun onSuccess() {
-                    checkTimeLine(it.data?: LONG_DEFAULT, viewModel.idShowCropMusic)
-                    viewModel.resetDuration()
+                    clearRunnable()
+                    checkTimeLine(
+                        it.data?.first ?: LONG_DEFAULT,
+                        it.data?.second ?: LONG_DEFAULT,
+                        viewModel.idShowCropMusic
+                    )
+                    viewModel.resetTimeline()
                 }
             })
         }
@@ -107,33 +112,34 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
     private fun addListener() {
         adapter.listener = object : AddMusicAdapter.IMusicCallBack {
             override fun onSelectMusic(id: String?, url: String?) {
-                viewModel.selectMusic(id)
-                exoPlayer?.release()
-                exoPlayer = null
+                releasePlayer()
                 viewModel.urlMp3 = url
                 initializePlayer()
                 clearRunnable()
+                viewModel.selectMusic(id)
             }
 
             override fun onSelectNone(isSelect: Boolean) {
-                viewModel.updateStateNone(isSelect)
                 clearRunnable()
                 releasePlayer()
+                viewModel.updateStateNone(isSelect)
             }
 
             override fun onDownloadMusic(id: String?, url: String?) {
 
             }
 
-            override fun onShowCutMusic(id: String?, url: String?) {
+            override fun onShowCutMusic(id: String?, url: String?, start: Long, end: Long) {
                 viewModel.showCropMedia(id)
                 if (url != null && url != viewModel.urlMp3) {
-                    exoPlayer?.release()
-                    exoPlayer = null
+                    releasePlayer()
                     viewModel.urlMp3 = url
                     initializePlayer()
+                    exoPlayer?.seekTo(start)
                     clearRunnable()
+                    checkTimeLine(start, end, id)
                 }
+                exoPlayer?.play()
             }
 
             override fun onCropVideo(isCrop: Boolean) {
@@ -145,16 +151,20 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
                 exoPlayer?.seekTo(start)
                 exoPlayer?.play()
                 clearRunnable()
-                checkTimeLine(end, id)
+                checkTimeLine(start, end, id)
             }
 
             override fun onPlay(id: String?) {
-                if (id == viewModel.idPlay) {
+                if (viewModel.isPlaying(id)) {
                     stopExoplayer()
                 } else {
                     resumeExoplayer()
                 }
                 viewModel.updatePlay(id)
+            }
+
+            override fun onDoneCrop(id: String?) {
+                viewModel.doneCrop(id)
             }
         }
     }
@@ -163,18 +173,21 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
         adapter.listener = null
     }
 
-    private fun checkTimeLine(end: Long, id: String?) {
+    private fun checkTimeLine(start: Long, end: Long, id: String?) {
         if (exoPlayer == null) return
         if (handler == null) handler = Handler(Looper.getMainLooper())
+
+        exoPlayer?.seekTo(start)
 
         runnable = object : Runnable {
             override fun run() {
                 val current = (exoPlayer?.currentPosition ?: LONG_DEFAULT)
                 if (current > end) {
                     exoPlayer?.pause()
+                    exoPlayer?.seekTo(start)
                     clearRunnable()
                 }
-                viewModel.setCurrentPosition(id, current)
+                viewModel.setCurrentPosition(id, current, start, end)
                 handler?.postDelayed(this, AppConfig.TIME_DELAY)
             }
         }
@@ -191,7 +204,6 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
                         listOf(secondMediaItem),
                     )
                     exoPlayer.playWhenReady = true
-                    exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
                     exoPlayer.prepare()
                 }
         }
