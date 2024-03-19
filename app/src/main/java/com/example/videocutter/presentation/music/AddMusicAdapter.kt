@@ -12,6 +12,7 @@ import com.example.library_base.adapter.BaseAdapter
 import com.example.library_base.adapter.BaseVH
 import com.example.library_base.extension.FLOAT_DEFAULT
 import com.example.library_base.extension.LONG_DEFAULT
+import com.example.videocutter.AppConfig
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.convertTimeToString
 import com.example.videocutter.databinding.MusicItemBinding
@@ -118,7 +119,9 @@ class AddMusicAdapter : BaseAdapter() {
             binding.ivMusicPlay.setOnSafeClick {
                 val item = getDataAtPosition(adapterPosition) as? MusicDisplay
                 item?.let {
-                    listener?.onPlay(it.getMusic().id)
+                    val isReset = (it.getState().end ?: 1) < (it.getState().currentPosition
+                        ?: 1) + AppConfig.TIME_DELAY
+                    listener?.onPlay(it.getMusic().id, isReset, it.getState().start,it.getState().end)
                 }
             }
 
@@ -173,6 +176,7 @@ class AddMusicAdapter : BaseAdapter() {
 
         private fun setCurrentPosition(data: MusicDisplay) {
             binding.amvMusic.setCurrentDuration(data.getState().currentPosition ?: LONG_DEFAULT)
+
         }
 
         private fun setStateSelect(data: MusicDisplay) {
@@ -202,11 +206,14 @@ class AddMusicAdapter : BaseAdapter() {
         private fun showCrop(data: MusicDisplay) {
             if (data.getState().isShowTrimMusic) {
                 addListenerCrop(data.getMusic().id)
-                binding.amvMusic.reset(
+                binding.amvMusic.initMargin(
                     start = data.getState().start?.toFloat() ?: FLOAT_DEFAULT,
                     end = data.getState().end?.toFloat() ?: FLOAT_DEFAULT
                 )
-                Log.d("setCurrentPosition", "[start = ${data.getState().start}] -- [end = ${data.getState().end}]")
+                Log.d(
+                    "setCurrentPosition",
+                    "[start = ${data.getState().start}] -- [end = ${data.getState().end}]"
+                )
                 binding.clMusicSelectMusic.show()
                 binding.clMusicRoot.setBackgroundColor(getAppColor(R.color.gray_comment))
 
@@ -268,7 +275,7 @@ class AddMusicAdapter : BaseAdapter() {
         fun onShowCutMusic(id: String?, url: String?, start: Long, end: Long)
         fun onCropVideo(isCrop: Boolean)
         fun onTimeLine(start: Long, end: Long, id: String?)
-        fun onPlay(id: String?)
+        fun onPlay(id: String?, isReset: Boolean, start: Long?, end: Long?)
         fun onDoneCrop(id: String?)
     }
 }

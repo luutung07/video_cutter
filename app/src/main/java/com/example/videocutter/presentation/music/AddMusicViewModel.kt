@@ -39,7 +39,6 @@ class AddMusicViewModel @Inject constructor(
     val timeLineState = _timeLineState.asStateFlow()
 
     private var jobList: Job? = null
-    private var jobProgress: Job? = null
 
     private var mapState: HashMap<String?, MusicState> = hashMapOf()
 
@@ -66,9 +65,11 @@ class AddMusicViewModel @Inject constructor(
                     MusicDisplay(
                         type = musicType,
                         data = it,
-                        musicState = mapState.getOrDefault(it.id, MusicState()).copy(
-                            isDownLoaded = musicType == MUSIC_TYPE.LOCAL,
-                            end = it.duration
+                        musicState = mapState.getOrDefault(
+                            it.id,
+                            MusicState(end = it.duration)
+                        ).copy(
+                            isDownLoaded = musicType == MUSIC_TYPE.LOCAL
                         )
                     )
                 }
@@ -161,13 +162,13 @@ class AddMusicViewModel @Inject constructor(
         _timeLineState.reset()
     }
 
-    fun updatePlay(id: String?, isSelect: Boolean = true) {
+    fun updatePlay(id: String?, isChangeState: Boolean = true, isPlay: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            val newStatePlay = if (isSelect) {
+            val newStatePlay = if (isChangeState) {
                 !mapState[id]!!.isPlay
             } else {
-                true
+                isPlay
             }
             mapState[id] = mapState[id]!!.copy(isPlay = newStatePlay)
 
@@ -176,8 +177,7 @@ class AddMusicViewModel @Inject constructor(
     }
 
     fun setCurrentPosition(id: String?, position: Long, start: Long, end: Long) {
-        jobProgress?.cancel()
-        jobProgress = viewModelScope.launch(Dispatchers.IO) {
+       viewModelScope.launch(Dispatchers.IO) {
             val newState = mapState[id]!!
             newState.start = start
             newState.currentPosition = position

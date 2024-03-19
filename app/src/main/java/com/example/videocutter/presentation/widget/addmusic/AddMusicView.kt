@@ -224,7 +224,7 @@ class AddMusicView constructor(
         updateVRunProgress(leftMargin)
     }
 
-    fun reset(start: Float = FLOAT_DEFAULT, end: Float = FLOAT_DEFAULT) {
+    fun initMargin(start: Float = FLOAT_DEFAULT, end: Float = FLOAT_DEFAULT) {
         handler?.post {
             val startLeft = widthScreen!! * start / duration!!
             val endRight = widthScreen!! * end / duration!!
@@ -232,7 +232,7 @@ class AddMusicView constructor(
             updateRight(widthScreen!! - endRight, false)
             updateVRunProgress(startLeft)
             tvLeft?.text = start.toLong().convertTimeToString()
-            tvRight?.text = duration?.convertTimeToString()
+            tvRight?.text = end.toLong().convertTimeToString()
 
             Log.d(TAG, "reset: [start = $startLeft] -- [end = $endRight] -- [width = $widthScreen]")
         }

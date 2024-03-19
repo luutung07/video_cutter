@@ -4,7 +4,6 @@ import android.os.Handler
 import android.os.Looper
 import androidx.fragment.app.viewModels
 import androidx.media3.common.MediaItem
-import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.library_base.common.usecase.IViewListener
@@ -69,7 +68,8 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
             handleUiState(it, object : IViewListener {
 
                 override fun onSuccess() {
-                    clearRunnable()
+                    if (it.data == null) return
+                    exoPlayer?.seekTo(it.data!!.first)
                     checkTimeLine(
                         it.data?.first ?: LONG_DEFAULT,
                         it.data?.second ?: LONG_DEFAULT,
@@ -86,8 +86,6 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
         if (viewModel.urlMp3 != null && exoPlayer == null) {
             initializePlayer()
         }
-
-        handler = Handler(Looper.getMainLooper())
 
         binding.ivAddMusicBack.setOnSafeClick {
             onBackPressedFragment()
@@ -135,10 +133,9 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
                     releasePlayer()
                     viewModel.urlMp3 = url
                     initializePlayer()
-                    exoPlayer?.seekTo(start)
-                    clearRunnable()
                     checkTimeLine(start, end, id)
                 }
+                exoPlayer?.seekTo(start)
                 exoPlayer?.play()
             }
 
@@ -150,17 +147,23 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
                 viewModel.updatePlay(id, false)
                 exoPlayer?.seekTo(start)
                 exoPlayer?.play()
-                clearRunnable()
                 checkTimeLine(start, end, id)
             }
 
-            override fun onPlay(id: String?) {
-                if (viewModel.isPlaying(id)) {
-                    stopExoplayer()
+            override fun onPlay(id: String?, isReset: Boolean, start: Long?, end: Long?) {
+                if (isReset) {
+                    exoPlayer?.seekTo(start ?: 0)
+                    exoPlayer?.play()
+                    viewModel.updatePlay(id, isChangeState = false)
+                    checkTimeLine(start ?: 0, end ?: 0, id)
                 } else {
-                    resumeExoplayer()
+                    if (viewModel.isPlaying(id)) {
+                        stopExoplayer()
+                    } else {
+                        resumeExoplayer()
+                    }
+                    viewModel.updatePlay(id)
                 }
-                viewModel.updatePlay(id)
             }
 
             override fun onDoneCrop(id: String?) {
@@ -175,16 +178,17 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
 
     private fun checkTimeLine(start: Long, end: Long, id: String?) {
         if (exoPlayer == null) return
-        if (handler == null) handler = Handler(Looper.getMainLooper())
+        clearRunnable()
 
-        exoPlayer?.seekTo(start)
+        handler = Handler(Looper.getMainLooper())
 
         runnable = object : Runnable {
             override fun run() {
                 val current = (exoPlayer?.currentPosition ?: LONG_DEFAULT)
-                if (current > end) {
+                if (current >= end) {
                     exoPlayer?.pause()
                     exoPlayer?.seekTo(start)
+                    viewModel.updatePlay(id, isChangeState = false, isPlay = false)
                     clearRunnable()
                 }
                 viewModel.setCurrentPosition(id, current, start, end)
