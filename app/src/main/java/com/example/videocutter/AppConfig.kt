@@ -5,6 +5,5 @@ object AppConfig {
     const val MAX_ITEM_SELECT = 3
     const val TIME_DELAY = 350L
     const val TIME_DELAY_PLAY_VIDEO = 1000L
-    const val TIME_DELAY_EDIT_VIDEO = 2000L
-    const val TIME_DELAY_RUN_VIDEO = 120L
+    const val TIME_DELAY_SHOW_SUGGEST = 3000L
 }

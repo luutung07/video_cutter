@@ -12,6 +12,8 @@ import com.example.videocutter.AppConfig
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.coroutinesLaunch
 import com.example.videocutter.common.extensions.handleUiState
+import com.example.videocutter.common.loader.aim.SLIDE_TYPE
+import com.example.videocutter.common.loader.aim.SlideAnimation
 import com.example.videocutter.common.srceen.VideoCutterFragment
 import com.example.videocutter.databinding.AddMusicFragmentBinding
 import com.example.videocutter.presentation.display.model.music.MUSIC_TYPE
@@ -28,6 +30,10 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
 
     private var handler: Handler? = null
     private var runnable: Runnable? = null
+
+    override fun getContainerId(): Int {
+        return R.id.clAddMusicRoot
+    }
 
     override fun onInitView() {
         super.onInitView()
@@ -83,6 +89,8 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
 
     private fun setEventView() {
 
+        showSuggest()
+
         if (viewModel.urlMp3 != null && exoPlayer == null) {
             initializePlayer()
         }
@@ -100,6 +108,16 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
             viewModel.musicType = MUSIC_TYPE.LOCAL
             viewModel.getListMusic(true)
         }
+    }
+
+    private fun showSuggest() {
+        if (handler == null) handler = Handler(Looper.getMainLooper())
+        handler?.postDelayed({
+            replaceFragmentInsideFragment(
+                SuggestActionMusicFragment(),
+                screenAnim = SlideAnimation(SLIDE_TYPE.BOTTOM_TO_TOP)
+            )
+        }, AppConfig.TIME_DELAY_SHOW_SUGGEST)
     }
 
     private fun setUpAdapter() {

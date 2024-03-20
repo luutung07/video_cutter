@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/flSuggestActionMusicRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_overlay"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/dimen_64"
+            android:background="@drawable/shape_bg_white_corner_8">
+
+            <TextView
+                android:id="@+id/tvSuggestActionMusicTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fbase_font_bold"
+                android:padding="@dimen/dimen_10"
+                android:text="@string/suggest"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_text_size_22"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSuggestActionMusicContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fbase_font_regular"
+                android:padding="@dimen/dimen_10"
+                android:text="@string/long_press_to_cut_audio"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_text_size_16"
+                app:layout_constraintTop_toBottomOf="@id/tvSuggestActionMusicTitle" />
+
+            <TextView
+                android:id="@+id/tvSuggestActionMusicClose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_bg_color_1_corner_bottom_8"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/fbase_font_bold"
+                android:foreground="?selectableItemBackground"
+                android:padding="@dimen/dimen_14"
+                android:text="@string/close"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:textSize="@dimen/dimen_text_size_16"
+                app:layout_constraintTop_toBottomOf="@id/tvSuggestActionMusicContent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+
+</layout>

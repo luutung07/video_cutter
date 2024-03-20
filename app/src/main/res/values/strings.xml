@@ -53,6 +53,9 @@
     <string name="nope">Nope</string>
     <string name="add">Add</string>
     <string name="done">Done</string>
+    <string name="suggest">Suggest</string>
+    <string name="long_press_to_cut_audio">Long press to cut audio</string>
+    <string name="close">Close</string>
 
 
 </resources>
