@@ -3,93 +3,116 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/dimen_20">
 
-    <androidx.media3.ui.PlayerView
-        android:id="@+id/pvTrim"
-        android:layout_width="match_parent"
+    <com.example.videocutter.presentation.widget.recyclerview.CollectionView
+        android:id="@+id/cvTrim"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:use_controller="false" />
-
-    <ImageView
-        android:id="@+id/ivTrimPlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?selectableItemBackground"
-        android:padding="@dimen/dimen_10"
-        android:src="@drawable/ic_btn_pause"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pvTrim" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clTrim"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_20"
-        android:layout_marginTop="@dimen/dimen_20"
+        app:layout_constraintBottom_toBottomOf="@id/vTrimBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivTrimPlay">
+        app:layout_constraintTop_toTopOf="@id/vTrimTop" />
 
-        <com.example.videocutter.presentation.widget.recyclerview.CollectionView
-            android:id="@+id/cvTrimFrame"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/dimen_10"
-            app:layout_constraintBottom_toBottomOf="@id/vTrimBottom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/vTrimTop" />
+    <TextView
+        android:id="@+id/tvTrimStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:fontFamily="@font/fbase_font_regular"
+        android:textSize="@dimen/dimen_text_size_14"
+        app:layout_constraintBottom_toBottomOf="@id/vTrimTop"
+        app:layout_constraintStart_toStartOf="@+id/flTrimStart"
+        tools:text="@string/time_default" />
 
-        <ImageView
-            android:id="@+id/ivTrimStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_start_point"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tvTrimEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:fontFamily="@font/fbase_font_regular"
+        android:textSize="@dimen/dimen_text_size_14"
+        app:layout_constraintBottom_toBottomOf="@id/vTrimTop"
+        app:layout_constraintEnd_toEndOf="@+id/flTrimEnd"
+        tools:text="@string/time_default" />
 
-        <ImageView
-            android:id="@+id/ivTrimEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_start_point"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/vTrimTop"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dimen_4"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivTrimStart" />
+    <FrameLayout
+        android:id="@+id/flTrimStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dimen_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <View
-            android:id="@+id/vTrimBottom"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dimen_4"
-            android:background="@color/black"
-            app:layout_constraintBottom_toBottomOf="@id/ivTrimStart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:id="@+id/vTrimStart"
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_52"
+            android:background="@color/yellow_10" />
 
-        <ImageView
-            android:id="@+id/ivTrimVideoTimeline"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_time_trim"
-            app:layout_constraintBottom_toBottomOf="@id/vTrimBottom"
-            app:layout_constraintStart_toEndOf="@id/ivTrimStart"
-            app:layout_constraintTop_toTopOf="@id/vTrimTop" />
+        <View
+            android:layout_width="@dimen/dimen_2"
+            android:layout_height="@dimen/dimen_16"
+            android:layout_gravity="center"
+            android:background="@color/white" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+    <View
+        android:id="@+id/vTrimTop"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_2"
+        android:layout_marginHorizontal="@dimen/dimen_12"
+        android:background="@color/yellow_10"
+        app:layout_constraintEnd_toEndOf="@id/flTrimEnd"
+        app:layout_constraintStart_toStartOf="@+id/flTrimStart"
+        app:layout_constraintTop_toTopOf="@id/flTrimStart" />
+
+    <View
+        android:id="@+id/vTrimBottom"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_2"
+        android:layout_marginHorizontal="@dimen/dimen_12"
+        android:background="@color/yellow_10"
+        app:layout_constraintBottom_toBottomOf="@id/flTrimStart"
+        app:layout_constraintEnd_toEndOf="@id/flTrimEnd"
+        app:layout_constraintStart_toStartOf="@+id/flTrimStart" />
+
+    <View
+        android:id="@+id/vTrimProgress"
+        android:layout_width="@dimen/dimen_2"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/dimen_20"
+        android:background="@color/color_1"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/vTrimBottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/vTrimTop" />
+
+    <FrameLayout
+        android:id="@+id/flTrimEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dimen_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/vTrimEnd"
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_52"
+            android:background="@color/yellow_10" />
+
+        <View
+            android:layout_width="@dimen/dimen_2"
+            android:layout_height="@dimen/dimen_16"
+            android:layout_gravity="center"
+            android:background="@color/white" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

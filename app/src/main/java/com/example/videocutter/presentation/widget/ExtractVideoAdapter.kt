@@ -1,4 +1,4 @@
-package com.example.videocutter.presentation.widget.video
+package com.example.videocutter.presentation.widget
 
 import androidx.databinding.ViewDataBinding
 import com.example.library_base.adapter.BaseAdapter

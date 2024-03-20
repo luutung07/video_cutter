@@ -32,6 +32,7 @@ import com.example.videocutter.AppConfig
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.convertTimeToString
 import com.example.videocutter.presentation.display.model.editvideo.DetachFrameDisplay
+import com.example.videocutter.presentation.widget.ExtractVideoAdapter
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import com.example.videocutter.presentation.widget.crop.CropVideo
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
@@ -66,7 +67,6 @@ class VideoControlView constructor(
     private var handler: Handler? = null
     private var runable: Runnable? = null
     private var runnableScrollExtract: Runnable? = null
-    private val listFrame = LinkedHashSet<Bitmap>()
     private var hasExtract = false
 
     private val extractAdapter by lazy { ExtractVideoAdapter() }
@@ -216,7 +216,6 @@ class VideoControlView constructor(
     fun hasTimeStart(hasTimeStart: Boolean) {
         timeLine?.hasTimeStart(hasTimeStart)
     }
-
 
     @UnstableApi
     fun swapListPath(oldIndex: Int, newIndex: Int) {

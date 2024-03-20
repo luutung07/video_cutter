@@ -88,7 +88,7 @@ class RepoDisplayImpl @Inject constructor() : IRepoDisplay {
                 val durationStr =
                     mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
                 val duration = durationStr!!.toLong()
-                for (i in 0 until duration step 1000) {
+                for (i in 0 until duration step 2500) {
                     val bitmap =
                         mediaMetadataRetriever.getFrameAtTime(
                             i * 1000,

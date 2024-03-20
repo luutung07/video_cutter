@@ -9,11 +9,13 @@ import com.example.baseapp.base.extension.getAppString
 import com.example.baseapp.base.extension.gone
 import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.baseapp.base.extension.show
+
 import com.example.library_base.common.usecase.IViewListener
 import com.example.library_base.eventbus.EventBusManager
 import com.example.library_base.eventbus.IEvent
 import com.example.videocutter.R
 import com.example.videocutter.common.event.DeleteVideoEvent
+import com.example.videocutter.common.event.NextEditVideoEvent
 import com.example.videocutter.common.event.OnBackPressFile
 import com.example.videocutter.common.event.SelectFolderEvent
 import com.example.videocutter.common.extensions.coroutinesLaunch

@@ -1,5 +1,6 @@
 package com.example.videocutter.presentation.editvideo
 
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.media3.common.util.UnstableApi
 import com.example.baseapp.base.extension.getAppColor
@@ -19,6 +20,7 @@ import com.example.videocutter.presentation.editvideo.rotate.RotateFragment
 import com.example.videocutter.presentation.editvideo.speed.SpeedFragment
 import com.example.videocutter.presentation.display.model.editvideo.FEATURE_TYPE
 import com.example.videocutter.presentation.display.model.editvideo.FILTER_TYPE
+import com.example.videocutter.presentation.editvideo.cut.CutFragment
 import com.example.videocutter.presentation.widget.crop.CROP_TYPE
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
 import com.example.videocutter.presentation.widget.speedvideo.SPEED_TYPE
@@ -150,7 +152,13 @@ class EditVideoFragment :
                         navigateTo(R.id.addMusicFragment)
                     }
 
-                    else -> {}
+                    FEATURE_TYPE.CUT -> {
+                        navigateTo(R.id.cutFragment, bundleOf(
+                            CutFragment.LIST_PATH_KEY to viewModel.listPath,
+                            CutFragment.DURATION_KEY to viewModel.maxDuration
+                        ))
+                    }
+
                 }
             }
         }

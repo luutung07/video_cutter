@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.videocutter.presentation.widget.headerview.HeaderView
+            android:id="@+id/hvCut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hv_center_label="Cut"
+            app:hv_left_icon="@drawable/ic_close_black"
+            app:hv_right_background="@drawable/shape_bg_color_1_corner_4"
+            app:hv_right_label="Done"
+            app:hv_right_text_color="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/black"
+            tools:layout_height="@dimen/dimen_48" />
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/pvCut"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:use_controller="false"
+            app:resize_mode="fit"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@id/hvCut" />
+
+        <ImageView
+            android:id="@+id/ivCutPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            android:padding="@dimen/dimen_10"
+            android:src="@drawable/ic_btn_play"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pvCut" />
+
+        <com.example.videocutter.presentation.widget.cut.TrimView
+            android:id="@+id/trimCut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/dimen_10"
+            app:layout_constraintTop_toBottomOf="@id/ivCutPlay" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
