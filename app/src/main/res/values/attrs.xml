@@ -30,4 +30,15 @@
         <attr name="ts_text_right" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="LeftRightTextIconView">
+
+        <attr name="lrti_ic_left" format="reference"/>
+        <attr name="lrti_tv_left" format="string"/>
+
+        <attr name="lrti_ic_right" format="reference"/>
+        <attr name="lrti_tv_right" format="string"/>
+
+
+    </declare-styleable>
+
 </resources>

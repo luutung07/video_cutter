@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSettingRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivSettingBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            android:padding="@dimen/dimen_12"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSettingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:fontFamily="@font/fbase_font_bold"
+            android:text="@string/setting"
+            android:textColor="@color/neutral_1"
+            android:textSize="@dimen/dimen_text_size_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivSettingBack" />
+
+        <com.example.videocutter.presentation.widget.leftrighttexticon.LeftRightTextIconView
+            android:id="@+id/lrtiSettingVideoTutorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_60"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/tvSettingTitle"
+            app:lrti_ic_left="@drawable/ic_videotutorial"
+            app:lrti_ic_right="@drawable/ic_arrow_right_grey"
+            app:lrti_tv_left="Video Tutorial" />
+
+        <com.example.videocutter.presentation.widget.leftrighttexticon.LeftRightTextIconView
+            android:id="@+id/lrtiSettingVideoQuality"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/lrtiSettingVideoTutorial"
+            app:lrti_ic_left="@drawable/ic_videoquality"
+            app:lrti_ic_right="@drawable/ic_arrow_right_grey"
+            app:lrti_tv_left="Video Quality" />
+
+        <com.example.videocutter.presentation.widget.leftrighttexticon.LeftRightTextIconView
+            android:id="@+id/lrtiSettingRateUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/lrtiSettingVideoQuality"
+            app:lrti_ic_left="@drawable/ic_rate"
+            app:lrti_ic_right="@drawable/ic_arrow_right_grey"
+            app:lrti_tv_left="Rate Us" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

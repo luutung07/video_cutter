@@ -49,6 +49,11 @@ class HomeFragment : VideoCutterFragment<HomeFragmentBinding>(R.layout.home_frag
             navigateTo(R.id.fragmentSelect)
 //            navigateTo(R.id.addMusicFragment)
         }
+
+        binding.ivHomeSetting.setOnSafeClick {
+            navigateTo(R.id.settingFragment)
+        }
+
         requestPermission()
     }
 

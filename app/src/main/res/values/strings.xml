@@ -49,6 +49,7 @@
     <string name="filter_summer">Summer</string>
     <string name="filter_fall">Fall</string>
     <string name="filter_winter">Winter</string>
+
     <string name="music">Music</string>
     <string name="nope">Nope</string>
     <string name="add">Add</string>
@@ -56,6 +57,10 @@
     <string name="suggest">Suggest</string>
     <string name="long_press_to_cut_audio">Long press to cut audio</string>
     <string name="close">Close</string>
-
+    <string name="setting">Setting</string>
+    <string name="video_quality">Video Quality</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
 
 </resources>

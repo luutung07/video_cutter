@@ -20,6 +20,7 @@ class VideoCutterApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        AppPreferences.init(this)
         setApplication(this)
         createNotify()
     }

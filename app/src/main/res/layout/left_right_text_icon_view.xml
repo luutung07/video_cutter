@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_42">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:background="@color/gray_hint"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivLeftRightTextIconLeftIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_videotutorial"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvLeftRightTextIconLeftLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:fontFamily="@font/fbase_font_regular"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_text_size_16"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivLeftRightTextIconLeftIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Video Tutorial"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/ivLeftRightTextIconRightIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10"
+        android:src="@drawable/ic_arrow_right_grey"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvLeftRightTextIconRightLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fbase_font_regular"
+        android:textSize="@dimen/dimen_text_size_14"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivLeftRightTextIconRightIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Hight"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
