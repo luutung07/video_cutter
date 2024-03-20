@@ -27,6 +27,8 @@ class CutFragment : VideoCutterFragment<CutFragmentBinding>(R.layout.cut_fragmen
     private var duration: Long? = null
 
     private var exoplayer: ExoPlayer? = null
+    private var start: Long = LONG_DEFAULT
+    private var end: Long = LONG_DEFAULT
 
     private var handler: Handler? = null
     private var runable: Runnable? = null
@@ -61,7 +63,9 @@ class CutFragment : VideoCutterFragment<CutFragmentBinding>(R.layout.cut_fragmen
             listener = object : TrimView.ITrimCallBack {
                 override fun onTrim(start: Long, end: Long) {
                     clearRunnable()
-                    updateTime(start, end)
+                    this@CutFragment.start = start
+                    this@CutFragment.end = end
+                    updateTime()
                 }
             }
         }
@@ -73,6 +77,9 @@ class CutFragment : VideoCutterFragment<CutFragmentBinding>(R.layout.cut_fragmen
             } else {
                 binding.ivCutPlay.setImageResource(R.drawable.ic_btn_play)
                 start()
+                if (handler == null){
+                    updateTime()
+                }
             }
         }
 
@@ -129,16 +136,21 @@ class CutFragment : VideoCutterFragment<CutFragmentBinding>(R.layout.cut_fragmen
         clearRunnable()
     }
 
-    private fun updateTime(start: Long, end: Long) {
+    private fun updateTime() {
         if (handler == null) handler = Handler(Looper.getMainLooper())
+        binding.ivCutPlay.setImageResource(R.drawable.ic_btn_play)
+
         exoplayer?.seekTo(start)
         exoplayer?.play()
+
         runable = object : Runnable {
             override fun run() {
                 val current = exoplayer?.currentPosition ?: LONG_DEFAULT
                 if (current >= end) {
                     stop()
                     clearRunnable()
+                    exoplayer?.seekTo(start)
+                    binding.ivCutPlay.setImageResource(R.drawable.ic_btn_pause)
                 } else {
                     binding.trimCut.updateProgress(current, end)
                 }

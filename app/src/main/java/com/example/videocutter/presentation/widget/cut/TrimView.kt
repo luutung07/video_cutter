@@ -51,6 +51,7 @@ class TrimView constructor(
     private var vBottom: View? = null
 
     private var vTrimProgress: View? = null
+    private var tvTrimProgress: TextView? = null
 
     private var widthScreen: Float? = null
     private var heightScreen: Float? = null
@@ -128,6 +129,7 @@ class TrimView constructor(
         vTop = findViewById(R.id.vTrimTop)
         vBottom = findViewById(R.id.vTrimBottom)
         vTrimProgress = findViewById(R.id.vTrimProgress)
+        tvTrimProgress = findViewById(R.id.tvTrimProgress)
 
         cvTrim = findViewById(R.id.cvTrim)
 
@@ -255,6 +257,8 @@ class TrimView constructor(
         newParam.leftMargin =
             (left + getAppDimension(com.example.library_base.R.dimen.dimen_20)).toInt()
         vTrimProgress?.layoutParams = newParam
+
+        tvTrimProgress?.text = progress.convertTimeToString()
     }
 
     fun setDuration(duration: Long) {

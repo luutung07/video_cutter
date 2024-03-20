@@ -115,4 +115,16 @@
 
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/tvTrimProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="00:01"
+        app:layout_constraintTop_toTopOf="@id/vTrimBottom"
+        app:layout_constraintStart_toStartOf="@id/flTrimStart"
+        app:layout_constraintEnd_toEndOf="@id/flTrimEnd"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/dimen_text_size_14"
+        android:fontFamily="@font/fbase_font_medium"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
