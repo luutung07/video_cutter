@@ -37,7 +37,7 @@ data class CropDisplay(
                 CROP_TYPE.TYPE_9_16 -> getAppDrawable(R.drawable.ic_crop_9x16)
                 CROP_TYPE.TYPE_16_9 -> getAppDrawable(R.drawable.ic_crop_16x9)
                 CROP_TYPE.TYPE_3_2 -> getAppDrawable(R.drawable.ic_crop_3x2)
-                CROP_TYPE.TYPE_2_3 -> getAppDrawable(R.drawable.ic_crop_2x3)
+                CROP_TYPE.TYPE_2_3 -> getAppDrawable(R.drawable.ic_crop_4x3)
                 CROP_TYPE.TYPE_4_3 -> getAppDrawable(R.drawable.ic_crop_4x3)
                 CROP_TYPE.TYPE_3_4 -> getAppDrawable(R.drawable.ic_crop_3x4)
                 else -> null
