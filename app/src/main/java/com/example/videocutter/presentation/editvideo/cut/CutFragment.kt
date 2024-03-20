@@ -48,10 +48,6 @@ class CutFragment : VideoCutterFragment<CutFragmentBinding>(R.layout.cut_fragmen
     override fun onDestroyView() {
         super.onDestroyView()
         removeListener()
-    }
-
-    override fun onStop() {
-        super.onStop()
         releasePlayer()
     }
 
