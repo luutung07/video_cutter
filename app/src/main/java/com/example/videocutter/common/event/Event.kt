@@ -9,4 +9,6 @@ class DeleteVideoEvent(val list: List<VideoInfo>?) : IEvent
 
 class NextEditVideoEvent() : IEvent
 
-class OnBackPressFile(val inclusive: Boolean = false): IEvent
+class OnBackPressFile(val inclusive: Boolean = false) : IEvent
+
+class CutVideoEvent(val start: Long, val end: Long) : IEvent

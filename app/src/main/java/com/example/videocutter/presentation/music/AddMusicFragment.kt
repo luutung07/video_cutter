@@ -2,8 +2,11 @@ package com.example.videocutter.presentation.music
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.library_base.common.usecase.IViewListener
@@ -92,7 +95,7 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
         showSuggest()
 
         if (viewModel.urlMp3 != null && exoPlayer == null) {
-            initializePlayer()
+            initializePlayer(viewModel.urlMp3!!)
         }
 
         binding.ivAddMusicBack.setOnSafeClick {
@@ -128,9 +131,8 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
     private fun addListener() {
         adapter.listener = object : AddMusicAdapter.IMusicCallBack {
             override fun onSelectMusic(id: String?, url: String?) {
-                releasePlayer()
                 viewModel.urlMp3 = url
-                initializePlayer()
+                playMedia(viewModel.urlMp3!!)
                 clearRunnable()
                 viewModel.selectMusic(id)
             }
@@ -148,9 +150,8 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
             override fun onShowCutMusic(id: String?, url: String?, start: Long, end: Long) {
                 viewModel.showCropMedia(id)
                 if (url != null && url != viewModel.urlMp3) {
-                    releasePlayer()
                     viewModel.urlMp3 = url
-                    initializePlayer()
+                    playMedia(url)
                     checkTimeLine(start, end, id)
                 }
                 exoPlayer?.seekTo(start)
@@ -216,19 +217,28 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
         handler?.postDelayed(runnable!!, AppConfig.TIME_DELAY)
     }
 
-    private fun initializePlayer() {
+    private fun initializePlayer(url: String) {
         if (exoPlayer == null) {
             exoPlayer = ExoPlayer.Builder(requireContext())
                 .build()
                 .also { exoPlayer ->
-                    val secondMediaItem = MediaItem.fromUri(viewModel.urlMp3.toString())
-                    exoPlayer.setMediaItems(
-                        listOf(secondMediaItem),
-                    )
+                    val secondMediaItem = MediaItem.fromUri(url)
+                    exoPlayer.addMediaItem(secondMediaItem)
                     exoPlayer.playWhenReady = true
                     exoPlayer.prepare()
                 }
         }
+        exoPlayer?.addListener(object : Player.Listener{
+            override fun onPlayerError(error: PlaybackException) {
+                super.onPlayerError(error)
+                Log.d(TAG, "onPlayerError: ")
+            }
+
+            override fun onPlayerErrorChanged(error: PlaybackException?) {
+                super.onPlayerErrorChanged(error)
+                Log.d(TAG, "onPlayerErrorChanged: ")
+            }
+        })
     }
 
     private fun resumeExoplayer() {
@@ -252,4 +262,13 @@ class AddMusicFragment : VideoCutterFragment<AddMusicFragmentBinding>(R.layout.a
         handler = null
     }
 
+    private fun playMedia(url: String) {
+        if (exoPlayer == null) {
+            viewModel.urlMp3 = url
+            initializePlayer(url)
+        } else {
+            exoPlayer?.replaceMediaItem(0, MediaItem.fromUri(url))
+            exoPlayer?.play()
+        }
+    }
 }

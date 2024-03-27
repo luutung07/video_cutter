@@ -75,7 +75,7 @@ class RepoDisplayImpl @Inject constructor() : IRepoDisplay {
         return list
     }
 
-    override fun getFrameDetach(list: List<String>): List<DetachFrameDisplay> {
+    override fun getFrameDetach(list: List<String>, start: Long?, end: Long?): List<DetachFrameDisplay> {
         val result: MutableList<DetachFrameDisplay> = arrayListOf()
         return try {
             val mediaMetadataRetriever = MediaMetadataRetriever()
@@ -87,8 +87,9 @@ class RepoDisplayImpl @Inject constructor() : IRepoDisplay {
                 // Retrieve media data use microsecond
                 val durationStr =
                     mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
-                val duration = durationStr!!.toLong()
-                for (i in 0 until duration step 2500) {
+                val indexStart = start?: 0
+                val indexEnd = end?: durationStr!!.toLong()
+                for (i in indexStart until indexEnd step 2500) {
                     val bitmap =
                         mediaMetadataRetriever.getFrameAtTime(
                             i * 1000,

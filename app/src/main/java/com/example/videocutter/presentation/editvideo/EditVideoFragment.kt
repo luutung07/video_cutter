@@ -61,12 +61,33 @@ class EditVideoFragment :
         removeListener()
     }
 
+    @UnstableApi
     override fun onObserverViewModel() {
         super.onObserverViewModel()
         coroutinesLaunch(viewModel.listFeatureState) {
             handleUiState(it, object : IViewListener {
                 override fun onSuccess() {
                     binding.cvEditVideoFuture.submitList(it.data)
+                }
+            })
+        }
+
+        coroutinesLaunch(mainViewModel.listFrameDetach) {
+            handleUiState(it, object : IViewListener {
+                override fun onSuccess() {
+                    binding.vcvEditVideo.apply {
+
+                        if (mainViewModel.endCut != null && mainViewModel.startCut != null) {
+                            setTimeCenter((mainViewModel.endCut!! - mainViewModel.startCut!!).convertTimeToString())
+                        }
+                        setListPath(
+                            viewModel.listPath,
+                            listFrameDetach = it.data,
+                            hasTimeStart = false,
+                            startCut = mainViewModel.startCut,
+                            endCut = mainViewModel.endCut
+                        )
+                    }
                 }
             })
         }
@@ -83,11 +104,6 @@ class EditVideoFragment :
 
         binding.vcvEditVideo.apply {
             setTimeCenter(viewModel.maxDuration.convertTimeToString())
-            setListPath(
-                viewModel.listPath,
-                listFrameDetach = mainViewModel.listFrameDetach.value.data,
-                hasTimeStart = false
-            )
             hasTimeStart(false)
             listenerStateVideo = object : VideoControlView.IVideoControlCallback.IStateVideo {
 
@@ -153,10 +169,12 @@ class EditVideoFragment :
                     }
 
                     FEATURE_TYPE.CUT -> {
-                        navigateTo(R.id.cutFragment, bundleOf(
-                            CutFragment.LIST_PATH_KEY to viewModel.listPath,
-                            CutFragment.DURATION_KEY to viewModel.maxDuration
-                        ))
+                        navigateTo(
+                            R.id.cutFragment, bundleOf(
+                                CutFragment.LIST_PATH_KEY to viewModel.listPath,
+                                CutFragment.DURATION_KEY to viewModel.maxDuration
+                            )
+                        )
                     }
 
                 }

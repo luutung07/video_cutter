@@ -40,11 +40,11 @@
             android:id="@+id/flEditVideoFeature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_height="@dimen/dimen_300"
             android:visibility="gone"
-            tools:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:background="@color/over_lay"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            tools:layout_height="@dimen/dimen_300"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

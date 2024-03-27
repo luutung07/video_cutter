@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -58,6 +59,7 @@ class VideoControlView constructor(
 
     private var clExtractRoot: ConstraintLayout? = null
     private var cvExtract: CollectionView? = null
+    private var flLineBarVisualizer: FrameLayout? = null
     private var lineBarVisualizer: LineBarVisualizer? = null
 
     private var cropVideo: CropVideo? = null
@@ -70,6 +72,7 @@ class VideoControlView constructor(
     private var hasExtract = false
 
     private val extractAdapter by lazy { ExtractVideoAdapter() }
+    private var isFisrt = true
 
     var listenerStateVideo: IVideoControlCallback.IStateVideo? = null
 
@@ -80,6 +83,7 @@ class VideoControlView constructor(
     }
 
     private fun initView(attrs: AttributeSet?) {
+        flLineBarVisualizer = findViewById(R.id.flVideoLineBarVisualizer)
         playView = findViewById(R.id.pvVideo)
         timeLine = findViewById(R.id.tlvVideo)
         clExtractRoot = findViewById(R.id.clVideoExtract)
@@ -90,10 +94,17 @@ class VideoControlView constructor(
         setUpAdapter()
     }
 
+    @UnstableApi
     private fun setUpView() {
 
-        lineBarVisualizer?.setColor(ContextCompat.getColor(ctx, R.color.white));
-        lineBarVisualizer?.setDensity(70f);
+        if (isFisrt) {
+            lineBarVisualizer?.setPlayer(exoplayer!!.audioSessionId)
+            lineBarVisualizer?.setColor(ContextCompat.getColor(ctx, R.color.white));
+            lineBarVisualizer?.setDensity(70f);
+            isFisrt = false
+        }
+
+        timeLine?.setImageDrawableIcLeft(getAppDrawable(R.drawable.ic_btn_play))
 
         exoplayer?.addListener(object : Player.Listener {
             override fun onPlayerError(error: PlaybackException) {
@@ -170,7 +181,7 @@ class VideoControlView constructor(
     }
 
     private fun updateScrollExtractVideo() {
-        cvExtract?.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        cvExtract?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 Log.d(TAG, "onScrolled: $dx")
@@ -197,17 +208,19 @@ class VideoControlView constructor(
     fun setListPath(
         list: List<String>,
         hasTimeStart: Boolean = true,
-        listFrameDetach: List<DetachFrameDisplay>? = null
+        listFrameDetach: List<DetachFrameDisplay>? = null,
+        startCut: Long? = null,
+        endCut: Long? = null
     ) {
         listPath = list
         this.hasExtract = listFrameDetach != null
         if (hasExtract) {
             clExtractRoot?.show()
             cvExtract?.submitList(listFrameDetach)
-        }else{
+        } else {
             clExtractRoot?.gone()
         }
-        setExoplayer()
+        setExoplayer(startCut, endCut)
         if (hasTimeStart) {
             timeLine?.setTvStart(getAppString(R.string.time_start))
         }
@@ -241,13 +254,29 @@ class VideoControlView constructor(
     }
 
     @UnstableApi
-    fun setExoplayer() {
+    fun setExoplayer(startCut: Long?, endCut: Long?) {
+        cvExtract?.requestLayout()
+        flLineBarVisualizer?.requestLayout()
         if (exoplayer == null) {
             if (listPath.isEmpty()) return
             val concatenatingMediaSourceBuilder = ConcatenatingMediaSource2.Builder()
             listPath.forEach {
                 val mediaSource =
-                    DefaultMediaSourceFactory(ctx).createMediaSource(MediaItem.fromUri(it))
+                    DefaultMediaSourceFactory(ctx).createMediaSource(
+                        MediaItem.Builder()
+                            .setUri(it)
+                            .apply {
+                                if (startCut != null && endCut != null) {
+                                    this.setClippingConfiguration(
+                                        MediaItem.ClippingConfiguration.Builder()
+                                            .setStartPositionMs(startCut)
+                                            .setEndPositionMs(endCut)
+                                            .build()
+                                    )
+                                }
+                            }
+                            .build()
+                    )
                 concatenatingMediaSourceBuilder.add(mediaSource, LONG_DEFAULT)
             }
 
@@ -258,8 +287,6 @@ class VideoControlView constructor(
                     player.setMediaSource(concatenatingMediaSourceBuilder.build())
                     player.prepare()
                     player.playWhenReady = true
-                    lineBarVisualizer?.setPlayer(player.audioSessionId)
-                    timeLine?.setImageDrawableIcLeft(getAppDrawable(R.drawable.ic_btn_play))
                 }
         }
         setUpView()

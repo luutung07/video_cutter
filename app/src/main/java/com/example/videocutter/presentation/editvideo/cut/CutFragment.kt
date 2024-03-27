@@ -81,10 +81,15 @@ class CutFragment : VideoCutterFragment<CutFragmentBinding>(R.layout.cut_fragmen
 
         binding.hvCut.apply {
             setActionRight {
+                mainViewModel.startCut = start
+                mainViewModel.endCut = end
+                mainViewModel.detachFrameVideo(listPath?: arrayListOf())
                 onBackPressedFragment()
             }
 
             setActionLeft {
+                mainViewModel.startCut = null
+                mainViewModel.endCut = null
                 onBackPressedFragment()
             }
         }

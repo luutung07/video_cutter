@@ -23,6 +23,9 @@ class MainViewModel @Inject constructor(
     private var _listFrameDetach = MutableStateFlow(FlowResult.newInstance<List<DetachFrameDisplay>>())
     val listFrameDetach = _listFrameDetach.asStateFlow()
 
+    var startCut: Long? = null
+    var endCut: Long? = null
+
     init {
 
     }
@@ -30,7 +33,7 @@ class MainViewModel @Inject constructor(
     fun detachFrameVideo(list: List<String>) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = repoDisplay.getFrameDetach(list)
+                val result = repoDisplay.getFrameDetach(list, start = startCut, endCut)
                 _listFrameDetach.success(result)
             }catch (e: Exception){
                 _listFrameDetach.failure(e)
