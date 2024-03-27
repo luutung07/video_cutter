@@ -1,4 +1,4 @@
-package com.example.videocutter.presentation.widget.cut
+package com.example.videocutter.presentation.widget.cut.ver1
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -21,12 +21,10 @@ import com.example.library_base.extension.FLOAT_DEFAULT
 import com.example.library_base.extension.INT_DEFAULT
 import com.example.videocutter.R
 import com.example.videocutter.common.extensions.convertTimeToString
-import com.example.videocutter.common.extensions.getCoordinateYView
 import com.example.videocutter.presentation.display.model.editvideo.DetachFrameDisplay
 import com.example.videocutter.presentation.widget.ExtractVideoAdapter
 import com.example.videocutter.presentation.widget.recyclerview.COLLECTION_MODE
 import com.example.videocutter.presentation.widget.recyclerview.CollectionView
-import java.util.concurrent.Flow
 import kotlin.math.roundToInt
 
 class TrimView constructor(

@@ -2,7 +2,9 @@ package com.example.videocutter.presentation.display.repo
 
 import android.media.MediaMetadataRetriever
 import android.net.Uri
+import com.example.baseapp.base.extension.getAppDimension
 import com.example.library_base.extension.getApplication
+import com.example.videocutter.R
 import com.example.videocutter.presentation.display.IRepoDisplay
 import com.example.videocutter.presentation.display.model.editvideo.CropDisplay
 import com.example.videocutter.presentation.display.model.editvideo.DetachFrameDisplay
@@ -75,7 +77,13 @@ class RepoDisplayImpl @Inject constructor() : IRepoDisplay {
         return list
     }
 
-    override fun getFrameDetach(list: List<String>, start: Long?, end: Long?): List<DetachFrameDisplay> {
+    override fun getFrameDetach(
+        list: List<String>,
+        start: Long?,
+        end: Long?,
+        isCalculateItem: Boolean,
+        widthScreen: Int?
+    ): List<DetachFrameDisplay> {
         val result: MutableList<DetachFrameDisplay> = arrayListOf()
         return try {
             val mediaMetadataRetriever = MediaMetadataRetriever()
@@ -89,7 +97,14 @@ class RepoDisplayImpl @Inject constructor() : IRepoDisplay {
                     mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
                 val indexStart = start?: 0
                 val indexEnd = end?: durationStr!!.toLong()
-                for (i in indexStart until indexEnd step 2500) {
+                val step = if (isCalculateItem && widthScreen != null){
+                    val newWidth = widthScreen - 2 * getAppDimension(com.example.library_base.R.dimen.dimen_50)
+                    val calculateStepUi = newWidth / getAppDimension(com.example.library_base.R.dimen.dimen_50)
+                    (indexEnd / calculateStepUi).toLong()
+                }else{
+                    2500
+                }
+                for (i in indexStart until indexEnd step step) {
                     val bitmap =
                         mediaMetadataRetriever.getFrameAtTime(
                             i * 1000,

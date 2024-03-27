@@ -41,7 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pvCut" />
 
-        <com.example.videocutter.presentation.widget.cut.TrimView
+        <com.example.videocutter.presentation.widget.cut.ver1.TrimView
             android:id="@+id/trimCut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

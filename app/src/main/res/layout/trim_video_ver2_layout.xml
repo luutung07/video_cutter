@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvTrimStartVer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:fontFamily="@font/fbase_font_regular"
+        android:textSize="@dimen/dimen_text_size_14"
+        app:layout_constraintBottom_toBottomOf="@id/vTrimTopVer2"
+        app:layout_constraintStart_toStartOf="@+id/flTrimStartVer2"
+        tools:text="@string/time_default" />
+
+    <TextView
+        android:id="@+id/tvTrimEndVer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:fontFamily="@font/fbase_font_regular"
+        android:textSize="@dimen/dimen_text_size_14"
+        app:layout_constraintBottom_toBottomOf="@id/vTrimTopVer2"
+        app:layout_constraintEnd_toEndOf="@+id/flTrimEndVer2"
+        tools:text="@string/time_default" />
+
+    <FrameLayout
+        android:id="@+id/flTrimStartVer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dimen_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/vTrimStartVer2"
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_52"
+            android:background="@color/yellow_10" />
+
+        <View
+            android:layout_width="@dimen/dimen_2"
+            android:layout_height="@dimen/dimen_16"
+            android:layout_gravity="center"
+            android:background="@color/white" />
+
+    </FrameLayout>
+
+    <View
+        android:id="@+id/vTrimTopVer2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_2"
+        android:layout_marginHorizontal="@dimen/dimen_12"
+        android:background="@color/yellow_10"
+        app:layout_constraintEnd_toEndOf="@id/flTrimEndVer2"
+        app:layout_constraintStart_toStartOf="@+id/flTrimStartVer2"
+        app:layout_constraintTop_toTopOf="@id/flTrimStartVer2" />
+
+    <View
+        android:id="@+id/vTrimBottomVer2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_2"
+        android:layout_marginHorizontal="@dimen/dimen_12"
+        android:background="@color/yellow_10"
+        app:layout_constraintBottom_toBottomOf="@id/flTrimStartVer2"
+        app:layout_constraintEnd_toEndOf="@id/flTrimEndVer2"
+        app:layout_constraintStart_toStartOf="@+id/flTrimStartVer2" />
+
+    <FrameLayout
+        android:id="@+id/flTrimProgressVer2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/vTrimBottomVer2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingHorizontal="@dimen/dimen_10"
+        android:layout_marginStart="@dimen/dimen_10"
+        app:layout_constraintTop_toTopOf="@id/vTrimTopVer2">
+
+        <View
+            android:layout_width="@dimen/dimen_2"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/color_1"
+            android:visibility="visible" />
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/flTrimEndVer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dimen_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/vTrimEndVer2"
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_52"
+            android:background="@color/yellow_10" />
+
+        <View
+            android:layout_width="@dimen/dimen_2"
+            android:layout_height="@dimen/dimen_16"
+            android:layout_gravity="center"
+            android:background="@color/white" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvTrimProgressVer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fbase_font_medium"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/dimen_text_size_14"
+        app:layout_constraintEnd_toEndOf="@id/flTrimEndVer2"
+        app:layout_constraintStart_toStartOf="@id/flTrimStartVer2"
+        app:layout_constraintTop_toTopOf="@id/vTrimBottomVer2"
+        tools:text="00:01" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

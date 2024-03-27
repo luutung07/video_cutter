@@ -7,14 +7,13 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ConcatenatingMediaSource2
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
-import com.example.baseapp.base.extension.getAppDrawable
 import com.example.baseapp.base.extension.setOnSafeClick
 import com.example.library_base.extension.LONG_DEFAULT
 import com.example.videocutter.AppConfig
 import com.example.videocutter.R
 import com.example.videocutter.common.srceen.VideoCutterFragment
 import com.example.videocutter.databinding.CutFragmentBinding
-import com.example.videocutter.presentation.widget.cut.TrimView
+import com.example.videocutter.presentation.widget.cut.ver1.TrimView
 
 class CutFragment : VideoCutterFragment<CutFragmentBinding>(R.layout.cut_fragment) {
 

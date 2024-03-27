@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.media3.common.util.UnstableApi
 import com.example.baseapp.base.extension.checkBeforeBack
 import com.example.baseapp.base.extension.setOnSafeClick
+import com.example.baseapp.base.extension.show
 import com.example.library_base.common.BaseActivity
 import com.example.library_base.common.usecase.IViewListener
 import com.example.videocutter.R
@@ -28,6 +29,21 @@ class HomeFragment : VideoCutterFragment<HomeFragmentBinding>(R.layout.home_frag
         setUpView()
     }
 
+    override fun onObserverViewModel() {
+        super.onObserverViewModel()
+        coroutinesLaunch(mainViewModel.listFrameDetach){
+            handleUiState(it, object : IViewListener{
+                override fun onSuccess() {
+                    binding.clTrim.show()
+                    val list = it.data?.map {
+                        it.bitmap!!
+                    }
+                    list?.let { it1 -> binding.trim.setFrame(it1) }
+                }
+            })
+        }
+    }
+
     private fun setUpAdapter() {
         binding.cvHome.setAdapter(adapter)
         binding.cvHome.setLayoutManager(mode = COLLECTION_MODE.HORIZONTAL)
@@ -46,8 +62,10 @@ class HomeFragment : VideoCutterFragment<HomeFragmentBinding>(R.layout.home_frag
     @UnstableApi
     private fun setUpView() {
         binding.llHomeStart.setOnSafeClick {
-            navigateTo(R.id.fragmentSelect)
-//            navigateTo(R.id.addMusicFragment)
+//            navigateTo(R.id.fragmentSelect)
+            mainViewModel.detachFrameVideo(
+                mutableListOf("/storage/emulated/0/DCIM/Camera/16fc0f5278ba735bfd37a88dc8be6866.mp4")
+            )
         }
 
         binding.ivHomeSetting.setOnSafeClick {

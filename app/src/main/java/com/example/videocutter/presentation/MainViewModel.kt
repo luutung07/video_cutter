@@ -1,5 +1,6 @@
 package com.example.videocutter.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.library_base.common.failure
@@ -20,8 +21,11 @@ class MainViewModel @Inject constructor(
     private val repoDisplay: IRepoDisplay
 ) : ViewModel() {
 
-    private var _listFrameDetach = MutableStateFlow(FlowResult.newInstance<List<DetachFrameDisplay>>())
+    private var _listFrameDetach =
+        MutableStateFlow(FlowResult.newInstance<List<DetachFrameDisplay>>())
     val listFrameDetach = _listFrameDetach.asStateFlow()
+
+    var widthScreen: Int? = null
 
     var startCut: Long? = null
     var endCut: Long? = null
@@ -30,12 +34,19 @@ class MainViewModel @Inject constructor(
 
     }
 
-    fun detachFrameVideo(list: List<String>) {
+    fun detachFrameVideo(list: List<String>, isCalculate: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = repoDisplay.getFrameDetach(list, start = startCut, endCut)
+                Log.d("TAG", "detachFrameVideo: $widthScreen")
+                val result = repoDisplay.getFrameDetach(
+                    list = list,
+                    start = startCut,
+                    end = endCut,
+                    isCalculateItem = true,
+                    widthScreen = widthScreen
+                )
                 _listFrameDetach.success(result)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 _listFrameDetach.failure(e)
             }
         }
